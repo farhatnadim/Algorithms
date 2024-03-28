@@ -20,8 +20,8 @@ class Graph:
             self.vertices.append(vertex)
     def add_edge(self, vertex1, vertex2):
         if vertex1 in self.vertices and vertex2 in self.vertices:
-            if (vertex1, vertex2) not in self.edges and (vertex2, vertex1) not in self.edges:
-                self.edges.append((vertex1, vertex2))
+            if [vertex1, vertex2] not in self.edges and [vertex2, vertex1] not in self.edges:
+                self.edges.append([vertex1, vertex2])
     def plot_graph(self, title : str) -> None : 
         # Create a new graph
         G = nx.Graph()
@@ -45,7 +45,12 @@ class Graph:
         '''remove the self loop'''
         '''update the list of edges'''
         '''update the list of vertices'''
-        pass
+        # pop the edge from the list of edges
+        removed_edge = self.edges.pop(self.edges.index(edge))
+        for edge in self.edges:
+            if removed_edge[1] in edge: 
+                edge[edge.index(edge[1])] = edge[0]
+        
 def small_test():
     small_graph = Graph()
     small_graph.add_vertex('1')
@@ -57,9 +62,10 @@ def small_test():
     small_graph.add_edge('2', '3')
     small_graph.add_edge('2', '4')
     small_graph.add_edge('3', '4')
-    small_graph.plot_graph('Small Graph')
-    #small_graph.print_nodes()
-    #small_graph.print_edges()
+    #small_graph.plot_graph('Small Graph')
+    small_graph.print_edges()
+    small_graph.contract_edge(['1','3'])
+    small_graph.print_edges()
     
     
 def main():
