@@ -43,13 +43,16 @@ class Graph:
         '''contract an edge in the graph'''
         '''remove the edge from the list of edges and merge the two vertices into one'''
         '''remove the self loop'''
-        '''update the list of edges'''
+        '''update the list of edge5.s'''
         '''update the list of vertices'''
         # pop the edge from the list of edges
+        
         removed_edge = self.edges.pop(self.edges.index(edge))
+        node = self.vertices.pop(self.vertices.index(removed_edge[1]))
         for edge in self.edges:
             if removed_edge[1] in edge: 
-                edge[edge.index(edge[1])] = edge[0]
+                edge[edge.index(removed_edge[1])] = removed_edge[0]
+        
         
 def small_test():
     small_graph = Graph()
@@ -66,7 +69,8 @@ def small_test():
     small_graph.print_edges()
     small_graph.contract_edge(['1','3'])
     small_graph.print_edges()
-    
+    small_graph.contract_edge(['1','4'])
+    small_graph.print_edges()
     
 def main():
     '''read graph from file and contstruct a graph object'''
