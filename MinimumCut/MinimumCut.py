@@ -42,19 +42,20 @@ class Graph:
         print('Vertices: ', self.vertices)
     def print_edges(self) -> None:
         print('Edges: ', self.edges)
-    def contract_edge(self, edge : str):
+    def contract_edge(self, edge : list):
         '''contract an edge in the graph'''
         '''remove the edge from the list of edges and merge the two vertices into one'''
         '''remove the self loop'''
-        '''update the list of edge5.s'''
+        '''update the list of edges'''
         '''update the list of vertices'''
         # pop the edge from the list of edges
-        
-        removed_edge = self.edges.pop(self.edges.index(edge))
-        node = self.vertices.pop(self.vertices.index(removed_edge[1]))
+        edges_copy = self.edges.copy()
+        vertices_copy = self.vertices.copy()
+        removed_edge = edges_copy.pop(edges_copy.index(edge))
+        node = vertices_copy.pop(vertices_copy.index(removed_edge[1]))
         for edge in self.edges:
             if removed_edge[1] in edge: 
-                edge[edge.index(removed_edge[1])] = removed_edge[0]
+                edge[1] = removed_edge[0]
         for edge in self.edges :
             if edge[0] == edge[1]:
                 self.edges.pop(self.edges.index(edge))
