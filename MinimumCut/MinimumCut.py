@@ -12,37 +12,33 @@ class Graph:
     '''the graph is represented by a list of vertices and a list of edges
     where the keys are the vertices and the values are lists of
     the vertices that are adjacent to the key vertex, no parallel edges are allowed'''
-    def __init__(self):
-        self.vertices = set()
-        self.edges = []
-    # copy contructor
-   
+    def __init__(self, vertices = set() , edges = set() ) -> None:
+        
+        self.vertices = vertices
+        self.edges = edges
+    
     def add_vertex(self, vertex :str):
         '''add a vertex to the graph'''
-        self.vertices.add(vertex)   
+        self.vertices.add(vertex)  
+         
     def add_edge(self, vertex1 : str, vertex2 :str):
+        '''add an edge to the graph'''
+        '''an edge is represented by a tuple of two vertices'''
+        '''no parallel edges are allowed'''
         if vertex1 in self.vertices and vertex2 in self.vertices:
-            edge = [vertex1, vertex2]
-            if edge != all({v1, v2} != edge for v1, v2 in self.edges):
+            if (vertex1, vertex2) not in self.edges and (vertex2, vertex1) not in self.edges:
                 self.edges.append((vertex1, vertex2))
-    def plot_graph(self, title : str) -> None : 
-        # Create a new graph
-        G = nx.Graph()
-    # Add nodes and edges
-        for node in self.vertices:
-            G.add_node(node)
-        for edge in self.edges:
-            G.add_edge(edge[0], edge[1])
-        plt.figure(figsize=(5, 4))
-        nx.draw(G, with_labels=True, node_color='skyblue', node_size=700, edge_color='k', linewidths=1, font_size=15)
-        plt.title(title, fontsize=20)
-        plt.show()
+            
+    def plot_graph(self, title : str) -> None:
+        '''plot the graph using Andrey Karpathy's code'''
+        pass
+    
         
     def print_nodes(self) -> None:
         print('Vertices: ', self.vertices)
     def print_edges(self) -> None:
         print('Edges: ', self.edges)
-    def contract_edge(self, edge : list):
+    def contract_edge(self, edge_to_remove : list):
         '''contract an edge in the graph'''
         '''remove the edge from the list of edges and merge the two vertices into one'''
         '''remove the self loop'''
@@ -51,19 +47,17 @@ class Graph:
         # pop the edge from the list of edges
         edges_copy = self.edges.copy()
         vertices_copy = self.vertices.copy()
-        removed_edge = edges_copy.pop(edges_copy.index(edge))
-        node = vertices_copy.pop(vertices_copy.index(removed_edge[1]))
+        edges_copy.remove(edge)
         for edge in self.edges:
-            if removed_edge[1] in edge: 
-                edge[1] = removed_edge[0]
-        for edge in self.edges :
-            if edge[0] == edge[1]:
-                self.edges.pop(self.edges.index(edge))
+            if any([ vertice for vertice in edge if vertice == edge_to_remove[1]]):
+                edge = [edge_to_remove[0] if vertice == edge_to_remove[1] else vertice for vertice in edge]
+                
     def minimum_cut(self) -> int :
         '''randomly contract edges in the graph'''
         while (len(self.vertices) > 2):
             self.contract_edge(self.edges[random.randint(0, len(self.edges)-1)])
         return len(self.edges)
+
 
 def main():
     '''read graph from file and contstruct a graph object'''
