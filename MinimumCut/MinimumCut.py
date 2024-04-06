@@ -5,14 +5,15 @@ import random
 
 # Define the graph
 small_graph = {'1': [2, 3], '2': [1, 3, 4], '3': [1, 2, 4], '4': [2, 3]}
-
+vertices = ['1','2','3','4']
+edges = [['1','3'],['1','2'],['2','3'],['2','4'],['4','3']]
 
 class Graph:
     '''this class implements a graph data structure using an adjacency list representation'''
     '''the graph is represented by a list of vertices and a list of edges
     where the keys are the vertices and the values are lists of
     the vertices that are adjacent to the key vertex, no parallel edges are allowed'''
-    def __init__(self, vertices = set() , edges = set() ) -> None:
+    def __init__(self, vertices = set() , edges = list() ) -> None:
         
         self.vertices = vertices
         self.edges = edges
@@ -27,7 +28,7 @@ class Graph:
         '''no parallel edges are allowed'''
         if vertex1 in self.vertices and vertex2 in self.vertices:
             if (vertex1, vertex2) not in self.edges and (vertex2, vertex1) not in self.edges:
-                self.edges.append((vertex1, vertex2))
+                self.edges.append([vertex1, vertex2])
             
     def plot_graph(self, title : str) -> None:
         '''plot the graph using Andrey Karpathy's code'''
@@ -45,13 +46,13 @@ class Graph:
         '''update the list of edges'''
         '''update the list of vertices'''
         # pop the edge from the list of edges
-        edges_copy = self.edges.copy()
-        vertices_copy = self.vertices.copy()
-        edges_copy.remove(edge)
+        self.edges.remove(edge_to_remove)
+        self.vertices.remove(edge_to_remove[1])
         for edge in self.edges:
-            if any([ vertice for vertice in edge if vertice == edge_to_remove[1]]):
-                edge = [edge_to_remove[0] if vertice == edge_to_remove[1] else vertice for vertice in edge]
-                
+            if edge_to_remove[1] in edge:
+                edge[edge.index(edge_to_remove[1])] = edge_to_remove[0]
+                if edge[0] == edge[1]:
+                    self.edges.remove(edge)
     def minimum_cut(self) -> int :
         '''randomly contract edges in the graph'''
         while (len(self.vertices) > 2):
@@ -73,8 +74,5 @@ def main():
     print('Graph constructed')
     graph.plot_graph('Original Graph')
     print(graph.minimum_cut())
-    
 if __name__ == "__main__":
     main()
-
-  
