@@ -32,9 +32,7 @@ class Graph:
             
     def plot_graph(self, title : str) -> None:
         '''plot the graph using Andrey Karpathy's code'''
-        pass
-    
-        
+        pass        
     def print_nodes(self) -> None:
         print('Vertices: ', self.vertices)
     def print_edges(self) -> None:
@@ -47,7 +45,11 @@ class Graph:
         '''update the list of vertices'''
         # pop the edge from the list of edges
         self.edges.remove(edge_to_remove)
-        self.vertices.remove(edge_to_remove[1])
+        if edge_to_remove[0] in self.vertices:
+            self.vertices.remove(edge_to_remove[0])
+        if edge_to_remove[1] in self.vertices:
+            self.vertices.remove(edge_to_remove[1])
+        
         for edge in self.edges:
             if edge_to_remove[1] in edge:
                 edge[edge.index(edge_to_remove[1])] = edge_to_remove[0]
@@ -56,6 +58,7 @@ class Graph:
     def minimum_cut(self) -> int :
         '''randomly contract edges in the graph'''
         while (len(self.vertices) > 2):
+            print('Vertices: ', len(self.vertices))
             self.contract_edge(self.edges[random.randint(0, len(self.edges)-1)])
         return len(self.edges)
 
@@ -63,7 +66,7 @@ class Graph:
 def main():
     '''read graph from file and contstruct a graph object'''
     graph = Graph()
-    with open('kargerMinCut.txt') as f:
+    with open('/Users/bandapear/source/Algorithms//MinimumCut/kargerMinCut.txt') as f:
         for line in f:
             line = line.split()
             graph.add_vertex((line[0]))
@@ -73,6 +76,10 @@ def main():
     graph.print_edges()
     print('Graph constructed')
     graph.plot_graph('Original Graph')
-    print(graph.minimum_cut())
+    runs = 100000000
+    min_cut = []
+    for i in range(runs):
+        min_cut.append(graph.minimum_cut())
+    print(f"ran Minimum cut {len(min_cut)} times and the min cut is {min(min_cut)}")
 if __name__ == "__main__":
     main()
