@@ -15,73 +15,35 @@ class Graph:
     the vertices that are adjacent to the key vertex, no parallel edges are allowed'''
     def __init__(self, vertices = set() , edges = list() ) -> None:
         
-        self.vertices = vertices
-        self.edges = edges
-    
-    def add_vertex(self, vertex :str):
-        '''add a vertex to the graph'''
-        self.vertices.add(vertex)  
-         
-    def add_edge(self, vertex1 : str, vertex2 :str):
-        '''add an edge to the graph'''
-        '''an edge is represented by a tuple of two vertices'''
-        '''no parallel edges are allowed'''
-        if vertex1 in self.vertices and vertex2 in self.vertices:
-            if (vertex1, vertex2) not in self.edges and (vertex2, vertex1) not in self.edges:
-                self.edges.append([vertex1, vertex2])
-            
-    def plot_graph(self, title : str) -> None:
-        '''plot the graph using Andrey Karpathy's code'''
-        pass        
-    def print_nodes(self) -> None:
-        print('Vertices: ', self.vertices)
-    def print_edges(self) -> None:
-        print('Edges: ', self.edges)
-    def contract_edge(self, edge_to_remove : list):
-        '''contract an edge in the graph'''
-        '''remove the edge from the list of edges and merge the two vertices into one'''
-        '''remove the self loop'''
-        '''update the list of edges'''
-        '''update the list of vertices'''
-        # pop the edge from the list of edges
-        self.edges.remove(edge_to_remove)
-        if edge_to_remove[1] in self.vertices:
-            self.vertices.remove(edge_to_remove[1])
+        self.graph = {}
         
-        for edge in self.edges:
-            if edge_to_remove[1] in edge:
-                edge[edge.index(edge_to_remove[1])] = edge_to_remove[0]
-                if edge[0] == edge[1]:
-                    self.edges.remove(edge)
-    def minimum_cut(self) -> int :
-        '''randomly contract edges in the graph'''
-        while (len(self.vertices) > 2):
-            
-            self.contract_edge(self.edges[random.randint(0, len(self.edges)-1)])
-        return len(self.edges)
-
+    def add_vertex_edges(self, vertex :str, edges : list):
+        '''add a vertex to the graph'''
+        self.graph[vertex]  = edges
+         
+    def contract_edge(self,edge):
+        self.
 
 def main():
     '''read graph from file and contstruct a graph object'''
     graph = Graph()
-    with open('/Users/bandapear/source/Algorithms//MinimumCut/kargerMinCut.txt') as f:
+    with open('./kargerMinCut.txt') as f:
         for line in f:
             line = line.split()
-            graph.add_vertex((line[0]))
-            for vertex in line[1:]:
-                graph.add_edge((line[0]), vertex)
+            graph.add_vertex_edges((line[0]),line[1:])
+            
     graph.print_nodes()
-    graph.print_edges()
-    print('Graph constructed')
-    graph.plot_graph('Original Graph')
-    runs = 10000
-    min_cut = []
-    min_cut_graph = Graph()
+    #graph.print_edges()
+    #print('Graph constructed')
+    #graph.plot_graph('Original Graph')
+    #runs = 10000
+    #min_cut = []
+    #min_cut_graph = Graph()
   
-    for i in range(runs):
-        min_cut_graph.vertices = graph.vertices.copy()
-        min_cut_graph.edges = graph.edges.copy()
-        min_cut.append(min_cut_graph.minimum_cut())
-    print(f"ran Minimum cut {len(min_cut)} times and the min cut is {min(min_cut)}")
+    #for i in range(runs):
+     #   min_cut_graph.vertices = graph.vertices.copy()
+      #  min_cut_graph.edges = graph.edges.copy()
+       # min_cut.append(min_cut_graph.minimum_cut())
+    #print(f"ran Minimum cut {len(min_cut)} times and the min cut is {min(min_cut)}")
 if __name__ == "__main__":
     main()
