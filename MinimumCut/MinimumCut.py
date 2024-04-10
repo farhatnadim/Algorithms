@@ -21,8 +21,15 @@ class Graph:
         '''add a vertex to the graph'''
         self.graph[vertex]  = edges
          
-    def contract_edge(self,edge):
-        self.
+    def reconstruct_edges(self):
+        edges = []
+        for vertex in self.graph:
+            for edge in self.graph[vertex]:
+                edges.append([vertex,edge])
+        return edges
+            
+    def contract_edge(self,edge_index):
+        pass
 
 def main():
     '''read graph from file and contstruct a graph object'''
