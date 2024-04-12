@@ -46,6 +46,7 @@ class Graph:
                self.graph[new_key].remove(edge)
            
         for vertices in self.graph.keys():
+            #TODO: replace old vertices with the merdge one
             pass
     def print_vertices(self):
         print(self.graph.key())
