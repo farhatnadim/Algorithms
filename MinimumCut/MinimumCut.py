@@ -34,8 +34,19 @@ class Graph:
         edges , lut = self.reconstruct_edges()
         edge = edges[edge_index]
         vertex = lut[edge_index]
-        self.graph[vertex + '-' + str(edge) ] = self.graph[vertex] + self.graph[str(edge)]
-        
+        new_key = vertex + '-' + str(edge)
+        self.graph[new_key] = self.graph[vertex] + self.graph[str(edge)]
+        print(self.graph)
+        # clean up and removign self reference
+        del self.graph[vertex]
+        del self.graph[str(edge)]
+        for edge in self.graph[new_key]:
+           
+            if str(edge) in new_key:
+               self.graph[new_key].remove(edge)
+           
+        for vertices in self.graph.keys():
+            pass
     def print_vertices(self):
         print(self.graph.key())
 
@@ -49,8 +60,6 @@ def main():
             
     #graph.print_nodes()
     test_graph = Graph(small_graph)
-    print(test_graph.graph)
-    print(test_graph.reconstruct_edges())
     test_graph.contract_edge(1)
     print(test_graph.graph)
 if __name__ == "__main__":
