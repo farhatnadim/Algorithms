@@ -1,5 +1,5 @@
 '''This file implements the Minimum Cut algorithm using the Karger's algorithm.'''
-import networkx as nx
+#import networkx as nx
 import matplotlib.pyplot as plt
 import random
 
@@ -32,22 +32,30 @@ class Graph:
             
     def contract_edge(self,edge_index):
         edges , lut = self.reconstruct_edges()
-        edge = edges[edge_index]
+        edge_to_remove = edges[edge_index]
         vertex = lut[edge_index]
-        new_key = vertex + '-' + str(edge)
-        self.graph[new_key] = self.graph[vertex] + self.graph[str(edge)]
-        print(self.graph)
+        print(vertex, edge_to_remove)
+        new_key = vertex + '-' + str(edge_to_remove)
+        self.graph[new_key] = self.graph[vertex] + self.graph[str(edge_to_remove)]
         # clean up and removign self reference
         del self.graph[vertex]
-        del self.graph[str(edge)]
+        del self.graph[str(edge_to_remove)]
         for edge in self.graph[new_key]:
-           
-            if str(edge) in new_key:
-               self.graph[new_key].remove(edge)
-           
-        for vertices in self.graph.keys():
-            #TODO: replace old vertices with the merdge one
-            pass
+            if edge == (edge_to_remove):
+                self.graph[new_key].remove(edge)
+            if edge == (int(vertex)):
+                print('found vertex', edge)
+            
+        #    if str(edge) in new_key:
+         #      self.graph[new_key].remove(edge)
+          #  if int(vertex) in self.graph[edge]:
+           #     self.graph[edge].remove(int(vertex))
+                
+        #for key in self.graph.keys():
+         #   if int(vertex) in self.graph[key]:
+          #      self.graph[key].remove(int(vertex))
+           # if edge in self.graph[key]:
+            #    print(edge)
     def print_vertices(self):
         print(self.graph.key())
 
