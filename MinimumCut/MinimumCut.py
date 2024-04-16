@@ -4,7 +4,11 @@ import matplotlib.pyplot as plt
 import random
 
 # Define the graph
-small_graph = {'1': [2, 3], '2': [1, 3, 4], '3': [1, 2, 4], '4': [2, 3]}
+lut  = ['1','1','1','2','2','3','3','4','4','4']
+edges = ['3','2','4','1','4','1','4','1','2','3']
+
+# remove edge '1' 
+
 
 
 class Graph:
@@ -12,53 +16,30 @@ class Graph:
     '''the graph is represented by a list of vertices and a list of edges
     where the keys are the vertices and the values are lists of
     the vertices that are adjacent to the key vertex, no parallel edges are allowed'''
-    def __init__(self, graph = {} ,vertices = set() , edges = list() ) -> None:
-        
-        self.graph = graph
+    def __init__(self, edges = list() , lut = list()) -> None:
+        self.edges = edges
+        self.lut = lut
+        self.vertices = set(lut)
         
     def add_vertex_edges(self, vertex :str, edges : list):
         '''add a vertex to the graph'''
-        self.graph[vertex]  = edges
-         
-    def reconstruct_edges(self) -> list | list:
-        '''gets the edges as list, construct them from the dictionary '''
-        edges = []
-        lut = [] # maps edges to their vertices
-        for vertex in self.graph:
-            for edge in self.graph[vertex]:
-                edges.append(edge)
-                lut.append(vertex)
-        return edges, lut
+        pass
             
     def contract_edge(self,edge_index):
-        edges , lut = self.reconstruct_edges()
-        edge_to_remove = edges[edge_index]
-        vertex = lut[edge_index]
-        print(vertex, edge_to_remove)
-        new_key = vertex + '-' + str(edge_to_remove)
-        self.graph[new_key] = self.graph[vertex] + self.graph[str(edge_to_remove)]
-        # clean up and removign self reference
-        del self.graph[vertex]
-        del self.graph[str(edge_to_remove)]
-        for edge in self.graph[new_key]:
-            if edge == (edge_to_remove):
-                self.graph[new_key].remove(edge)
-            if edge == (int(vertex)):
-                print('found vertex', edge)
-            
-        #    if str(edge) in new_key:
-         #      self.graph[new_key].remove(edge)
-          #  if int(vertex) in self.graph[edge]:
-           #     self.graph[edge].remove(int(vertex))
-                
-        #for key in self.graph.keys():
-         #   if int(vertex) in self.graph[key]:
-          #      self.graph[key].remove(int(vertex))
-           # if edge in self.graph[key]:
-            #    print(edge)
-    def print_vertices(self):
-        print(self.graph.key())
-
+        lut_temp = lut.copy()
+        edges_temp = edges.copy()
+        node1 = lut_temp.pop(edge_index)
+        node2 = edges_temp.pop(edge_index)
+        for index, element in enumerate(lut_temp):
+            if lut_temp[index] == node1 or lut_temp[index] == node2:
+                lut_temp[index] = node1 + '-' + node2
+            if edges_temp[index] == node1 or edges_temp[index] == node2:
+                edges_temp[index] = node1 + '-' + node2
+        for index, element in enumerate(lut_temp):
+            if edges_temp[index] == lut_temp[index]:
+                edges_temp.pop(index) 
+                lut_temp.pop(index)  
+        return edges_temp,lut_temp
 def main():
     '''read graph from file and contstruct a graph object'''
     graph = Graph()
@@ -68,8 +49,14 @@ def main():
             graph.add_vertex_edges((line[0]),line[1:])
             
     #graph.print_nodes()
-    test_graph = Graph(small_graph)
-    test_graph.contract_edge(1)
-    print(test_graph.graph)
+    lut_orignal  = ['1','1','1','2','2','3','3','4','4','4']
+    edges_orignal = ['3','2','4','1','4','1','4','1','2','3']
+    test_graph = Graph(edges_orignal,lut_orignal)
+    edges, lut = test_graph.contract_edge(0)
+    g = Graph(edges,lut)
+    edges, lut = g.contract_edge(0)
+    g = Graph(edges,lut)
+    print(g.edges)
+    print(g.lut)
 if __name__ == "__main__":
     main()
