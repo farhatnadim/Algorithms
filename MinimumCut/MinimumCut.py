@@ -2,7 +2,7 @@
 #import networkx as nx
 import matplotlib.pyplot as plt
 import random
-
+import os
 # remove edge '1' 
 
 
@@ -49,34 +49,41 @@ def main():
     '''read graph from file and contstruct a graph object'''
     graph = Graph()
     read_edges = list()
-    read_lut = list()   
-    with open('./kargerMinCut.txt') as f:
+    read_lut = list()
+    
+    # read input files 
+    input_files = [file for file in os.listdir('.') if ('input' in file)]
+    output_files = [file.replace('input','output') for file in input_files ]
+    results_valid = list()
+    results_min_cut = list()
+    #for file in input_files:
+    file = 'input_random_7_10.txt'
+    print("input ",file)
+    with open(file) as f:
+            for line in f:
+                line = line.split()
+                for index, element in enumerate(line):
+                    if index == 0:
+                        for edge in range(0,len(line[1:])): 
+                            read_lut.append(element)
+                    else:
+                        read_edges.append(element)
+                        
+    cuts = list()
+    for run in range(1000000):
+            test_graph = Graph(read_edges,read_lut)
+            cuts.append((test_graph.minimum_cut()))
+    with open(file.replace('input','output')) as f:
         for line in f:
-            line = line.split()
-            for index, element in enumerate(line):
-                if index == 0:
-                    for edge in range(0,len(line[1:])): 
-                        read_lut.append(element)
-                else:
-                    read_edges.append(element)
-          
-    #print(read_edges)
-    #print(read_lut)
-    #graph.print_nodes()
-    test_1_edges = ['2','3','4','1','5','6','4','1','5','2','1','5','2','3','4','6','2','5']
-    tesg_1_lut =   ['1','1','1','2','2','2','2','3','3','4','4','4','5','5','5','5','6','6']
-    cuts = []
-    test_2_edges = ['2','3','4','1','3','6','2','4','1','5','3','1','5','4','3','2']
-    test_2_lut =   ['1','1','1','2','2','2','3','3','3','3','4','4','4','5','5','6']
-    
-    
-    for run in range(10000):
-        test_graph = Graph(read_edges,read_lut)
-        cuts.append((test_graph.minimum_cut()))
+            results_valid.append(line[0])
+            print("Validation Results: ",line[0])
+    print("My results: ",min(cuts))
+    results_min_cut.append(min(cuts))
         
-    print(min(cuts))
-    #print(g.edges)
-    #print(g.lut)
+        
+        
+       
+    
 if __name__ == "__main__":
     main()
 
