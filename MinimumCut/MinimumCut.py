@@ -31,11 +31,13 @@ class Graph:
                 lut_temp[index] = node1 + '-' + node2
             if edges_temp[index] == node1 or edges_temp[index] == node2:
                 edges_temp[index] = node1 + '-' + node2
+        self_loops_counter = 0
         for index, element in enumerate(lut_temp):
             if edges_temp[index] == lut_temp[index]:
-                edges_temp.pop(index) 
-                lut_temp.pop(index)  
-        self.edges= edges_temp
+               self_loops_counter += 1
+                
+
+        self.edges = edges_temp
         self.lut = lut_temp
         self.vertices = set(self.lut)
         
@@ -57,7 +59,10 @@ def main():
     results_valid = list()
     results_min_cut = list()
     #for file in input_files:
-    file = 'input_random_7_10.txt'
+    base_dir = os.getcwd()
+    mincut_folder = 'MinimumCut'
+    file = 'input_random_40_200.txt'
+    file = os.path.join(base_dir,mincut_folder,file)
     print("input ",file)
     with open(file) as f:
             for line in f:
@@ -70,14 +75,13 @@ def main():
                         read_edges.append(element)
                         
     cuts = list()
-    for run in range(1000000):
+    for run in range(10000):
             test_graph = Graph(read_edges,read_lut)
             cuts.append((test_graph.minimum_cut()))
     with open(file.replace('input','output')) as f:
         for line in f:
             results_valid.append(line[0])
-            print("Validation Results: ",line[0])
-    print("My results: ",min(cuts))
+    print("Difference in the Results: ",min(cuts)-int(line[0]))
     results_min_cut.append(min(cuts))
         
         
