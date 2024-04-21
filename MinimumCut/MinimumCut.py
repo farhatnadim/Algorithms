@@ -36,7 +36,6 @@ class Graph:
             if edges_temp[index] == lut_temp[index]:
                self_loops_counter += 1
                 
-
         self.edges = edges_temp
         self.lut = lut_temp
         self.vertices = set(self.lut)
@@ -50,7 +49,7 @@ class Graph:
 def main():
     '''read graph from file and contstruct a graph object'''
     graph = Graph()
-    read_edges = list()
+    read_edges =n list()
     read_lut = list()
     
     # read input files 
