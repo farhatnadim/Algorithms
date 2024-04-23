@@ -1,6 +1,6 @@
 '''This file implements the Minimum Cut algorithm using the Karger's algorithm.'''
 #import networkx as nx
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import random
 import os
 # remove edge '1' 
@@ -39,17 +39,17 @@ class Graph:
         self.edges = edges_temp
         self.lut = lut_temp
         self.vertices = set(self.lut)
-        
+        return self_loops_counter
     def minimum_cut(self):
         '''return the minimum cut of the graph'''
         while len(self.vertices) > 2:
             edge_index = random.randint(0,len(self.edges)-1)
-            self.contract_edge(edge_index)
-        return len(self.edges)//2
+            self_loops = self.contract_edge(edge_index)
+        return len(self.edges)//2 - self_loops//2 
 def main():
     '''read graph from file and contstruct a graph object'''
     graph = Graph()
-    read_edges =n list()
+    read_edges = list()
     read_lut = list()
     
     # read input files 
@@ -60,7 +60,8 @@ def main():
     #for file in input_files:
     base_dir = os.getcwd()
     mincut_folder = 'MinimumCut'
-    file = 'input_random_40_200.txt'
+    mincut_folder = ''
+    file = 'input_random_9_25.txt'
     file = os.path.join(base_dir,mincut_folder,file)
     print("input ",file)
     with open(file) as f:
@@ -74,7 +75,7 @@ def main():
                         read_edges.append(element)
                         
     cuts = list()
-    for run in range(10000):
+    for run in range(2):
             test_graph = Graph(read_edges,read_lut)
             cuts.append((test_graph.minimum_cut()))
     with open(file.replace('input','output')) as f:
