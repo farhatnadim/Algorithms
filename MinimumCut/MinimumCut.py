@@ -21,19 +21,20 @@ class Graph:
         '''add a vertex to the graph'''
         pass
             
-    def contract_edge(self,edge_index):
+    def contract_edge(self,edge_index : int) -> int:
         lut_temp = self.lut.copy()
         edges_temp = self.edges.copy()
         node1 = lut_temp.pop(edge_index)
         node2 = edges_temp.pop(edge_index)
-        for index, element in enumerate(lut_temp):
+        
+        for index in range(0,len(lut_temp)-1):
             if lut_temp[index] == node1 or lut_temp[index] == node2:
                 lut_temp[index] = node1 + '-' + node2
             if edges_temp[index] == node1 or edges_temp[index] == node2:
                 edges_temp[index] = node1 + '-' + node2
         self_loops_counter = 0
-        for index, element in enumerate(lut_temp):
-            if edges_temp[index] == lut_temp[index]:
+        for lut_index in range(0,len(lut_temp)-1):
+            if edges_temp[lut_index] == lut_temp[lut_index]:
                self_loops_counter += 1
                 
         self.edges = edges_temp
@@ -42,9 +43,15 @@ class Graph:
         return self_loops_counter
     def minimum_cut(self):
         '''return the minimum cut of the graph'''
-        while len(self.vertices) > 2:
-            edge_index = random.randint(0,len(self.edges)-1)
+        len_vertices = len(self.vertices)
+        len_edges = len(self.edges)
+        while (len_vertices) != 2:
+            edge_index = random.randint(0,(len_edges)-1)
             self_loops = self.contract_edge(edge_index)
+            len_vertices = len(self.vertices)
+            len_edges = len(self.edges)
+            print(len_vertices)
+            
         return len(self.edges)//2 - self_loops//2 
 def main():
     '''read graph from file and contstruct a graph object'''
