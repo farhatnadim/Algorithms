@@ -16,7 +16,7 @@ class Graph (dict):
     
     def select_edge_random(self) -> tuple:
         
-        keys_index = random.randint(1,len(self.keys()))
+        keys_index = random.randint(0,len(self.keys())-1)
         # we assume no keys are the same , it is a hastable after all
         vertex1 = list(self.keys())[keys_index] 
         # check if key_index exist
@@ -32,9 +32,9 @@ class Graph (dict):
         self[vertex1] =  self[vertex1] + self[vertex2]
         del self[vertex2]
         
-    def remove_self_loops(self,vertex1:str, vertex2:str) -> None:
+    def remove_self_loops(self,vertex1:str) -> None:
         #remove self loops
-        new_edges = [edge for edge in self[vertex1] ] 
+        new_edges = [edge for edge in self[vertex1] if edge != vertex1 ] 
         self[vertex1] = new_edges
     
     def replace_vertex(self,vertex1:str, vertex2:str) -> None:
@@ -52,11 +52,10 @@ class Graph (dict):
             if v2 == None:
                 return None
             self.merge_vertex(v1,v2)
-            self.remove_self_loops(v1,v2)
             self.replace_vertex(v1,v2)
+            self.remove_self_loops(v1)
         
-        
-    def countVeritces (): 
+    def countVeritces (self): 
         for edges in list(self.values()):
             count += len(edges)
         return count//2
@@ -87,18 +86,20 @@ def main():
                 g[line[0]] = [str(entry) for entry in  line[1:] ]  
         print("Raw graph \n", g)
         # select random vertices
-        v1,v2 = g.select_edge_random()
-        print(f"the selected edge is {v1}-{v2}\n")            
+        #v1,v2 = g.select_edge_random()
+        #print(f"the selected edge is {v1}-{v2}\n")            
         # merge vertices
-        g.merge_vertex(v1,v2)
-        print(f"The graph after merging {v2} in to {v1}\n", g)
+        #g.merge_vertex(v1,v2)
+        #print(f"The graph after merging {v2} in to {v1}\n", g)
         # remove self loops
-        g.replace_vertex(v1,v2)
-        print(f"the graph after replacing {v2} with {v1}\n",g)
-        #g.remove_self_loops(v1,v2)
+        #g.replace_vertex(v1,v2)
+        #print(f"the graph after replacing {v2} with {v1}\n",g)
+        #g.remove_self_loops(v1)
+        #print("The graph after removing self loops\n",g)
         #print(g)
         # find min cut
-        
+        g.min_cut()
+        print("Graph after min cut\n",g)
         
                             
     
