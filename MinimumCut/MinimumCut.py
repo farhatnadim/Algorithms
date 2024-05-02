@@ -9,11 +9,6 @@ class Graph (dict):
     def __init__(self) -> None:
         super().__init__()
     
-    def add_vertex(self,vertex : str, edges = list()) -> None:
-        '''add a vertex to the graph'''
-        if vertex not in self:
-            self[vertex] = edges
-    
     def select_edge_random(self) -> tuple:
         
         keys_index = random.randint(0,len(self.keys())-1)
@@ -55,16 +50,12 @@ class Graph (dict):
             self.replace_vertex(v1,v2)
             self.remove_self_loops(v1)
         
-    def countVeritces (self): 
+    def countEdges (self): 
+        count = 0
         for edges in list(self.values()):
             count += len(edges)
         return count//2
                 
-        
-    def add_edge(self,vertex1,vertex2) -> None:
-        '''add an edge to the graph'''
-        self[vertex1].add(vertex2)
-        self[vertex2].add(vertex1)
     
 def main():
         '''read graph from file and contstruct a graph object'''
@@ -76,11 +67,11 @@ def main():
         base_dir = os.getcwd()
         mincut_folder = 'MinimumCut'
         mincut_folder = ''
-        file = 'input_random_1_6.txt'
-        file = os.path.join(base_dir,mincut_folder,file)
+        input_file = 'input_random_40_200.txt'
+        input_file = os.path.join(base_dir,mincut_folder,input_file)
         
         g = Graph()
-        with open(file) as f:
+        with open(input_file) as f:
             for line in f:
                 line = line.split()
                 g[line[0]] = [str(entry) for entry in  line[1:] ]  
@@ -98,9 +89,25 @@ def main():
         #print("The graph after removing self loops\n",g)
         #print(g)
         # find min cut
-        g.min_cut()
-        print("Graph after min cut\n",g)
+        results = []
+        for i in range(10):
+            g = Graph()
+            with open(input_file) as f:
+                for line in f:
+                    line = line.split()
+                    g[line[0]] = [str(entry) for entry in  line[1:] ]
+            g.min_cut()
+            results.append(g.countEdges())
+        result = min(results)
+        # getting the actual result 
+        output_file = input_file.replace("input","output")
+        validated_result = 0
+        with open(output_file ) as output_f:
+            for line in output_f:
+                validated_result = line[0]
         
+        print("Min Cut\n",result)
+        print("Validate Cut \n",validated_result)
                             
     
 if __name__ == "__main__":
