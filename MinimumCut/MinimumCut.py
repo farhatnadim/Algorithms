@@ -67,7 +67,7 @@ def main():
         base_dir = os.getcwd()
         mincut_folder = 'MinimumCut'
         mincut_folder = ''
-        input_file = 'input_random_40_200.txt'
+        input_file = 'kargerMinCut.txt'
         input_file = os.path.join(base_dir,mincut_folder,input_file)
         
         g = Graph()
@@ -75,22 +75,9 @@ def main():
             for line in f:
                 line = line.split()
                 g[line[0]] = [str(entry) for entry in  line[1:] ]  
-        print("Raw graph \n", g)
-        # select random vertices
-        #v1,v2 = g.select_edge_random()
-        #print(f"the selected edge is {v1}-{v2}\n")            
-        # merge vertices
-        #g.merge_vertex(v1,v2)
-        #print(f"The graph after merging {v2} in to {v1}\n", g)
-        # remove self loops
-        #g.replace_vertex(v1,v2)
-        #print(f"the graph after replacing {v2} with {v1}\n",g)
-        #g.remove_self_loops(v1)
-        #print("The graph after removing self loops\n",g)
-        #print(g)
-        # find min cut
+
         results = []
-        for i in range(10):
+        for i in range(100):
             g = Graph()
             with open(input_file) as f:
                 for line in f:
@@ -102,9 +89,9 @@ def main():
         # getting the actual result 
         output_file = input_file.replace("input","output")
         validated_result = 0
-        with open(output_file ) as output_f:
-            for line in output_f:
-                validated_result = line[0]
+        #with open(output_file ) as output_f:
+         #   for line in output_f:
+          #      validated_result = line[:]
         
         print("Min Cut\n",result)
         print("Validate Cut \n",validated_result)
