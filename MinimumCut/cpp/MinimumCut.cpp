@@ -3,7 +3,7 @@
 #include <vector>
 #include <random>
 #include <iterator>
-
+#include <algorithm>
 using namespace std;
 
 // making my life easier !
@@ -21,7 +21,7 @@ void print_graph (const dict & graph  ) {
 
 }
 
-map<int, int> select_random_edge (const dict & graph){
+vector<int> select_random_edge ( dict & graph){
     // select random key from map
     // from that key select random value in the edge vector
      
@@ -38,17 +38,33 @@ map<int, int> select_random_edge (const dict & graph){
     std::advance(vit, randomEdgeIndex);
     int edge = *vit;
     cout << vertex << " " << edge << endl;
-    map<int,int> tuple;
-    tuple[vertex] = edge;
+    vector<int> tuple ={vertex,edge};
     return tuple;
 
 }
 
+void merge_vertex(dict & graph ) {
+
+    auto vertex_tuple = select_random_edge(graph);
+    vector<int> merged_edges;
+    std::merge(graph[vertex_tuple[0]].begin(),graph[vertex_tuple[0]].end(),graph[vertex_tuple[1]].begin(),graph[vertex_tuple[1]].end(),std::back_inserter(merged_edges)); 
+    graph[vertex_tuple[0]] = merged_edges;
+    graph.erase(vertex_tuple[1]);
+    // Replace Deleted vertex with the merged one
+    // iterate accross the edges list for each 
+
+}
+
+
 
 int main()
 {
-    dict example {{1,{1,2,3,4}},{2,{1,5,6,4}},{3,{1,5}},{4,{2,1,5}},{5,{2,3,4,6}},{6,{2,4}}};   
-    select_random_edge(example);
+    dict example {{1,{1,2,3,4}},{2,{1,5,6,4}},{3,{1,5}},{4,{2,1,5}},{5,{2,3,4,6}},{6,{2,4}}};
+    cout << "Premerge" << endl;
+    print_graph(example);
+    merge_vertex(example);
+    cout << "PostMerge" << endl;
+    print_graph(example);
 }
 //1 2 3 4
 //2 1 5 6 4
