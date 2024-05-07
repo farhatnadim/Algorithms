@@ -4,6 +4,7 @@
 #include <random>
 #include <iterator>
 #include <algorithm>
+#include <ranges>
 using namespace std;
 
 // making my life easier !
@@ -51,7 +52,20 @@ void merge_vertex(dict & graph ) {
     graph[vertex_tuple[0]] = merged_edges;
     graph.erase(vertex_tuple[1]);
     // Replace Deleted vertex with the merged one
-    // iterate accross the edges list for each 
+    for ( auto &[vertex, edges] : graph)
+        {
+            auto new_edges = edges| views::transform([&](int n) { 
+                return n == vertex_tuple[1] ? vertex_tuple[0] : n;
+             });
+            edges = vector<int> (new_edges.begin(),new_edges.end());
+            
+
+        }
+    // create a temp vector
+    // iterate accross the edges list for each vertex
+    // replace vertex 2 with vertex 1 
+    // assign temp vector at the graph[vertex1]
+    
 
 }
 
@@ -64,6 +78,8 @@ int main()
     print_graph(example);
     merge_vertex(example);
     cout << "PostMerge" << endl;
+    print_graph(example);
+    cout << "PostRemove" << endl;
     print_graph(example);
 }
 //1 2 3 4
