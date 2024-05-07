@@ -57,6 +57,9 @@ void merge_vertex(dict & graph ) {
             auto new_edges = edges| views::transform([&](int n) { 
                 return n == vertex_tuple[1] ? vertex_tuple[0] : n;
              });
+             /*std::transform(edges.begin(), edges.end(), std::back_inserter(new_edges),
+                       [&](int n) { return n == vertex_tuple[1] ? vertex_tuple[0] : n; });
+        edges = new_edges; */
             edges = vector<int> (new_edges.begin(),new_edges.end());
             
 
