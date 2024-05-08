@@ -27,17 +27,17 @@ class Graph (dict):
         self[vertex1] =  self[vertex1] + self[vertex2]
         del self[vertex2]
         
-    def remove_self_loops(self,vertex1:str) -> None:
-        #remove self loops
-        new_edges = [edge for edge in self[vertex1] if edge != vertex1 ] 
-        self[vertex1] = new_edges
-    
     def replace_vertex(self,vertex1:str, vertex2:str) -> None:
         '''replace vertex2 with vertex1 in the graph'''
         for vertex in self:
             if vertex2 in self[vertex]:
                 self[vertex] = [vertex1 if edge == vertex2 else edge for edge in self[vertex]]
                 
+    def remove_self_loops(self,vertex1:str) -> None:
+        #remove self loops
+        new_edges = [edge for edge in self[vertex1] if edge != vertex1 ] 
+        self[vertex1] = new_edges
+                  
     def min_cut(self) -> int:
         '''return the minimum cut of the graph'''
         while len(self) > 2:
