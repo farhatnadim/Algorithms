@@ -10,17 +10,16 @@ using namespace std;
 // making my life easier !
 using dict = map< int, vector<int> >; 
 
-
+// prints the graph by iterating over the map
 void print_graph (const dict & graph  ) {
-    for (const auto &[key,value ] : graph)
-    {
+    for (const auto &[ key, value ] : graph){
         cout << "Vertex " <<  key << " Edges " ;
         for ( auto element : value)
             cout << " " << element;
         cout << endl; 
     }
-
 }
+
 
 vector<int> select_random_edge ( dict & graph){
     // select random key from map
@@ -39,11 +38,12 @@ vector<int> select_random_edge ( dict & graph){
     std::advance(vit, randomEdgeIndex);
     int edge = *vit;
     cout << vertex << " " << edge << endl;
-    vector<int> tuple ={vertex,edge};
+    vector<int> tuple = {vertex,edge};
     return tuple;
 
 }
 
+// Merges two vertices in the graph according to the Karger's algorithm
 void merge_vertex(dict & graph ) {
 
     auto vertex_tuple = select_random_edge(graph);
@@ -52,38 +52,41 @@ void merge_vertex(dict & graph ) {
     graph[vertex_tuple[0]] = merged_edges;
     graph.erase(vertex_tuple[1]);
     // Replace Deleted vertex with the merged one
-    for ( auto &[vertex, edges] : graph)
-        {
-            auto new_edges = edges| views::transform([&](int n) { 
+    for ( auto &[vertex, edges] : graph){
+            auto new_edges = edges | views::transform([&](int n) { 
                 return n == vertex_tuple[1] ? vertex_tuple[0] : n;
              });
              /*std::transform(edges.begin(), edges.end(), std::back_inserter(new_edges),
                        [&](int n) { return n == vertex_tuple[1] ? vertex_tuple[0] : n; });
         edges = new_edges; */
             edges = vector<int> (new_edges.begin(),new_edges.end());
-            
-
         }
-    // create a temp vector
-    // iterate accross the edges list for each vertex
-    // replace vertex 2 with vertex 1 
-    // assign temp vector at the graph[vertex1]
-    
+    //removing self loops
+    auto new_edges = graph[vertex_tuple[0]] | views::filter([&] (int n){
+            return  n == vertex_tuple[0] ? false : true;
+    });
+
+    graph[vertex_tuple[0]] = vector<int> (new_edges.begin(),new_edges.end());
 
 }
 
-
+int min_cut(dict graph){
+    // returns the minimum cut of the graph
+    constexpr auto MIN_VERTEX{2};
+    int count {0};
+    while( graph.size() > 2)
+        merge_vertex(graph);
+    for (auto & [key, edges] : graph){
+        count += edges.size();
+    }
+    return static_cast<int> (count / 2);
+}
 
 int main()
 {
     dict example {{1,{1,2,3,4}},{2,{1,5,6,4}},{3,{1,5}},{4,{2,1,5}},{5,{2,3,4,6}},{6,{2,4}}};
-    cout << "Premerge" << endl;
-    print_graph(example);
-    merge_vertex(example);
-    cout << "PostMerge" << endl;
-    print_graph(example);
-    cout << "PostRemove" << endl;
-    print_graph(example);
+    cout << "Min Cut " << min_cut << endl;
+    
 }
 //1 2 3 4
 //2 1 5 6 4
