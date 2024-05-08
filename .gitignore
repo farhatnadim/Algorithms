@@ -11,3 +11,4 @@ Sort/~$sertionSort.docx
 *.out 
 # Ignore the build directory
 Algorithms/Select/Cpp/build/*
+*build*
