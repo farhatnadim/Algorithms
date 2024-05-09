@@ -5,6 +5,8 @@
 #include <iterator>
 #include <algorithm>
 #include <ranges>
+#include <sstream>
+#include <fstream>
 using namespace std;
 
 // making my life easier !
@@ -37,7 +39,6 @@ vector<int> select_random_edge ( dict & graph){
     auto vit = std::begin(it->second);
     std::advance(vit, randomEdgeIndex);
     int edge = *vit;
-    cout << vertex << " " << edge << endl;
     vector<int> tuple = {vertex,edge};
     return tuple;
 
@@ -82,11 +83,53 @@ int min_cut(dict graph){
     return static_cast<int> (count / 2);
 }
 
-int main()
+
+// create a function that reads the file and returns the graph
+
+dict read_file(ifstream & file){
+    dict graph;
+    string line;
+    // the file has several rows. each row starts with the vertex and then followed by a vector for edges
+    // we will read the file line by line, we read the first value of each line and create the key in the map
+    // then read the rest of the line and create a vector of edges
+    while (getline(file, line)){
+        vector<int> edges;
+        istringstream iss(line);
+        int vertex;
+        iss >> vertex;
+        int edge;
+        while (iss >> edge){
+            edges.push_back(edge);
+        }
+        graph[vertex] = edges;
+    }
+    return graph;
+}
+
+int main(int argc, char *argv[])
 {
-    dict example {{1,{1,2,3,4}},{2,{1,5,6,4}},{3,{1,5}},{4,{2,1,5}},{5,{2,3,4,6}},{6,{2,4}}};
-    cout << "Min Cut " << min_cut << endl;
-    
+    // read file 
+    ifstream file(argv[1]);
+    // check if file is open
+    if (!file.is_open()){
+        cout << "File not found" << endl;
+        return 1;
+    }
+    // run the algorithm for multiple trials
+
+    constexpr int TRIALS{100};
+
+    vector<int> trials;
+    auto min_cut_value = 0;
+    for (int i = TRIALS; i > 0; i--)
+    {   
+        file.clear();           // Clears any errors.
+        file.seekg(0, ios::beg); // See
+        auto example = read_file(file);
+        trials.push_back(min_cut(example));
+    }
+    cout << "Minimum Cut " << *min_element(trials.begin(), trials.end()) << endl;
+    return 0;
 }
 //1 2 3 4
 //2 1 5 6 4
