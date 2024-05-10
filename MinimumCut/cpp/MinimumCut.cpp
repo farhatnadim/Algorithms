@@ -121,19 +121,13 @@ int main(int argc, char *argv[])
 
     vector<int> trials;
     auto min_cut_value = 0;
+    const auto graph = read_file(file);
+
     for (int i = TRIALS; i > 0; i--)
     {   
-        file.clear();           // Clears any errors.
-        file.seekg(0, ios::beg); // See
-        auto example = read_file(file);
+        dict example (graph);
         trials.push_back(min_cut(example));
     }
     cout << "Minimum Cut " << *min_element(trials.begin(), trials.end()) << endl;
     return 0;
 }
-//1 2 3 4
-//2 1 5 6 4
-//3 1 5
-//4 2 1 5
-//5 2 3 4 6
-//6 2 5
