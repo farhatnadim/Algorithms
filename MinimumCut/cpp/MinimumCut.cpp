@@ -33,28 +33,30 @@ std::vector<int> select_random_edge ( const dict & graph){
     int randomVertexIndex = vertices_distrib(generator);
     auto it = std::begin(graph);
     std::advance(it, randomVertexIndex);
-    int vertex = it->first;
     std::uniform_int_distribution<> edges_distrib(0,it->second.size()-1);
     int randomEdgeIndex = edges_distrib(generator);
     auto vit = std::begin(it->second);
     std::advance(vit, randomEdgeIndex);
-    int edge = *vit;
-    std::vector<int> tuple = {vertex,edge};
-    return tuple;
+    int vertex2 = *vit;
+    int vertex1 = it->first;
+    std::vector<int> edge = {vertex1, vertex2};
+    return edge;
 }
 
 // Merges two vertices in the graph according to the Karger's algorithm
 void merge_vertex(dict & graph ) {
 
-    auto vertex_tuple = select_random_edge(graph);
+    auto edge = select_random_edge(graph);
     std::vector<int> merged_edges;
-    std::merge(graph[vertex_tuple[0]].begin(),graph[vertex_tuple[0]].end(),graph[vertex_tuple[1]].begin(),graph[vertex_tuple[1]].end(),std::back_inserter(merged_edges)); 
-    graph[vertex_tuple[0]] = merged_edges;
-    graph.erase(vertex_tuple[1]);
+    std::merge(graph[edge[0]].begin(),graph[edge[0]].end(),
+               graph[edge[1]].begin(),graph[edge[1]].end(),
+               std::back_inserter(merged_edges)); 
+    graph[edge[0]] = merged_edges;
+    graph.erase(edge[1]);
     // Replace Deleted vertex with the merged one
     for ( auto &[vertex, edges] : graph){
             auto new_edges = edges | std::views::transform([&](int n) { 
-                return n == vertex_tuple[1] ? vertex_tuple[0] : n;
+                return n == edge[1] ? edge[0] : n;
              });
              /*std::transform(edges.begin(), edges.end(), std::back_inserter(new_edges),
                        [&](int n) { return n == vertex_tuple[1] ? vertex_tuple[0] : n; });
@@ -62,11 +64,11 @@ void merge_vertex(dict & graph ) {
             edges = std::vector<int> (new_edges.begin(),new_edges.end());
         }
     //removing self loops
-    auto new_edges = graph[vertex_tuple[0]] | std::views::filter([&] (int n){
-            return  n == vertex_tuple[0] ? false : true;
+    auto new_edges = graph[edge[0]] | std::views::filter([&] (int n){
+            return  n == edge[0] ? false : true;
     });
 
-    graph[vertex_tuple[0]] = std::vector<int> (new_edges.begin(),new_edges.end());
+    graph[edge[0]] = std::vector<int> (new_edges.begin(),new_edges.end());
 
 }
 
