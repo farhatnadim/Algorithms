@@ -58,9 +58,7 @@ void merge_vertex(dict & graph ) {
             auto new_edges = edges | std::views::transform([&](int n) { 
                 return n == edge[1] ? edge[0] : n;
              });
-             /*std::transform(edges.begin(), edges.end(), std::back_inserter(new_edges),
-                       [&](int n) { return n == vertex_tuple[1] ? vertex_tuple[0] : n; });
-        edges = new_edges; */
+            
             edges = std::vector<int> (new_edges.begin(),new_edges.end());
         }
     //removing self loops
@@ -76,7 +74,7 @@ int min_cut(dict graph){
     // returns the minimum cut of the graph
     constexpr auto MIN_VERTEX{2};
     int count {0};
-    while( graph.size() > 2)
+    while( graph.size() > MIN_VERTEX)
         merge_vertex(graph);
     for (auto & [key, edges] : graph){
         count += edges.size();
