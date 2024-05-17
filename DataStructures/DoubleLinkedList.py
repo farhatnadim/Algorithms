@@ -1,7 +1,5 @@
 import math # has -inf and +inf variables defined
-import sys
-sys.path.insert(0, r'D:\\source\\Algorithms\\DataStructures\\Lists\\')
-sys.path.insert(0,r'/mnt/c/source/Algorithms-Iluminated/DataStructures/Lists/')
+
 from Node import DoubleNode
 
 __liscence__ = "MIT"
@@ -303,20 +301,19 @@ class DoubleLinkedList:
 
         """
         if self.size == 0: # empty list
-            return -1
+            return None
         # single node, tail and head point to the same node
         if self.size == 1:
             self.head = None
             self.tail = None
             self.size += -1
-            return 0
+            return self.item
         #multiple nodes, tail and head point to different nodes
         self.head = self.head.get_next()
         self.head.get_previous().set_next(None)
         self.head.set_previous(None)
         self.size += -1
-
-        return 0      
+        return self.item
     
     def delete_from_end(self):
         """ delete the last node/tail
