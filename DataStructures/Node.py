@@ -3,7 +3,7 @@
 class Node:
     ''' Single linked node'''
     ''' REF page 142'''
-    def __init__(self,item, next):
+    def __init__(self,item =0 , next = None):
         self.item = item
         self.next = next
 
@@ -29,7 +29,7 @@ class Node:
 class DoubleNode(Node):
 
     ''' DoubleNode inherits from Node'''
-    def __init__(self,item,next,previous):
+    def __init__(self,item=0,next=None,previous=None):
         super().__init__(item,next)
         self.previous = previous
 

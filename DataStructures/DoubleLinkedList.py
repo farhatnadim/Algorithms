@@ -304,16 +304,18 @@ class DoubleLinkedList:
             return None
         # single node, tail and head point to the same node
         if self.size == 1:
+            item = self.head.get_item() 
             self.head = None
             self.tail = None
             self.size += -1
-            return self.item
+            return item
         #multiple nodes, tail and head point to different nodes
+        item = self.head.get_item()
         self.head = self.head.get_next()
         self.head.get_previous().set_next(None)
         self.head.set_previous(None)
         self.size += -1
-        return self.item
+        return item
     
     def delete_from_end(self):
         """ delete the last node/tail
