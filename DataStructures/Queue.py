@@ -31,7 +31,7 @@ class Queue(DoubleLinkedList):
     
   
     
-    
+'''    
 def main():
     q = Queue()
     q.enqueue(10)
@@ -52,3 +52,4 @@ def main():
     q.print_queue()
 if __name__ == "__main__":
     main()
+'''

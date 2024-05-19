@@ -3,7 +3,7 @@
 class Node:
     ''' Single linked node'''
     ''' REF page 142'''
-    def __init__(self,item =0 , next = None):
+    def __init__(self,item = 0 , next = None):
         self.item = item
         self.next = next
 
@@ -38,4 +38,26 @@ class DoubleNode(Node):
 
     def set_previous(self,previous):
         self.previous = previous
-        
+  
+class Vertex:
+      def __init__(self,name : str | int, edges=[],explored=False):
+          self.explored = explored
+          self.edges=[]
+          self.name = name
+      def set_explored(self) -> None:
+          self.explored = True    
+      
+      def set_unexplored(self) -> None:
+          self.unexplored = False
+      
+      def is_explored(self) -> bool:
+          return self.explored 
+      
+      def get_edges(self) -> list:
+          return self.edges
+      
+      def set_edges(self,edges:list) -> None:
+          self.edges = edges 
+          
+          
+                            
