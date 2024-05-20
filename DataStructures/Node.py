@@ -40,10 +40,10 @@ class DoubleNode(Node):
         self.previous = previous
   
 class Vertex:
-      def __init__(self,name : str | int, edges=[],explored=False):
+      def __init__(self, edges=[],explored=False):
           self.explored = explored
-          self.edges=[]
-          self.name = name
+          self.edges=edges
+    
       def set_explored(self) -> None:
           self.explored = True    
       
@@ -59,5 +59,18 @@ class Vertex:
       def set_edges(self,edges:list) -> None:
           self.edges = edges 
           
-          
-                            
+      
+      
+def main():
+    
+    a = Vertex([1,2])
+    b = Vertex([0,4,3])
+    c = Vertex([0,3,4])
+    d = Vertex([1,2,3])
+    e = Vertex([2,3])
+    
+    graph = [a]
+    graph.remove(a)
+    print(graph)
+        
+main()                       
