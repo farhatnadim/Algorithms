@@ -20,4 +20,12 @@ class Graph(list):
         '''sets all the graph in one shot from a list of vertices'''
         self = vertices
     
-    def get_vertex(self,)
+    def get_vertex(self,vertex_index : int ) -> Vertex:
+        return self[vertex_index]
+    
+    def delete_vertex(self, vertex_index: int ) ->Vertex:
+        vertex = self.pop(vertex_index)
+        #Todo : clean up
+        
+    def merge_vertices(self,vertex_index1 : int , vertex_index_2 :int ) -> None :
+        raise NotImplementedError

@@ -69,8 +69,10 @@ def main():
     d = Vertex([1,2,3])
     e = Vertex([2,3])
     
-    graph = [a]
-    graph.remove(a)
-    print(graph)
+    
+    graph = [Vertex([1,2]), Vertex([1,2,3])]
+    print(graph[0])
+    graph.pop(0)
+    print(graph[0])
         
 main()                       
