@@ -1,4 +1,4 @@
-from DoubleLinkedList import DoubleLinkedList, DoubleNode
+from DoubleLinkedList import DoubleLinkedList
 
 
 class Queue(DoubleLinkedList):
@@ -6,10 +6,10 @@ class Queue(DoubleLinkedList):
     def __init__(self):
         super().__init__()
    
-    def enqueue(self,item : float | int | str) -> None:
+    def enqueue(self,item : object) -> None:
         self.add_at_end(item)
         
-    def dequeue(self) -> float | int | str :
+    def dequeue(self) -> object:
         return self.delete_from_beginning()
     
     def print_queue(self) -> None :

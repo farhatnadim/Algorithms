@@ -3,7 +3,7 @@
 class Node:
     ''' Single linked node'''
     ''' REF page 142'''
-    def __init__(self,item = 0 , next = None):
+    def __init__(self,item : object , next = None):
         self.item = item
         self.next = next
 
@@ -29,7 +29,7 @@ class Node:
 class DoubleNode(Node):
 
     ''' DoubleNode inherits from Node'''
-    def __init__(self,item=0,next=None,previous=None):
+    def __init__(self,item : object,next=None,previous=None):
         super().__init__(item,next)
         self.previous = previous
 
@@ -60,19 +60,3 @@ class Vertex:
           self.edges = edges 
           
       
-      
-def main():
-    
-    a = Vertex([1,2])
-    b = Vertex([0,4,3])
-    c = Vertex([0,3,4])
-    d = Vertex([1,2,3])
-    e = Vertex([2,3])
-    
-    
-    graph = [Vertex([1,2]), Vertex([1,2,3])]
-    print(graph[0])
-    graph.pop(0)
-    print(graph[0])
-        
-main()                       
