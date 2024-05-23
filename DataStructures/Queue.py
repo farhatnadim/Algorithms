@@ -12,6 +12,10 @@ class Queue(DoubleLinkedList):
     def dequeue(self) -> object:
         return self.delete_from_beginning()
     
+    def is_empty(self) -> bool:
+        if self.size == 0:
+            return True
+    
     def print_queue(self) -> None :
         self.print_list()        
     
