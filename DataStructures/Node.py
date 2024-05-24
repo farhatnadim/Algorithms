@@ -1,5 +1,5 @@
 ''' Node.py implements a Node . Node is an element of a linked list'''
-
+from math import inf
 class Node:
     ''' Single linked node'''
     ''' REF page 142'''
@@ -40,9 +40,10 @@ class DoubleNode(Node):
         self.previous = previous
   
 class Vertex:
-      def __init__(self, edges=[],explored=False):
+      def __init__(self, edges=[],explored=False, distance = inf ):
           self.explored = explored
           self.edges=edges
+          self.ditance = distance
     
       def set_explored(self) -> None:
           self.explored = True    
