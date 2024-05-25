@@ -43,7 +43,7 @@ class Vertex:
       def __init__(self, edges=[],explored=False, distance = inf ):
           self.explored = explored
           self.edges=edges
-          self.ditance = distance
+          self.distance = distance
     
       def set_explored(self) -> None:
           self.explored = True    
