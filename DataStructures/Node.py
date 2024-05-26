@@ -1,5 +1,6 @@
 ''' Node.py implements a Node . Node is an element of a linked list'''
 from math import inf
+import copy
 class Node:
     ''' Single linked node'''
     ''' REF page 142'''
@@ -58,6 +59,9 @@ class Vertex:
           return self.edges
       
       def set_edges(self,edges:list) -> None:
-          self.edges = edges 
+          self.edges = edges
+     
+      def copy(self)-> object :
+         return copy.deepcopy(self)
           
       

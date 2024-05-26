@@ -8,20 +8,21 @@ def bfs( graph: Graph, vertex_index : int):
     graph[vertex_index].set_explored()
     graph[vertex_index].distance = 0
     q = Queue()
-    q.enqueue(graph[0])
+    q.enqueue(graph[0].copy())
+    distance = 0
     while (not q.is_empty()):
         v = q.dequeue()
         for edge in v.edges:
             if not graph[edge].is_explored():
                 graph[edge].set_explored()
                 graph[edge].distance = v.distance + 1 # bug is in v.distance basically here we are doing += , need to d ref. bestway is copy node to q
-                q.enqueue(graph[edge])
+                q.enqueue(graph[edge].copy())
     
 def main():
     
     s = Vertex([1,2])
     a = Vertex([0,3])
-    b = Vertex([0,3])
+    b = Vertex([0,3,4])
     c = Vertex([1,2,4,5])
     d = Vertex([2,3,5])
     e = Vertex([3,4])
