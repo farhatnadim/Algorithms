@@ -41,10 +41,11 @@ class DoubleNode(Node):
         self.previous = previous
   
 class Vertex:
-      def __init__(self, edges=[],explored=False, distance = inf ):
+      def __init__(self, edges=[],explored=False, distance = inf, cc = 0 ):
           self.explored = explored
           self.edges=edges
           self.distance = distance
+          self.cc = 0
     
       def set_explored(self) -> None:
           self.explored = True    
@@ -61,6 +62,18 @@ class Vertex:
       def set_edges(self,edges:list) -> None:
           self.edges = edges
      
+      def get_distance(self) -> int :
+          return self.distance
+      
+      def set_distance(self, distance : int ) -> None:
+          self.distance = distance
+          
+      def get_connected_components(self) -> int :
+          return self.cc
+      
+      def set_distance(self, cc : int ) -> None:
+          self.cc = cc
+          
       def copy(self)-> object :
          return copy.deepcopy(self)
           

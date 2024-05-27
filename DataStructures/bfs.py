@@ -4,42 +4,60 @@ from Graph import Graph
 
 
 
-def bfs( graph: Graph, vertex_index : int):
+
+
+def bfs( graph: Graph, vertex_index : int, connected_components = 0) -> None:
     graph[vertex_index].set_explored()
     graph[vertex_index].distance = 0
     q = Queue()
-    q.enqueue(graph[0].copy())
-    distance = 0
+    q.enqueue(graph[0])
     while (not q.is_empty()):
         v = q.dequeue()
+        v.cc = connected_components
         for edge in v.edges:
             if not graph[edge].is_explored():
                 graph[edge].set_explored()
                 graph[edge].distance = v.distance + 1 # bug is in v.distance basically here we are doing += , need to d ref. bestway is copy node to q
-                q.enqueue(graph[edge].copy())
+                q.enqueue(graph[edge])
     
+def Undirected_Connected_Components(graph : Graph) -> None :
+    numCC = 0
+    for vertex in graph:
+        if  not vertex.is_explored():
+            numCC = numCC + 1
+            bfs(graph,graph.index(vertex),numCC)
+            
+
+
 def main():
     
-    s = Vertex([1,2])
-    a = Vertex([0,3])
-    b = Vertex([0,3,4])
-    c = Vertex([1,2,4,5])
-    d = Vertex([2,3,5])
-    e = Vertex([3,4])
+    number_0 = Vertex([2,4])
+    number_1 = Vertex([3])
+    number_2 = Vertex([0,4])
+    number_3 = Vertex([1])
+    number_4 = Vertex([0,2,6,8])
+    number_5 = Vertex([7,9])
+    number_6 = Vertex([4])
+    number_7 = Vertex([5])
+    number_8 = Vertex([4])
+    number_9 = Vertex([5])
     
     g = Graph()
-    g.add_vertex(s)
-    g.add_vertex(a)    
-    g.add_vertex(b)
-    g.add_vertex(c)
-    g.add_vertex(d)
-    g.add_vertex(e)
-    for vertex in g:
-        print(vertex.is_explored())
-
+    g.add_vertex(number_0)
+    g.add_vertex(number_1)    
+    g.add_vertex(number_2)
+    g.add_vertex(number_3)
+    g.add_vertex(number_4)
+    g.add_vertex(number_5)
+    g.add_vertex(number_6)
+    g.add_vertex(number_7)    
+    g.add_vertex(number_8)
+    g.add_vertex(number_9)
+   
+    
     vertex_index = 0
-    bfs(g,vertex_index)
+    Undirected_Connected_Components(g)
     for vertex in g:
-        print(vertex.distance)
+        print(vertex.get_connected_components())
 if __name__ == "__main__":
     main()
