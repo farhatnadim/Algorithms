@@ -3,6 +3,7 @@
 where the keys are the vertices and the values are lists of
 the vertices that are adjacent to the key vertex, no parallel edges are allowed'''
 from Node import Vertex
+from Queue import Queue
 
 
 class Graph(list):
@@ -29,3 +30,25 @@ class Graph(list):
         
     def merge_vertices(self,vertex_index1 : int , vertex_index_2 :int ) -> None :
         raise NotImplementedError
+    
+    def bfs( self, vertex_index : int, connected_components = 0) -> None:
+        self[vertex_index].set_explored()
+        self.distance = 0
+        q = Queue()
+        q.enqueue(self[vertex_index])
+        while (not q.is_empty()):
+            v = q.dequeue()
+            v.cc = connected_components
+            for edge in v.edges:
+                if not self[edge].is_explored():
+                    self[edge].set_explored()
+                    self[edge].distance = v.distance + 1 
+                    q.enqueue(self[edge])
+    
+    def Undirected_Connected_Components(self) -> None :
+        numCC = 0
+        for vertex in self:
+            if  not vertex.is_explored():
+                numCC = numCC + 1
+                self.bfs(self.index(vertex),numCC)
+            

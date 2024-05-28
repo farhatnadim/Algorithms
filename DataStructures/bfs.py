@@ -4,20 +4,20 @@ from Graph import Graph
 
 
 
-
+''''
 
 def bfs( graph: Graph, vertex_index : int, connected_components = 0) -> None:
     graph[vertex_index].set_explored()
     graph[vertex_index].distance = 0
     q = Queue()
-    q.enqueue(graph[0])
+    q.enqueue(graph[vertex_index])
     while (not q.is_empty()):
         v = q.dequeue()
         v.cc = connected_components
         for edge in v.edges:
             if not graph[edge].is_explored():
                 graph[edge].set_explored()
-                graph[edge].distance = v.distance + 1 # bug is in v.distance basically here we are doing += , need to d ref. bestway is copy node to q
+                graph[edge].distance = v.distance + 1 
                 q.enqueue(graph[edge])
     
 def Undirected_Connected_Components(graph : Graph) -> None :
@@ -27,7 +27,7 @@ def Undirected_Connected_Components(graph : Graph) -> None :
             numCC = numCC + 1
             bfs(graph,graph.index(vertex),numCC)
             
-
+'''
 
 def main():
     
@@ -54,10 +54,12 @@ def main():
     g.add_vertex(number_8)
     g.add_vertex(number_9)
    
-    
+
     vertex_index = 0
-    Undirected_Connected_Components(g)
+    g.Undirected_Connected_Components()
     for vertex in g:
-        print(vertex.get_connected_components())
+        print(f"Connected Components per vertex {vertex.get_connected_components()}")
+        
+        
 if __name__ == "__main__":
     main()
