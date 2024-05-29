@@ -317,25 +317,26 @@ class DoubleLinkedList:
         self.size += -1
         return item
     
-    def delete_from_end(self):
+    def delete_from_end(self) ->  object:
         """ delete the last node/tail
 
         the tail will point to the previous node
         """
         # Empty list
         if self.size == 0:
-           return - 1
+           return None
         # One node
         if self.size == 1:
             self.head = None
             self.tail = None
             self.size += -1
-            return 0
+            return self.head.get_item()
         # multiple nodes
+        item - self.tail.get_item()
         self.tail = self.tail.get_previous()
         self.tail.set_next(None)
         self.size += -1
-        return 0
+        return item
 
     #TODO: check the return    
     def delete(self, pos):
