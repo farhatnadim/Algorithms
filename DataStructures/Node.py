@@ -19,13 +19,7 @@ class Node:
 
     def set_next(self,next):
         self.next = next
-    
-    class Node:
-        ''' Single linked node''' 
-        def __init__(self, item,next):
-            self.item = item
-            self.next = next
-        ''' Utility '''
+
 
 class DoubleNode(Node):
 

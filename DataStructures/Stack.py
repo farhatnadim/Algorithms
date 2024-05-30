@@ -11,7 +11,6 @@ class Stack(DoubleLinkedList):
         
     def pop(self) -> object:
         if  not self.is_empty():
-            
             return self.delete_from_end()
     
     def is_empty(self) -> bool:
@@ -38,11 +37,9 @@ def main():
    s = Stack()
    s.push(3)
    s.push(4)
-   s.print_stack()
-   s.pop()
-   s.print_stack()
-   s.pop()
-   s.pop()
+   print(s.pop())
+   print(s.pop())
+   print(s.pop())
    
 if __name__ == "__main__":
     main()

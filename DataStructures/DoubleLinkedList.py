@@ -327,12 +327,13 @@ class DoubleLinkedList:
            return None
         # One node
         if self.size == 1:
+            item = self.head.get_item()
             self.head = None
             self.tail = None
             self.size += -1
-            return self.head.get_item()
+            return item
         # multiple nodes
-        item - self.tail.get_item()
+        item = self.tail.get_item()
         self.tail = self.tail.get_previous()
         self.tail.set_next(None)
         self.size += -1
