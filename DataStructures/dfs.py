@@ -2,19 +2,15 @@ from Node import Vertex
 from Stack import Stack
 from Graph import Graph
 
-
-
-def dfs( graph: Graph) -> None:
-    
+def dfs( graph: Graph) -> None:    
     s = Stack()
     s.push(graph[0])
-    
     while (not s.is_empty()):
         v = s.pop()
         if (not v.is_explored()):
             v.set_explored()
-        for edge in v.edges:
-            s.push(graph[edge])
+            for edge in v.edges:
+                s.push(graph[edge])
     
 
 
