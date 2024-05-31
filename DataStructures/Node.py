@@ -41,8 +41,8 @@ class Vertex:
           self.distance = distance
           self.cc = 0
     
-      def set_explored(self) -> None:
-          self.explored = True    
+      def set_explored(self, explored=True) -> None:
+          self.explored = explored    
       
       def set_unexplored(self) -> None:
           self.unexplored = False
