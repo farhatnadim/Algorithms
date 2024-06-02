@@ -35,12 +35,12 @@ class DoubleNode(Node):
         self.previous = previous
   
 class Vertex:
-      def __init__(self, edges=[],explored=False, distance = inf, cc = 0 ):
+      def __init__(self, edges=[],explored=False, distance = inf, cc = 0):
           self.explored = explored
-          self.edges=edges
+          self.edges= edges
           self.distance = distance
-          self.cc = 0
-    
+          self.cc = cc
+          self.currentLabel = 0
       def set_explored(self, explored=True) -> None:
           self.explored = explored    
       

@@ -17,18 +17,29 @@ def dfs_recursive ( graph : Graph, vertex) ->None:
     for edge in vertex.edges:
         if (not graph[edge].is_explored()):
             dfs_recursive(graph,graph[edge])
-    
+
+def topological(graph: Graph , vertex: Vertex) ->None:
+    currentLabel = len(graph)
+    def dfs_recursive ( graph : Graph, vertex) ->None:
+        vertex.set_explored(True)
+        for edge in vertex.edges:
+            if (not graph[edge].is_explored()):
+                dfs_recursive(graph,graph[edge])
+        graph[edge].currentLabel = currentLabel
+        currentLabel = currentLabel - 1    
+    for vertex in graph:
+        if (not vertex.is_explored()):
+            dfs_recursive(graph, vertex)    
+                
     
 
 
 def main():
     
     number_0 = Vertex([1,2])
-    number_1 = Vertex([0,3])
-    number_2 = Vertex([0,3,4])
-    number_3 = Vertex([1,2,4,5])
-    number_4 = Vertex([2,3,5])
-    number_5 = Vertex([3,4])
+    number_1 = Vertex([3])
+    number_2 = Vertex([3])
+    number_3 = Vertex([])
     
     
     g = Graph()
@@ -36,8 +47,7 @@ def main():
     g.add_vertex(number_1)    
     g.add_vertex(number_2)
     g.add_vertex(number_3)
-    g.add_vertex(number_4)
-    g.add_vertex(number_5)
+    
     
     for vertex in g:
         print(vertex.is_explored())
