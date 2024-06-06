@@ -17,7 +17,7 @@ class Queue(DoubleLinkedList):
             return True
     
     def print_queue(self) -> None :
-        self.print_list()        
+        super().print_list()        
     
     def insert_at_beginning(self,item):
         raise NotImplemented("Insert at Begining is not allow in Queues")

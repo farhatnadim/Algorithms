@@ -17,6 +17,7 @@ def dfs_recursive ( graph : Graph, vertex) ->None:
     for edge in vertex.edges:
         if (not graph[edge].is_explored()):
             dfs_recursive(graph,graph[edge])
+            ''
 
 def topological(graph: Graph , vertex: Vertex) ->None:
     
@@ -35,6 +36,16 @@ def topological(graph: Graph , vertex: Vertex) ->None:
                 
     
 
+def graph_reversal(graph : Graph) -> Graph:
+    
+    reversed_graph = [Graph()]*len(graph)
+    for vertex in graph:
+            for edge in vertex.edges:
+                edges =[]
+                edges.append(graph.index(vertex))
+                reversed_graph[edge]= edges
+                
+    return reversed_graph
 
 def main():
     
@@ -49,12 +60,17 @@ def main():
     g.add_vertex(number_1)    
     g.add_vertex(number_2)
     g.add_vertex(number_3)
-    
-    topological(g,number_0)
+
     
     for vertex in g:
-        print(vertex.currentLabel)
-  
+        print(vertex)
+    print("")
+    print("")
+    print("")
+    r_graph = graph_reversal(g)
+    
+    for vertex in r_graph:
+        print(vertex)
     
 if __name__ == "__main__":
     main()

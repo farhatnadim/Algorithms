@@ -8,8 +8,9 @@ from Queue import Queue
 
 class Graph(list):
     '''inherits the list, i am sure i am pulling the full API and some are not necessary'''
-    def __init__(self, vertices = [])  :
-        self = vertices
+    def __init__(self):
+        super().__init__()
+        
         
     def add_vertex(self,vertex : Vertex) -> None:
         self.append(vertex)
