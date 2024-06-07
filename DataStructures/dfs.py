@@ -37,13 +37,9 @@ def topological(graph: Graph , vertex: Vertex) ->None:
     
 
 def graph_reversal(graph : Graph) -> Graph:
-    
-    reversed_graph = [Graph()]*len(graph)
+    reversed_graph = [Vertex()]*len(graph)
     for vertex in graph:
-            for edge in vertex.edges:
-                edges =[]
-                edges.append(graph.index(vertex))
-                reversed_graph[edge]= edges
+        for edge in vertex.edges: # need to implement add edg
                 
     return reversed_graph
 
@@ -63,14 +59,14 @@ def main():
 
     
     for vertex in g:
-        print(vertex)
+        print(vertex.edges)
     print("")
     print("")
     print("")
     r_graph = graph_reversal(g)
     
-    for vertex in r_graph:
-        print(vertex)
+    for vertex in r_graph[:]:
+            print(vertex.edges)
     
 if __name__ == "__main__":
     main()
