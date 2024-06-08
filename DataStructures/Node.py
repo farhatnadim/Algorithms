@@ -57,10 +57,7 @@ class Vertex:
           self.edges = edges
           
       def add_edge(self, edge: int ) -> None:
-          if len(self.edges) == 0 :
-              self.edges = [edge]
-          else:
-              self.edges.append(edge)
+          self.edges.append(edge)
               
      
       def get_distance(self) -> int :

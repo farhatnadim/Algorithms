@@ -37,10 +37,15 @@ def topological(graph: Graph , vertex: Vertex) ->None:
     
 
 def graph_reversal(graph : Graph) -> Graph:
-    r_graph = [Vertex()]*len(graph)
+    #r_graph = [Vertex()]*len(graph) #replicating the same object !
+    r_graph = [] * len(graph) 
     for vertex in graph:
+        print(vertex.edges)
         for edge in vertex.edges: # need to implement add edg
+            # if r_graph already has a vertex object use add , else 
+            # create a new vertex obecjt``
             r_graph[edge].add_edge(graph.index(vertex))
+            
     return r_graph
 
 def main():
