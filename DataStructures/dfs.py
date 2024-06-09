@@ -40,7 +40,7 @@ def graph_reversal(graph : Graph) -> Graph:
     #pre allocating o(n)
     r_graph = [Vertex(edges=[]) for x in range(len(graph))]
     
-    # interating o(n+m)
+    # interating o(n*m)
     for vertex in graph:
         for edge in vertex.edges: # need to implement add edg
             # if r_graph already has a vertex object use add , else 
@@ -50,11 +50,17 @@ def graph_reversal(graph : Graph) -> Graph:
 
 def main():
     
-    number_0 = Vertex([1,2])
+    number_0 = Vertex([2])
     number_1 = Vertex([3])
-    number_2 = Vertex([3])
-    number_3 = Vertex([])
-    
+    number_2 = Vertex([4,10])
+    number_3= Vertex([6])
+    number_4 = Vertex([0,8,6])
+    number_5 = Vertex([9])
+    number_6 = Vertex([])
+    number_7 = Vertex([5])
+    number_8 = Vertex([1,3,7])
+    number_9 = Vertex([7])
+    number_10 = Vertex([5,7])
     
     g = Graph()
     g.add_vertex(number_0)
