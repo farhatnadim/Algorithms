@@ -56,7 +56,7 @@ def main():
    
 
     vertex_index = 0
-    g.Undirected_Connected_Components()
+    g.undirected_connected_components()
     for vertex in g:
         print(f"Connected Components per vertex {vertex.get_connected_components()}")
         
