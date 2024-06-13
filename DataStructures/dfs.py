@@ -1,9 +1,5 @@
 from Node import Vertex
-from Stack import Stack
-from Graph import Graph
-import graphviz
-
-
+import Graph
 def main():
     number_0 = Vertex([2], label='1')
     number_1 = Vertex([3, 9], label='2')
@@ -17,7 +13,7 @@ def main():
     number_9 = Vertex([7], label='10')
     number_10 = Vertex([5, 7], label='11')
 
-    g = Graph()
+    g = Graph.Graph()
     g.add_vertex(number_0)
     g.add_vertex(number_1)
     g.add_vertex(number_2)
@@ -35,11 +31,11 @@ def main():
     print("")
     print("")
     print("")
-    r_graph = graph_reversal(g)
-
+    r_graph = g.graph_reversal()
+    r_graph.topological_sort()
     for vertex in r_graph.get_vertices():
-        print(vertex.edges)
-        
+        print(vertex.currentLabel)
+    r_graph.topological_sort()
     r_graph.print_graph()
 
 if __name__ == "__main__":

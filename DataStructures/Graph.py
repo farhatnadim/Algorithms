@@ -1,27 +1,25 @@
 from Node import Vertex
-from Queue import Queue
-from Stack import Stack
 import graphviz
-
-class Graph(list):
+import Queue
+import Stack
+class Graph:
     def __init__(self):
-        super().__init__()
+        self.vertices = []
 
     def add_vertex(self, vertex: Vertex) -> None:
-        self.append(vertex)
+        self.vertices.append(vertex)
         
     def get_vertices(self) -> list:
-        return self
+        return self.vertices
     
     def set_vertices(self, vertices: list) -> None:
-        self.clear()
-        self.extend(vertices)
+        self.vertices = vertices
     
     def get_vertex(self, vertex_index: int) -> Vertex:
-        return self[vertex_index]
+        return self.vertices[vertex_index]
     
     def delete_vertex(self, vertex_index: int) -> Vertex:
-        vertex = self.pop(vertex_index)
+        vertex = self.vertices.pop(vertex_index)
         # TODO: Clean up references to this vertex in other vertices' edges
         return vertex
     
@@ -29,62 +27,70 @@ class Graph(list):
         raise NotImplementedError
     
     def bfs(self, vertex_index: int, connected_components=0) -> None:
-        self[vertex_index].set_explored()
-        self[vertex_index].distance = 0
+        self.vertices[vertex_index].set_explored()
+        self.vertices[vertex_index].distance = 0
         q = Queue()
-        q.enqueue(self[vertex_index])
+        q.enqueue(self.vertices[vertex_index])
         while not q.is_empty():
             v = q.dequeue()
             v.cc = connected_components
             for edge in v.edges:
-                if not self[edge].is_explored():
-                    self[edge].set_explored()
-                    self[edge].distance = v.distance + 1
-                    q.enqueue(self[edge])
+                if not self.vertices[edge].is_explored():
+                    self.vertices[edge].set_explored()
+                    self.vertices[edge].distance = v.distance + 1
+                    q.enqueue(self.vertices[edge])
     
     def undirected_connected_components(self) -> None:
         num_cc = 0
-        for vertex in self:
+        for vertex in self.vertices:
             if not vertex.is_explored():
                 num_cc += 1
-                self.bfs(self.index(vertex), num_cc)
+                self.bfs(self.vertices.index(vertex), num_cc)
     
     def dfs(self) -> None:
         s = Stack()
-        s.push(self[0])
+        s.push(self.vertices[0])
         while not s.is_empty():
             v = s.pop()
             if not v.is_explored():
                 v.set_explored()
                 for edge in v.edges:
-                    s.push(self[edge])
+                    s.push(self.vertices[edge])
     
     def dfs_recursive(self, vertex: Vertex) -> None:
         vertex.set_explored()
         for edge in vertex.edges:
-            if not self[edge].is_explored():
-                self.dfs_recursive(self[edge])
+            if not self.vertices[edge].is_explored():
+                self.dfs_recursive(self.vertices[edge])
     
     def topological_sort(self) -> None:
-        def dfs_recursive(vertex: Vertex, current_label: list) -> None:
-            vertex.set_explored()
+        def dfs_recursive(graph: Graph, vertex: Vertex, current_label: list) -> None:
+            vertex.set_explored(True)
             for edge in vertex.edges:
-                if not self[edge].is_explored():
-                    dfs_recursive(self[edge], current_label)
-            vertex.current_label = current_label[0]
+                if not graph.get_vertex(edge).is_explored():
+                    dfs_recursive(graph, graph.get_vertex(edge), current_label)
+            vertex.currentLabel = current_label[0]
             current_label[0] -= 1
-        
-        current_label = [len(self)]
-        for vertex in self:
+
+        current_label = [len(self.vertices)]
+        for vertex in self.vertices:
             if not vertex.is_explored():
-                dfs_recursive(vertex, current_label)
+                dfs_recursive(self, vertex, current_label)
+
+        # Reset exploration status for future operations
+        for vertex in self.vertices:
+            vertex.set_explored(False)
     
-    def graph_reversal(self) -> list:
-        reversed_graph = [Vertex(edges=[]) for _ in range(len(self))]
-        for vertex in self:
+    def graph_reversal(self) -> 'Graph':
+        reversed_graph = Graph()
+        for _ in range(len(self.vertices)):
+            reversed_graph.add_vertex(Vertex(edges=[]))
+
+        for vertex in self.vertices:
             for edge in vertex.edges:
-                reversed_graph[edge].add_edge(self.index(vertex))
-                reversed_graph[edge].label = str(edge + 1)
+                reversed_graph.get_vertex(edge).add_edge(self.vertices.index(vertex))
+                reversed_graph.get_vertex(edge).label = str(edge + 1)
+
         return reversed_graph
 
     def print_graph(self, graph_type='Digraph'):
@@ -92,8 +98,8 @@ class Graph(list):
             dot = graphviz.Digraph(format='svg')
         else:
             dot = graphviz.Graph(format='svg')
-        for node in self:
+        for node in self.vertices:
             dot.node(name=str(id(node)), label=node.label)
             for edge in node.edges:
-                dot.edge(str(id(node)), str(id(self[edge])))
+                dot.edge(str(id(node)), str(id(self.vertices[edge])))
         dot.render('graph', view=True)
