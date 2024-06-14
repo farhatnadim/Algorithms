@@ -93,13 +93,28 @@ class Graph:
 
         return reversed_graph
 
+    
+    def kosaraju(self):
+        r_graph = self.graph_reversal()
+        for vertex in r_graph.vertices:
+            vertex.set_explored(False)
+        r_graph.topological_sort()
+        self.topological_sort()
+        for vertex in r_graph.vertices:
+            vertex.set_explored(False)
+        numSCC= [0]
+        
+    
     def print_graph(self, graph_type='Digraph'):
         if graph_type == 'Digraph':
             dot = graphviz.Digraph(format='svg')
         else:
             dot = graphviz.Graph(format='svg')
         for node in self.vertices:
-            dot.node(name=str(id(node)), label=node.label)
+            dot.node(name=str(id(node)), label=node.label + "-" + str(node.currentLabel))
             for edge in node.edges:
                 dot.edge(str(id(node)), str(id(self.vertices[edge])))
         dot.render('graph', view=True)
+        
+        
+    

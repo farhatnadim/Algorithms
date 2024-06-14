@@ -26,17 +26,7 @@ def main():
     g.add_vertex(number_9)
     g.add_vertex(number_10)
 
-    for vertex in g.get_vertices():
-        print(vertex.edges)
-    print("")
-    print("")
-    print("")
-    r_graph = g.graph_reversal()
-    r_graph.topological_sort()
-    for vertex in r_graph.get_vertices():
-        print(vertex.currentLabel)
-    r_graph.topological_sort()
-    r_graph.print_graph()
+    
 
 if __name__ == "__main__":
     main()
