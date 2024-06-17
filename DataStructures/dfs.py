@@ -5,11 +5,11 @@ def main():
     number_1 = Vertex([3, 9], label='2')
     number_2 = Vertex([4, 10], label='3')
     number_3 = Vertex([6], label='4')
-    number_4 = Vertex([0, 8, 6], label='5')
+    number_4 = Vertex([0, 6, 8], label='5')
     number_5 = Vertex([9], label='6')
-    number_6 = Vertex([], label='7')
+    number_6 = Vertex([8], label='7')
     number_7 = Vertex([5], label='8')
-    number_8 = Vertex([1, 3, 7], label='9')
+    number_8 = Vertex([3, 1, 7], label='9')
     number_9 = Vertex([7], label='10')
     number_10 = Vertex([5, 7], label='11')
 
@@ -26,7 +26,24 @@ def main():
     g.add_vertex(number_9)
     g.add_vertex(number_10)
 
+    g.topological_sort()
+    g.print_graph()
+    #r_g  = g.graph_reversal()
+    #r_g.topological_sort()
+    #r_g.print_graph()
+    #meta_g = Graph.Graph()
+    #number_0 = Vertex([1,2], label='1')
+    #number_1 = Vertex([3], label='2')
+    #number_2 = Vertex([3], label='3')
+    #number_3 = Vertex([], label='4')
+    #meta_g.add_vertex(number_0)
+    #meta_g.add_vertex(number_1)
+    #meta_g.add_vertex(number_2)
+    #meta_g.add_vertex(number_3)
     
-
+    #meta_g.print_graph()
+    #meta_g.topological_sort()
+    #meta_g.print_graph()
+    
 if __name__ == "__main__":
     main()
