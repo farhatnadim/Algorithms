@@ -73,7 +73,7 @@ class Graph:
             current_label[0] -= 1
 
         current_label = [len(self.vertices)]
-        for vertex in reversed(self.vertices):
+        for vertex in (self.vertices): #reversed(self.vertices)
             if not vertex.is_explored():
                 dfs_recursive(self, vertex, current_label)
 

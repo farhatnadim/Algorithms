@@ -1,5 +1,7 @@
 from Node import Vertex
 import Graph
+
+numcc = 0
 def main():
     number_0 = Vertex([2], label='1')
     number_1 = Vertex([3, 9], label='2')
@@ -27,15 +29,24 @@ def main():
     g.add_vertex(number_10)
 
     g.topological_sort()
-    g.print_graph()
-    #r_g  = g.graph_reversal()
+    
+   
+    r_g  = g.graph_reversal()
+    r_g.print_graph()
     #r_g.topological_sort()
     #r_g.print_graph()
+    sorted_graph = Graph.Graph()
+    sorted_graph.set_vertices([None]*len(r_g.vertices))
+    for vertex in g.vertices:
+       sorted_graph.vertices[vertex.currentLabel-1] = vertex
+    
+    #print(sorted_graph.vertices[0].label)
+    #print(r_g.vertices[2].edges)
     #meta_g = Graph.Graph()
     #number_0 = Vertex([1,2], label='1')
     #number_1 = Vertex([3], label='2')
     #number_2 = Vertex([3], label='3')
-    #number_3 = Vertex([], label='4')
+    #number_3 = Vertex([], label='4')kls
     #meta_g.add_vertex(number_0)
     #meta_g.add_vertex(number_1)
     #meta_g.add_vertex(number_2)
