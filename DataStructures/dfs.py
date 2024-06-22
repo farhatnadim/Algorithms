@@ -29,30 +29,11 @@ def main():
     g.add_vertex(number_10)
 
     g.topological_sort()
-    r_g  = g.graph_reversal()
-    sorted_graph = Graph.Graph()
-    sorted_graph.set_vertices([None]*len(g.vertices))
-    
-    for v1,v2 in zip(g.vertices,r_g.vertices):
-       #print(vertex.currentLabel)
-       sorted_graph.vertices[v1.currentLabel-1] = v2
-    for vertex in r_g.vertices:
-        print(vertex.edges,vertex.label)
-    #print(sorted_graph.vertices[0].label)
-    #print(r_g.vertices[2].edges)
-    #meta_g = Graph.Graph()
-    #number_0 = Vertex([1,2], label='1')
-    #number_1 = Vertex([3], label='2')
-    #number_2 = Vertex([3], label='3')
-    #number_3 = Vertex([], label='4')kls
-    #meta_g.add_vertex(number_0)
-    #meta_g.add_vertex(number_1)
-    #meta_g.add_vertex(number_2)
-    #meta_g.add_vertex(number_3)
-    
-    #meta_g.print_graph()
-    #meta_g.topological_sort()
-    #meta_g.print_graph()
+    r_g  = g.reversal()
+
+    t_graph=r_g.kosraju(number_0)
+    for vertex in t_graph.vertices:
+        print(vertex.label, vertex.scc)
     
 if __name__ == "__main__":
     main()

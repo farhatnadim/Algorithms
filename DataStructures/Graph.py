@@ -81,7 +81,7 @@ class Graph:
         for vertex in self.vertices:
             vertex.set_explored(False)
     
-    def graph_reversal(self) -> 'Graph':
+    def reversal(self) -> 'Graph':
         reversed_graph = Graph()
         for _ in range(len(self.vertices)):
             reversed_graph.add_vertex(Vertex(edges=[]))
@@ -94,25 +94,32 @@ class Graph:
         return reversed_graph
 
     
-    def kosraju(self) -> None:
-        def dfs_recursive(graph: Graph, vertex: Vertex) -> None:
+    def kosraju(self, vertex: Vertex) -> 'Graph':
+        
+        def dfs_recursive(self, vertex: Vertex) -> None:
             vertex.set_explored(True)
-            vertex.scc = numSCC
+            vertex.scc = numSCC[0]
             for edge in vertex.edges:
-                if not graph.get_vertex(edge).is_explored():
-                    dfs_recursive(graph, graph.get_vertex(edge))
-            vertex.currentLabel = current_label[0]
-            current_label[0] -= 1
-
-        current_label = [len(self.vertices)]
-        for vertex in (self.vertices): #reversed(self.vertices)
+                if not self.get_vertex(edge).is_explored():
+                    dfs_recursive(self, self.get_vertex(edge))
+        r_g = self.reversal()
+        r_g.topological_sort()
+        
+        temp_graph = Graph()
+        temp_graph.vertices = [None]*len(r_g.vertices)
+        for v1,v2 in zip(r_g.vertices,self.vertices):
+            temp_graph.vertices[v1.currentLabel-1] = v2
+            
+        numSCC = [0]
+        for vertex in (temp_graph.vertices): 
             if not vertex.is_explored():
-                dfs_recursive(self, vertex, current_label)
+                numSCC[0] += 1
+                dfs_recursive(self, vertex)
 
         # Reset exploration status for future operations
         for vertex in self.vertices:
             vertex.set_explored(False)
-        numSCC= [0]
+        return temp_graph
         
     
     def print_graph(self, graph_type='Digraph'):
