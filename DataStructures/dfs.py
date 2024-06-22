@@ -29,17 +29,15 @@ def main():
     g.add_vertex(number_10)
 
     g.topological_sort()
-    
-   
     r_g  = g.graph_reversal()
-    r_g.print_graph()
-    #r_g.topological_sort()
-    #r_g.print_graph()
     sorted_graph = Graph.Graph()
-    sorted_graph.set_vertices([None]*len(r_g.vertices))
-    for vertex in g.vertices:
-       sorted_graph.vertices[vertex.currentLabel-1] = vertex
+    sorted_graph.set_vertices([None]*len(g.vertices))
     
+    for v1,v2 in zip(g.vertices,r_g.vertices):
+       #print(vertex.currentLabel)
+       sorted_graph.vertices[v1.currentLabel-1] = v2
+    for vertex in r_g.vertices:
+        print(vertex.edges,vertex.label)
     #print(sorted_graph.vertices[0].label)
     #print(r_g.vertices[2].edges)
     #meta_g = Graph.Graph()

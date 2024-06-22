@@ -94,13 +94,23 @@ class Graph:
         return reversed_graph
 
     
-    def kosaraju(self):
-        r_graph = self.graph_reversal()
-        for vertex in r_graph.vertices:
-            vertex.set_explored(False)
-        r_graph.topological_sort()
-        self.topological_sort()
-        for vertex in r_graph.vertices:
+    def kosraju(self) -> None:
+        def dfs_recursive(graph: Graph, vertex: Vertex) -> None:
+            vertex.set_explored(True)
+            vertex.scc = numSCC
+            for edge in vertex.edges:
+                if not graph.get_vertex(edge).is_explored():
+                    dfs_recursive(graph, graph.get_vertex(edge))
+            vertex.currentLabel = current_label[0]
+            current_label[0] -= 1
+
+        current_label = [len(self.vertices)]
+        for vertex in (self.vertices): #reversed(self.vertices)
+            if not vertex.is_explored():
+                dfs_recursive(self, vertex, current_label)
+
+        # Reset exploration status for future operations
+        for vertex in self.vertices:
             vertex.set_explored(False)
         numSCC= [0]
         
