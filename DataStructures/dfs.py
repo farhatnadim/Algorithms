@@ -19,6 +19,7 @@ def main():
     g.add_vertex(number_0)
     g.add_vertex(number_1)
     g.add_vertex(number_2)
+    
     g.add_vertex(number_3)
     g.add_vertex(number_4)
     g.add_vertex(number_5)

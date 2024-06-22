@@ -10,10 +10,41 @@ WARNING: This is the most challenging programming assignment of the course. Beca
 from Node import Vertex
 import Graph
 
-numcc = 0
-def main():
-  file_name_scc = "SCC.txt"
+def create_graph(file_name):
+  g = Graph.Graph()
+  vertex_added = []
+  with open(file_name) as f:
+    for line in f:
+      line = line.split()
+      if line[0] not in vertex_added:
+        g.add_vertex(Vertex( edges = [int(line[1])-1], label = line[0]))
+        vertex_added.append(line[0])
+      else:
+        g.get_vertex(vertex_added.index(line[0])).add_edge(int(line[1])-1)
+  return g
+def test_1():
+  file_name_scc = "problem8.10test1.txt"
+  g = create_graph(file_name_scc)
+  #g.print_graph()
+  k_gr = g.kosraju(g.vertices[0])
+  scc = []
+  for vertex in k_gr.vertices:
+    scc.append(vertex.scc)
+    
+  print(scc.sort()) 
   
+def main():
+  file_name_scc = "problem8.10test4.txt"
+  g = create_graph(file_name_scc)
+  #g.print_graph()
+  k_gr = g.kosraju(g.vertices[0])
+  scc = []
+  for vertex in k_gr.vertices:
+    scc.append(vertex.scc)
+    
+  scc.sort()
+  print(scc) 
+    
 
     
 if __name__ == "__main__":
