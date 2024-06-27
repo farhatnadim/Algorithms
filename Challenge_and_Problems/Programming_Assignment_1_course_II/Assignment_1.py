@@ -12,13 +12,17 @@ import Graph
 import os
 os.environ["PATH"] += os.pathsep + r'D:\Program Files\Graphviz-11.0.0-win64\bin'
 
-numSCC = [0]
+numSCC = [None]
+numSCC[0] = 0
 def dfs_recursive(graph :'Graph', vertex: Vertex) -> None:
             vertex.set_explored(True)
             vertex.scc = numSCC[0]
             for edge in vertex.edges:
                 if not graph.get_vertex(edge).is_explored():
                     dfs_recursive(graph, graph.get_vertex(edge))
+                    
+                    
+                    
 def create_graph(file_name):
   g = Graph.Graph()
   vertex_added = []
@@ -32,7 +36,9 @@ def create_graph(file_name):
         g.get_vertex(vertex_added.index(line[0])).add_edge(int(line[1])-1)
   return g
 def test_1():
-  file_name_scc = os.path.join(r'D:\source\Algorithms\Challenge_and_Problems\Programming_Assignment_1_course_II\problem8.10test2.txt')
+  full_path= os.getcwd()
+  
+  file_name_scc = os.path.join(full_path,'Challenge_and_Problems/Programming_Assignment_1_course_II/problem8.10test1.txt')
   
   g = create_graph(file_name_scc)
   '''
@@ -50,16 +56,24 @@ def test_1():
   for vertex in (temp_graph.vertices): 
     if not vertex.is_explored():
       numSCC[0] += 1
-      dfs_recursive(temp_graph, vertex)
-'''  
-  k_gr = g.kosraju(g.vertices[0])
+      dfs_recursive(g, vertex)
+      
+      
   scc = []
-  for vertex in k_gr.vertices:
+  for vertex in temp_graph.vertices:
+    scc.append(vertex.scc)
+  scc.sort()
+  print(scc)   
+  
+'''
+  g.kosraju(g.vertices[0])
+  scc = []
+  for vertex in g.vertices:
     scc.append(vertex.scc)
     
   scc.sort()
   print(scc)
-  
+ 
 def main():
 
   test_1() 

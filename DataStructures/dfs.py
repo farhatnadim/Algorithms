@@ -29,12 +29,15 @@ def main():
     g.add_vertex(number_9)
     g.add_vertex(number_10)
 
-    g.topological_sort()
     r_g  = g.reversal()
+    r_g.topological_sort()
+    g = r_g.reversal()
+    g.print_graph()
 
-    t_graph=r_g.kosraju(number_0)
-    for vertex in t_graph.vertices:
-        print(vertex.label, vertex.scc)
     
+    #t_graph=r_g.kosraju(number_0)
+    #for vertex in t_graph.vertices:
+     #   print(vertex.label, vertex.scc)
+    #t_graph.print_graph()
 if __name__ == "__main__":
     main()
