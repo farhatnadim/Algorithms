@@ -9,7 +9,16 @@ WARNING: This is the most challenging programming assignment of the course. Beca
 
 from Node import Vertex
 import Graph
+import os
+os.environ["PATH"] += os.pathsep + r'D:\Program Files\Graphviz-11.0.0-win64\bin'
 
+numSCC = [0]
+def dfs_recursive(graph :'Graph', vertex: Vertex) -> None:
+            vertex.set_explored(True)
+            vertex.scc = numSCC[0]
+            for edge in vertex.edges:
+                if not graph.get_vertex(edge).is_explored():
+                    dfs_recursive(graph, graph.get_vertex(edge))
 def create_graph(file_name):
   g = Graph.Graph()
   vertex_added = []
@@ -23,27 +32,37 @@ def create_graph(file_name):
         g.get_vertex(vertex_added.index(line[0])).add_edge(int(line[1])-1)
   return g
 def test_1():
-  file_name_scc = "problem8.10test1.txt"
-  g = create_graph(file_name_scc)
-  #g.print_graph()
-  k_gr = g.kosraju(g.vertices[0])
-  scc = []
-  for vertex in k_gr.vertices:
-    scc.append(vertex.scc)
-    
-  print(scc.sort()) 
+  file_name_scc = os.path.join(r'D:\source\Algorithms\Challenge_and_Problems\Programming_Assignment_1_course_II\problem8.10test2.txt')
   
-def main():
-  file_name_scc = "problem8.10test4.txt"
   g = create_graph(file_name_scc)
-  #g.print_graph()
+  '''
+  r_g = g.reversal()
+  r_g.topological_sort()
+  r_g.print_graph()
+
+  temp_graph = Graph.Graph()
+  temp_graph.vertices = [None]*len(r_g.vertices)
+  for v1,v2 in zip(r_g.vertices,g.vertices):
+    temp_graph.vertices[v1.currentLabel-1] = v2
+  for vertex in temp_graph.vertices:
+    print(vertex.edges, vertex.label)
+  
+  for vertex in (temp_graph.vertices): 
+    if not vertex.is_explored():
+      numSCC[0] += 1
+      dfs_recursive(temp_graph, vertex)
+'''  
   k_gr = g.kosraju(g.vertices[0])
   scc = []
   for vertex in k_gr.vertices:
     scc.append(vertex.scc)
     
   scc.sort()
-  print(scc) 
+  print(scc)
+  
+def main():
+
+  test_1() 
     
 
     

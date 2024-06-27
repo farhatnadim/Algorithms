@@ -96,12 +96,13 @@ class Graph:
     
     def kosraju(self, vertex: Vertex) -> 'Graph':
         
-        def dfs_recursive(self, vertex: Vertex) -> None:
+        def dfs_recursive(graph :'Graph', vertex: Vertex) -> None:
             vertex.set_explored(True)
             vertex.scc = numSCC[0]
             for edge in vertex.edges:
-                if not self.get_vertex(edge).is_explored():
-                    dfs_recursive(self, self.get_vertex(edge))
+                if not graph.get_vertex(edge).is_explored():
+                    dfs_recursive(graph, graph.get_vertex(edge))
+        
         r_g = self.reversal()
         r_g.topological_sort()
         
@@ -113,8 +114,8 @@ class Graph:
         numSCC = [0]
         for vertex in (temp_graph.vertices): 
             if not vertex.is_explored():
-                numSCC[0] += 1
-                dfs_recursive(self, vertex)
+                numSCC[0] = numSCC[0] + 1
+                dfs_recursive(temp_graph, vertex)
 
         # Reset exploration status for future operations
         for vertex in self.vertices:
