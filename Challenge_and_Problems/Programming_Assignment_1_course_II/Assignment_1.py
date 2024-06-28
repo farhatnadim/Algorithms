@@ -38,7 +38,7 @@ def create_graph(file_name):
 def test_1():
   full_path= os.getcwd()
   
-  file_name_scc = os.path.join(full_path,'Challenge_and_Problems/Programming_Assignment_1_course_II/problem8.10test1.txt')
+  file_name_scc = os.path.join(full_path,'problem8.10test1.txt')
   
   g = create_graph(file_name_scc)
   '''
@@ -67,12 +67,12 @@ def test_1():
   
 '''
   g.kosraju(g.vertices[0])
-  scc = []
+  scc = [0]*len(g.vertices)
   for vertex in g.vertices:
-    scc.append(vertex.scc)
+    scc[vertex.scc] += 1
     
   scc.sort()
-  print(scc)
+  print(scc[::-1])
  
 def main():
 
