@@ -35,44 +35,25 @@ def create_graph(file_name):
       else:
         g.get_vertex(vertex_added.index(line[0])).add_edge(int(line[1])-1)
   return g
+
+
 def test_1():
   full_path= os.getcwd()
   
-  file_name_scc = os.path.join(full_path,'problem8.10test1.txt')
+  file_name_scc = os.path.join(full_path,'problem8.10test3.txt')
   
   g = create_graph(file_name_scc)
-  '''
-  r_g = g.reversal()
-  r_g.topological_sort()
-  r_g.print_graph()
-
-  temp_graph = Graph.Graph()
-  temp_graph.vertices = [None]*len(r_g.vertices)
-  for v1,v2 in zip(r_g.vertices,g.vertices):
-    temp_graph.vertices[v1.currentLabel-1] = v2
-  for vertex in temp_graph.vertices:
-    print(vertex.edges, vertex.label)
-  
-  for vertex in (temp_graph.vertices): 
-    if not vertex.is_explored():
-      numSCC[0] += 1
-      dfs_recursive(g, vertex)
-      
-      
-  scc = []
-  for vertex in temp_graph.vertices:
-    scc.append(vertex.scc)
-  scc.sort()
-  print(scc)   
-  
-'''
+  #g.add_vertex(Vertex(edges =[],label='4'))
+  g.print_graph()
+  for vertex in g.vertices :
+    print(vertex.label, vertex.edges)
   g.kosraju(g.vertices[0])
   scc = [0]*len(g.vertices)
   for vertex in g.vertices:
     scc[vertex.scc] += 1
     
   scc.sort()
-  print(scc[::-1])
+  print(scc[::-1][0:5])
  
 def main():
 

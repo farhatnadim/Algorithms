@@ -94,7 +94,7 @@ class Graph:
         return reversed_graph
 
     
-    def kosraju(self, vertex: Vertex) -> None:
+    def kosaraju(self, vertex: Vertex) -> None:
         
         def dfs_recursive(graph :'Graph', vertex: Vertex) -> None:
             vertex.set_explored(True)
