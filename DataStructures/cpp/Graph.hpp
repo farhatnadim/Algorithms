@@ -7,7 +7,7 @@
  * Adjacent vertices : When two vertices are connected via an edge
  * Incident edge : An edge connecting two vertices
  * Degree of Vertex : number of edges incident on a vertex
- * Subgraph : As set of edges and vertices that consitute a graph
+ * Subgraph : As set of edges and vertices that consitute a graphce
 */
 
 
