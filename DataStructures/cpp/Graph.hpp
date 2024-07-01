@@ -2,17 +2,15 @@
 #include <fstream>
 #include <vector>
 #include <string>
-
-/**
- * Adjacent vertices : When two vertices are connected via an edge
- * Incident edge : An edge connecting two vertices
- * Degree of Vertex : number of edges incident on a vertex
- * Subgraph : As set of edges and vertices that consitute a graphce
-*/
+#include <set>
+#include <map>
+#include <memory>
+/* Inspired from Sedgewick Graph implmentation page 540*/
 
 
 
-
+using edges = std::set<uint> ;
+using adj_list = std::map<uint, edges>; 
 class Graph
 {
     Graph(int V);   //create a V-vertex graph with no edges
@@ -20,12 +18,18 @@ class Graph
 
     int V(); // number of vertices
     int E(); // number of edges 
+    int degree(int ); //Compute the degree of a vertex
+    int maxDegree(); // Compute Max degree in a graph
+    int avgDegree();
+    int numberOfSelfLoop();
+    
 
     void addEdge(int v, int w); // add edge v-w to this graph
-    std::vector<int> adj(int v); // vertices adjacent to v 
+    edges adj(int v); // vertices adjacent to v 
     std::string toString();      //String representation
 
     private:
     int m_v; // number of vertices
-       
+    int m_e; // number of edges
+    adj_list  m_adj; // map of set    
 };
