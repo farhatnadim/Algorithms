@@ -3,6 +3,8 @@ import graphviz
 import Queue
 import Stack
 class Graph:
+    '''Limitations : Assumes that vertices are sorted in the descending order
+                     Assumes no missing vertex'''
     def __init__(self):
         self.vertices = []
 

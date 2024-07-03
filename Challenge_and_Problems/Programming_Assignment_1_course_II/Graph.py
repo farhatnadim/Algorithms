@@ -95,7 +95,8 @@ class Graph:
 
     
     def kosraju(self, vertex: Vertex) -> None:
-        
+           '''Limitations : Assumes that vertices are sorted in the descending order
+                     Assumes no missing vertex'''
         def dfs_recursive(graph :'Graph', vertex: Vertex) -> None:
             vertex.set_explored(True)
             vertex.scc = numSCC[0]
