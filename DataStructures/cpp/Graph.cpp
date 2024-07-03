@@ -1,5 +1,7 @@
 #include "Graph.hpp"
 #include <string>
+#include <iostream>
+
 using namespace std;
 
 
@@ -22,7 +24,8 @@ Graph::Graph(ifstream  &f )
     string vertices;
 
     getline(f,vertices);
-    Graph(stoi(vertices));
+    cout << "vertices: " << vertices << endl;
+    //Graph(std::stoi(vertices));
 
 
 }; 
