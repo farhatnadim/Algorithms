@@ -19,6 +19,7 @@ int main ()
     if (!graph_data_file.is_open())
     {
         cout << "Couldn't open the file " << GRAPH_DATA_FILE << endl;
+        exit(1);// failed to open file
     }
     
     Graph g(graph_data_file);
