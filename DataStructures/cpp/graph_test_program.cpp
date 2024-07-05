@@ -23,6 +23,8 @@ int main ()
     }
     
     Graph g(graph_data_file);
-
+    for ( auto element : g.adj(0))
+        cout << element << " ";
+    graph_data_file.close();
     return 0;
 }

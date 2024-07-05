@@ -23,14 +23,12 @@ class Graph
         int maxDegree(); // Compute Max degree in a graph
         int avgDegree();
         int numberOfSelfLoop();
-    
-
+        edges_t adj(int v); // return edges for a vertex
         void addEdge(int v, int w); // add edge v-w to this graph
-        edges_t adj(int v); // vertices adjacent to v 
         std::string toString();      //String representation
 
     private:
         int m_v; // number of vertices
         int m_e; // number of edges
-        std::shared_ptr<adj_list_t>  m_adj_t_ptr; // map of set    
+        adj_list_t m_adj_list; // map of set    
 };

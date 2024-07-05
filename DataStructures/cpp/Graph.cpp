@@ -4,12 +4,11 @@
 
 using namespace std;
 
-Graph::Graph(int V) 
+Graph::Graph(int V) : m_v{V}, m_e{0}
 {
-
 }
 
-Graph::Graph(ifstream  &f )
+Graph::Graph(ifstream  &f ) : m_adj_list()
 {
 
     string edges;
@@ -20,14 +19,28 @@ Graph::Graph(ifstream  &f )
     m_v = std::stoi(vertices);
     m_e = std::stoi(edges);
     for (int i {0}; i < m_v; i++)
-    {
-        m_adj_t_ptr->insert(make_pair(i,edges_t()));
+    {   
+        m_adj_list.insert(make_pair(i,edges_t()));
     }
     while(f)
     {
-        //getline(f,vertices);
-        //cout << vertices[0] << "\n";
-        //m_adj_ptr->insert(make_pair(vertices[0],))
+        int u,v;
+        if (f >> u >> v)
+        {
+            addEdge(u,v);
+        } 
+        
     }
-}; 
+};
 
+void Graph::addEdge(int v, int w)
+{
+    m_adj_list[v].insert(w);
+    m_adj_list[w].insert(v);
+
+}
+
+edges_t Graph::adj(int v)
+{
+    return m_adj_list[v];
+}
