@@ -5,6 +5,7 @@
 #include <set>
 #include <map>
 #include <memory>
+#include <iostream>
 /* Inspired from Sedgewick Graph implmentation page 540*/
 
 
@@ -26,7 +27,7 @@ class Graph
         edges_t adj(int v); // return edges for a vertex
         void addEdge(int v, int w); // add edge v-w to this graph
         std::string toString();      //String representation
-
+        void drawGraph(std::ostream & out);
     private:
         int m_v; // number of vertices
         int m_e; // number of edges
