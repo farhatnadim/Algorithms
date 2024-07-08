@@ -41,11 +41,11 @@ edges_t Graph::adj(int v)
 
 void Graph::drawGraph(ostream & out)
 {
-    out <<"Graph G {" << "\n";
+    out <<"graph G {" << "\n";
     for (auto [key,edges] : m_adj_list)
     {
         for (auto element : edges)
-            out << "\"" << key << "\"" << " -> " << "\"" << element <<"\"" << ";\n";
+            out << "\"" << key << "\"" << " -- " << "\"" << element <<"\"" << ";\n";
     }
     out << "}\n";
 }

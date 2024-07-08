@@ -12,10 +12,22 @@ struct Data {
     int edges;
 };
 
-int main ()
+int main (int argc , char ** argv )
 {
 
+    if( argc < 2 )
+    {
+        cout << "Usage enter source vertex index\n";
+        exit(0);
 
+    }
+    auto v_index = stoi(argv[1]);
+    if (v_index < 0)
+    {
+        cout << "v_index is negative " << endl;
+        exit(1);
+    }
+    cout << "User Entered vertex index " << v_index << endl;
     ifstream graph_data_file(GRAPH_DATA_FILE); 
     if (!graph_data_file.is_open())
     {
@@ -29,7 +41,7 @@ int main ()
         exit(1);// failed to open file
     }
     
-    Graph g(graph_data_file);
+    Graph g(graph_data_file);   
     graph_data_file.close();
 
     g.drawGraph(graph_dot_file);
