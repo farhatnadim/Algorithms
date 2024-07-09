@@ -7,6 +7,22 @@ std::string GRAPH_DATA_FILE ("../../data/tinyG.txt");
 std::string DOT_DATA_FILE("../../data/tinyG.dot");
 using namespace std;
 
+void drawGraph(ostream & out,adj_list_t list, bool digraph )
+{
+    string graph_type  = digraph ? "digraph" : "graph";
+    
+    string edge_type  = digraph ? " -> " : " -- ";
+
+    out << graph_type << " G {" << "\n";
+    for (auto [key,edges] : list)
+    {
+        for (auto element : edges)
+            out << "\"" << key << "\"" << edge_type << "\"" << element <<"\"" << ";\n";
+    }
+    out << "}\n";
+}
+
+
 struct Data {
     int  vertices;
     int edges;
@@ -44,9 +60,13 @@ int main (int argc , char ** argv )
     Graph g(graph_data_file);   
     graph_data_file.close();
 
-    g.drawGraph(graph_dot_file);
+    auto adj_list = g.adj_list();
+    bool digraph = false;
+    drawGraph(graph_dot_file,adj_list, digraph);
     graph_dot_file.close();
-    
+    g.dfs(v_index);
+    cout << "The graph is connected " << g.connected();
+
 
     return 0;
 }

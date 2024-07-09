@@ -17,7 +17,7 @@ class Graph
     public:
         Graph(int) ;//create a V-vertex graph with no edges
         Graph(std::ifstream &is); // read a graph from input stream is
-
+        // basic functionality
         int V(); // number of vertices
         int E(); // number of edges 
         int degree( int ); //Compute the degree of a vertex
@@ -27,9 +27,16 @@ class Graph
         edges_t adj(int v); // return edges for a vertex
         void addEdge(int v, int w); // add edge v-w to this graph
         std::string toString();      //String representation
-        void drawGraph(std::ostream & out);
+        adj_list_t  adj_list();
+        // search 
+        void dfs(int);
+        bool connected();
+
     private:
         int m_v; // number of vertices
         int m_e; // number of edges
-        adj_list_t m_adj_list; // map of set    
+        adj_list_t m_adj_list; // map of set
+        bool m_connected;
+        std::vector<bool> m_explored;
+        std::vector<uint> connected_component;
 };

@@ -4,6 +4,7 @@ using namespace std;
 
 Graph::Graph(int V) : m_v{V}, m_e{0}
 {
+    
 }
 
 Graph::Graph(ifstream  &f ) : m_adj_list()
@@ -17,6 +18,7 @@ Graph::Graph(ifstream  &f ) : m_adj_list()
     for (int i {0}; i < m_v; i++)
     {   
         m_adj_list.insert(make_pair(i,edges_t()));
+        m_explored.push_back(false);
     }
     while(f)
     {
@@ -39,13 +41,46 @@ edges_t Graph::adj(int v)
     return m_adj_list[v];
 }
 
-void Graph::drawGraph(ostream & out)
+adj_list_t  Graph::adj_list()
 {
-    out <<"graph G {" << "\n";
-    for (auto [key,edges] : m_adj_list)
+    return m_adj_list;
+}
+
+int Graph::V()
+{
+    return m_v;
+}
+void Graph::dfs(int v)
+{
+    //static auto currentLabel = V();
+    m_explored[v] = true;
+    for (auto &edge : this->adj(v))
     {
-        for (auto element : edges)
-            out << "\"" << key << "\"" << " -- " << "\"" << element <<"\"" << ";\n";
+        if (m_explored[edge] == false)
+        {
+            dfs(edge);
+        }
+        
     }
-    out << "}\n";
+}
+bool Graph::connected()
+{
+    auto connected = false;
+    uint explored_accumulator = 0;
+    uint index = 0;
+    for (const auto &element : m_explored)
+    {
+        
+        if (element == true)
+            
+            {   
+                cout << index << endl;
+                explored_accumulator++;
+            }
+            index +=1;
+        
+    }
+    (explored_accumulator < m_v) ? connected = false : connected = true;
+
+    return connected;
 }
