@@ -68,19 +68,21 @@ bool Graph::connected()
     auto connected = false;
     uint explored_accumulator = 0;
     uint index = 0;
+    cout << "\n" << "The subgraph vertices are\n";
     for (const auto &element : m_explored)
     {
         
         if (element == true)
             
             {   
-                cout << index << endl;
+                 
+                cout << index << " ";
                 explored_accumulator++;
             }
             index +=1;
         
     }
     (explored_accumulator < m_v) ? connected = false : connected = true;
-
+    cout << endl;
     return connected;
 }

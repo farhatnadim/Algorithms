@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 #include "Graph.hpp"
+
 std::string GRAPH_DATA_FILE ("../../data/tinyG.txt");
 std::string DOT_DATA_FILE("../../data/tinyG.dot");
 using namespace std;
@@ -65,7 +65,10 @@ int main (int argc , char ** argv )
     drawGraph(graph_dot_file,adj_list, digraph);
     graph_dot_file.close();
     g.dfs(v_index);
-    cout << "The graph is connected " << g.connected();
+    string result_graph = "the graph is ";
+    string connected_status = "";
+    g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n"; 
+    cout << result_graph + connected_status ;
 
 
     return 0;
