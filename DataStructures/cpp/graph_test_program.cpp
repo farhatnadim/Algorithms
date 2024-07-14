@@ -3,8 +3,11 @@
 #include <string>
 #include "Graph.hpp"
 
-std::string GRAPH_DATA_FILE ("../../data/tinyG.txt");
-std::string DOT_DATA_FILE("../../data/tinyG.dot");
+
+std::vector<std::string> graph_filenames {"tinyG.txt","tinyCG.txt"};
+std::vector<std::string> drawing_filenames {"tinyG.dot","tinyCG.dot"}; // me being lazy , need to change it 
+const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[1]);
+const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[1] );
 using namespace std;
 
 void drawGraph(ostream & out,adj_list_t list, bool digraph )
@@ -31,11 +34,11 @@ struct Data {
 int main (int argc , char ** argv )
 {
 
-    if( argc < 2 )
+    if( argc < 3 )
     {
         cout << "Usage enter source vertex index\n";
+        cout << "Usage enter the sink vertex index\n";
         exit(0);
-
     }
     auto v_index = stoi(argv[1]);
     if (v_index < 0)
@@ -43,7 +46,14 @@ int main (int argc , char ** argv )
         cout << "v_index is negative " << endl;
         exit(1);
     }
-    cout << "User Entered vertex index " << v_index << endl;
+    auto s_index = stoi(argv[2]);
+    if (s_index < 0)
+    {
+        cout << "s_index is negative " << endl;
+        exit(1);
+    }
+    cout << "User Entered source index " << v_index << endl;
+    cout << "User Entered sink index " << s_index << endl;
     ifstream graph_data_file(GRAPH_DATA_FILE); 
     if (!graph_data_file.is_open())
     {
@@ -69,7 +79,8 @@ int main (int argc , char ** argv )
     string connected_status = "";
     g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n"; 
     cout << result_graph + connected_status ;
-
-
+    for (auto & vertex : g.PathTo(s_index,v_index))
+        cout << vertex << " " ;
+    cout << endl;
     return 0;
 }

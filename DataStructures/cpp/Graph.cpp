@@ -1,5 +1,5 @@
 #include "Graph.hpp"
-
+#include <stack>
 using namespace std;
 
 Graph::Graph(int V) : m_v{V}, m_e{0}
@@ -19,6 +19,7 @@ Graph::Graph(ifstream  &f ) : m_adj_list()
     {   
         m_adj_list.insert(make_pair(i,edges_t()));
         m_explored.push_back(false);
+        edgeTo.push_back(0);
     }
     while(f)
     {
@@ -50,14 +51,14 @@ int Graph::V()
 {
     return m_v;
 }
-void Graph::dfs(int v)
+void Graph::dfs(const int &v)
 {
-    //static auto currentLabel = V();
     m_explored[v] = true;
     for (auto &edge : this->adj(v))
     {
         if (m_explored[edge] == false)
         {
+            edgeTo[edge] = v;       
             dfs(edge);
         }
         
@@ -74,8 +75,7 @@ bool Graph::connected()
         
         if (element == true)
             
-            {   
-                 
+            {     
                 cout << index << " ";
                 explored_accumulator++;
             }
@@ -85,4 +85,15 @@ bool Graph::connected()
     (explored_accumulator < m_v) ? connected = false : connected = true;
     cout << endl;
     return connected;
+}
+
+vector<int> Graph::PathTo(int v, int s)
+{
+  if ( !hasPathTo(v)) 
+    return vector<int> ();
+  vector<int> path;
+  for (int x =v; x != s; x = edgeTo[x])
+    path.push_back(x);
+  path.push_back(s);
+  return path;
 }

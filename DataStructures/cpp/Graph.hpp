@@ -28,9 +28,17 @@ class Graph
         void addEdge(int v, int w); // add edge v-w to this graph
         std::string toString();      //String representation
         adj_list_t  adj_list();
-        // search 
-        void dfs(int);
+
+
+        // Search, path, connectivity  
+        void dfs(const int &);
         bool connected();
+        std::vector<int> PathTo(int v, int s);
+        bool hasPathTo(int v) 
+        {
+           return m_explored[v];
+        }
+
 
     private:
         int m_v; // number of vertices
@@ -39,4 +47,6 @@ class Graph
         bool m_connected;
         std::vector<bool> m_explored;
         std::vector<uint> connected_component;
+        std::vector<int> edgeTo;
+        
 };
