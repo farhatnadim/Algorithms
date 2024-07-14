@@ -82,5 +82,6 @@ int main (int argc , char ** argv )
     for (auto & vertex : g.PathTo(s_index,v_index))
         cout << vertex << " " ;
     cout << endl;
+    g.reset_explored();
     return 0;
 }

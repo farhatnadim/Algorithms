@@ -28,7 +28,7 @@ class Graph
         void addEdge(int v, int w); // add edge v-w to this graph
         std::string toString();      //String representation
         adj_list_t  adj_list();
-
+        void reset_explored();
 
         // Search, path, connectivity  
         void dfs(const int &);
@@ -38,7 +38,7 @@ class Graph
         {
            return m_explored[v];
         }
-
+        void bfs(const int &);
 
     private:
         int m_v; // number of vertices

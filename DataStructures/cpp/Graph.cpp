@@ -1,5 +1,6 @@
 #include "Graph.hpp"
 #include <stack>
+#include <queue>
 using namespace std;
 
 Graph::Graph(int V) : m_v{V}, m_e{0}
@@ -64,6 +65,20 @@ void Graph::dfs(const int &v)
         
     }
 }
+void Graph::bfs(const int &v)
+{
+    m_explored[v] = true;
+    queue<int> q; 
+    q.push(v);
+    while (q.size() != 0)
+    {
+        auto vertex  = q.front();
+        q.pop();
+        for 
+
+    }
+
+}
 bool Graph::connected()
 {
     auto connected = false;
@@ -96,4 +111,10 @@ vector<int> Graph::PathTo(int v, int s)
     path.push_back(x);
   path.push_back(s);
   return path;
+}
+void Graph::reset_explored()
+{
+    if (m_explored.size() != 0)
+      for (auto element : m_explored)
+        element = false;
 }
