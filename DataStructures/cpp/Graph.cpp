@@ -52,6 +52,8 @@ int Graph::V()
 {
     return m_v;
 }
+
+/*Depth first search*/
 void Graph::dfs(const int &v)
 {
     m_explored[v] = true;
@@ -65,6 +67,7 @@ void Graph::dfs(const int &v)
         
     }
 }
+/*Breadth first search*/
 void Graph::bfs(const int &v)
 {
     m_explored[v] = true;
@@ -74,7 +77,16 @@ void Graph::bfs(const int &v)
     {
         auto vertex  = q.front();
         q.pop();
-        for 
+        for (auto &edge : this->adj(v))
+        {
+        if (m_explored[edge] == false)
+        {
+            edgeTo[edge] = vertex;
+            m_explored[edge]= true;
+            q.push(edge);
+        }
+        
+    }
 
     }
 

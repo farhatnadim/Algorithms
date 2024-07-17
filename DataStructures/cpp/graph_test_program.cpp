@@ -31,29 +31,49 @@ struct Data {
     int edges;
 };
 
-int main (int argc , char ** argv )
+void inputValidation( int source_index, int sink_index)
 {
+    if (source_index < 0)
+    {
+        cout << "source index is negative " << endl;
+        exit(1);
+    }
+    if (sink_index < 0)
+    {
+        cout << "sink is negative " << endl;
+        exit(1);
+    }
 
-    if( argc < 3 )
+    cout << "User Entered source index " << source_index << endl;
+    cout << "User Entered sink index " << sink_index << endl;
+}
+void welcomeMessage(const int & argumentCount)
+{
+    cout << "Welcome to the Graph test program, this program tests different functionalitis\n"
+         <<  "of basic graph functionality\n"
+         <<  "run ./GraphTest source_index sink_index Method\n"
+         <<  "Source Index the vertex index where you want to execute the algorithm\n"
+         <<  "Sink Index is the vertex index on which you want to find a path from the source index\n"
+         <<  "Method : 0 for DFS or  1 BFS based method\n";
+
+    if( argumentCount < 3 )
     {
         cout << "Usage enter source vertex index\n";
         cout << "Usage enter the sink vertex index\n";
         exit(0);
     }
-    auto v_index = stoi(argv[1]);
-    if (v_index < 0)
-    {
-        cout << "v_index is negative " << endl;
-        exit(1);
-    }
-    auto s_index = stoi(argv[2]);
-    if (s_index < 0)
-    {
-        cout << "s_index is negative " << endl;
-        exit(1);
-    }
-    cout << "User Entered source index " << v_index << endl;
-    cout << "User Entered sink index " << s_index << endl;
+
+}
+int main (int argc , char ** argv )
+{
+
+    welcomeMessage(argc);
+    
+    auto source_index = stoi(argv[1]);
+    auto sink_index = stoi(argv[2]);
+
+    inputValidation(source_index,sink_index);
+       
     ifstream graph_data_file(GRAPH_DATA_FILE); 
     if (!graph_data_file.is_open())
     {
@@ -74,14 +94,15 @@ int main (int argc , char ** argv )
     bool digraph = false;
     drawGraph(graph_dot_file,adj_list, digraph);
     graph_dot_file.close();
-    g.dfs(v_index);
+    g.bfs(source_index);
     string result_graph = "the graph is ";
     string connected_status = "";
     g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n"; 
     cout << result_graph + connected_status ;
-    for (auto & vertex : g.PathTo(s_index,v_index))
+    for (auto & vertex : g.PathTo(sink_index,source_index))
         cout << vertex << " " ;
     cout << endl;
     g.reset_explored();
+    
     return 0;
 }
