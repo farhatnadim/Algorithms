@@ -5,7 +5,7 @@ using namespace std;
 
 Graph::Graph(int V) : m_v{V}, m_e{0}
 {
-    
+
 }
 
 Graph::Graph(ifstream  &f ) : m_adj_list()
@@ -17,7 +17,7 @@ Graph::Graph(ifstream  &f ) : m_adj_list()
     m_v = std::stoi(vertices);
     m_e = std::stoi(edges);
     for (int i {0}; i < m_v; i++)
-    {   
+    {
         m_adj_list.insert(make_pair(i,edges_t()));
         m_explored.push_back(false);
         edgeTo.push_back(0);
@@ -28,7 +28,7 @@ Graph::Graph(ifstream  &f ) : m_adj_list()
         if (f >> u >> v)
         {
             addEdge(u,v);
-        } 
+        }
     }
 };
 
@@ -61,17 +61,17 @@ void Graph::dfs(const int &v)
     {
         if (m_explored[edge] == false)
         {
-            edgeTo[edge] = v;       
+            edgeTo[edge] = v;
             dfs(edge);
         }
-        
+
     }
 }
 /*Breadth first search*/
 void Graph::bfs(const int &v)
 {
     m_explored[v] = true;
-    queue<int> q; 
+    queue<int> q;
     q.push(v);
     while (q.size() != 0)
     {
@@ -79,17 +79,14 @@ void Graph::bfs(const int &v)
         q.pop();
         for (auto &edge : this->adj(v))
         {
-        if (m_explored[edge] == false)
-        {
+          if (m_explored[edge] == false)
+          {
             edgeTo[edge] = vertex;
             m_explored[edge]= true;
             q.push(edge);
+          }
         }
-        
     }
-
-    }
-
 }
 bool Graph::connected()
 {
@@ -99,15 +96,12 @@ bool Graph::connected()
     cout << "\n" << "The subgraph vertices are\n";
     for (const auto &element : m_explored)
     {
-        
         if (element == true)
-            
-            {     
+            {
                 cout << index << " ";
                 explored_accumulator++;
             }
-            index +=1;
-        
+        index +=1;
     }
     (explored_accumulator < m_v) ? connected = false : connected = true;
     cout << endl;
@@ -116,7 +110,7 @@ bool Graph::connected()
 
 vector<int> Graph::PathTo(int v, int s)
 {
-  if ( !hasPathTo(v)) 
+  if ( !hasPathTo(v))
     return vector<int> ();
   vector<int> path;
   for (int x =v; x != s; x = edgeTo[x])

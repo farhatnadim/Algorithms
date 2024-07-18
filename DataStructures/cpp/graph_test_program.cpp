@@ -5,15 +5,15 @@
 
 
 std::vector<std::string> graph_filenames {"tinyG.txt","tinyCG.txt"};
-std::vector<std::string> drawing_filenames {"tinyG.dot","tinyCG.dot"}; // me being lazy , need to change it 
-const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[1]);
-const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[1] );
+std::vector<std::string> drawing_filenames {"tinyG.dot","tinyCG.dot"}; // me being lazy , need to change it
+const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[0]);
+const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[0] );
 using namespace std;
 
 void drawGraph(ostream & out,adj_list_t list, bool digraph )
 {
     string graph_type  = digraph ? "digraph" : "graph";
-    
+
     string edge_type  = digraph ? " -> " : " -- ";
 
     out << graph_type << " G {" << "\n";
@@ -27,7 +27,7 @@ void drawGraph(ostream & out,adj_list_t list, bool digraph )
 
 
 struct Data {
-    int  vertices;
+    int vertices;
     int edges;
 };
 
@@ -68,13 +68,14 @@ int main (int argc , char ** argv )
 {
 
     welcomeMessage(argc);
-    
+
     auto source_index = stoi(argv[1]);
     auto sink_index = stoi(argv[2]);
 
     inputValidation(source_index,sink_index);
-       
-    ifstream graph_data_file(GRAPH_DATA_FILE); 
+
+    ifstream graph_data_file(GRAPH_DATA_FILE);
+    cout << "Reading the graph data from the file " << GRAPH_DATA_FILE << endl;
     if (!graph_data_file.is_open())
     {
         cout << "Couldn't open the file \"" << GRAPH_DATA_FILE << "\"for reading" << endl;
@@ -86,23 +87,27 @@ int main (int argc , char ** argv )
         cout << "Couldn't open the file \"" << DOT_DATA_FILE  << "\"for writing" << endl;
         exit(1);// failed to open file
     }
+
+    Graph g(graph_data_file);
     
-    Graph g(graph_data_file);   
-    graph_data_file.close();
 
     auto adj_list = g.adj_list();
     bool digraph = false;
+    cout << "Drawing the graph to the file " << DOT_DATA_FILE << endl;
     drawGraph(graph_dot_file,adj_list, digraph);
-    graph_dot_file.close();
+
     g.bfs(source_index);
     string result_graph = "the graph is ";
     string connected_status = "";
-    g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n"; 
+    g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n";
     cout << result_graph + connected_status ;
     for (auto & vertex : g.PathTo(sink_index,source_index))
         cout << vertex << " " ;
     cout << endl;
     g.reset_explored();
-    
+
+
+    graph_data_file.close();
+    graph_dot_file.close();
     return 0;
 }
