@@ -73,19 +73,20 @@ void Graph::bfs(const int &v)
     m_explored[v] = true;
     queue<int> q;
     q.push(v);
-    while (q.size() != 0)
+
+    while (!q.empty())
     {
         auto vertex  = q.front();
         q.pop();
-        for (auto &edge : this->adj(v))
-        {
+        //cout << vertex << " ";
+        for (auto edge : this->adj(vertex))
           if (m_explored[edge] == false)
           {
             edgeTo[edge] = vertex;
             m_explored[edge]= true;
             q.push(edge);
           }
-        }
+
     }
 }
 bool Graph::connected()
@@ -111,9 +112,12 @@ bool Graph::connected()
 vector<int> Graph::PathTo(int v, int s)
 {
   if ( !hasPathTo(v))
-    return vector<int> ();
+    {
+        cout << "Warning ! did not find a path to the vertex " << v << endl;
+        return vector<int> ();
+    }
   vector<int> path;
-  for (int x =v; x != s; x = edgeTo[x])
+  for (int x = v; x != s; x = edgeTo[x])
     path.push_back(x);
   path.push_back(s);
   return path;

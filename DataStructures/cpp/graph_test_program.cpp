@@ -6,8 +6,8 @@
 
 std::vector<std::string> graph_filenames {"tinyG.txt","tinyCG.txt"};
 std::vector<std::string> drawing_filenames {"tinyG.dot","tinyCG.dot"}; // me being lazy , need to change it
-const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[0]);
-const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[0] );
+const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[1]);
+const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[1] );
 using namespace std;
 
 void drawGraph(ostream & out,adj_list_t list, bool digraph )
@@ -95,16 +95,23 @@ int main (int argc , char ** argv )
     bool digraph = false;
     cout << "Drawing the graph to the file " << DOT_DATA_FILE << endl;
     drawGraph(graph_dot_file,adj_list, digraph);
-
+    
+    g.reset_explored();
     g.bfs(source_index);
-    string result_graph = "the graph is ";
-    string connected_status = "";
-    g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n";
-    cout << result_graph + connected_status ;
+    //string result_graph = "the graph is ";
+    //string connected_status = "";
+    //g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n";
+    //cout << result_graph + connected_status ;
     for (auto & vertex : g.PathTo(sink_index,source_index))
         cout << vertex << " " ;
     cout << endl;
-    g.reset_explored();
+    for (auto element : g.m_explored)
+        cout << element << " ";
+    cout << endl;
+    for (auto element : g.edgeTo)
+        cout << element << " ";
+   // cout << endl;
+
 
 
     graph_data_file.close();
