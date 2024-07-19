@@ -40,7 +40,7 @@ class Graph
         }
         void bfs(const int &);
 
-    public:
+    private:
         int m_v; // number of vertices
         int m_e; // number of edges
         adj_list_t m_adj_list; // map of set
