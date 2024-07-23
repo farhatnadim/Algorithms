@@ -21,6 +21,7 @@ Graph::Graph(ifstream  &f ) : m_adj_list()
         m_adj_list.insert(make_pair(i,edges_t()));
         m_explored.push_back(false);
         edgeTo.push_back(0);
+        m_id.push_back(0);
     }
     while(f)
     {
@@ -48,9 +49,15 @@ adj_list_t  Graph::adj_list()
     return m_adj_list;
 }
 
-int Graph::V()
+const int & Graph::Get_vertices_number() const
 {
     return m_v;
+}
+
+
+const int  & Graph::Get_edges_number() const
+{
+    return m_e;
 }
 
 /*Depth first search*/
@@ -62,6 +69,7 @@ void Graph::dfs(const int &v)
         if (m_explored[edge] == false)
         {
             edgeTo[edge] = v;
+            m_id[v] = m_cc_count;
             dfs(edge);
         }
 
@@ -89,7 +97,7 @@ void Graph::bfs(const int &v)
 
     }
 }
-bool Graph::connected()
+bool Graph::isGraphConnected()
 {
     auto connected = false;
     uint explored_accumulator = 0;
@@ -99,13 +107,11 @@ bool Graph::connected()
     {
         if (element == true)
             {
-                cout << index << " ";
                 explored_accumulator++;
             }
         index +=1;
     }
     (explored_accumulator < m_v) ? connected = false : connected = true;
-    cout << endl;
     return connected;
 }
 
@@ -122,9 +128,16 @@ vector<int> Graph::PathTo(int v, int s)
   path.push_back(s);
   return path;
 }
+
+
 void Graph::reset_explored()
 {
     if (m_explored.size() != 0)
       for (auto element : m_explored)
         element = false;
+}
+
+void Graph::cc()
+{
+    
 }
