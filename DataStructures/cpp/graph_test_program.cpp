@@ -6,8 +6,8 @@
 
 std::vector<std::string> graph_filenames {"tinyG.txt","tinyCG.txt"};
 std::vector<std::string> drawing_filenames {"tinyG.dot","tinyCG.dot"}; // me being lazy , need to change it
-const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[1]);
-const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[1] );
+const std::string GRAPH_DATA_FILE ("../../data/" + graph_filenames[0]);
+const std::string DOT_DATA_FILE("../../data/" + drawing_filenames[0] );
 using namespace std;
 
 void drawGraph(ostream & out,adj_list_t list, bool digraph )
@@ -105,12 +105,6 @@ int main (int argc , char ** argv )
     for (auto & vertex : g.PathTo(sink_index,source_index))
         cout << vertex << " " ;
     cout << endl;
-    for (auto element : g.m_explored)
-        cout << element << " ";
-    cout << endl;
-    for (auto element : g.edgeTo)
-        cout << element << " ";
-   // cout << endl;
 
 
 

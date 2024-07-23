@@ -6,6 +6,8 @@
 #include <map>
 #include <memory>
 #include <iostream>
+
+
 /* Inspired from Sedgewick Graph implmentation page 540*/
 
 
@@ -39,6 +41,11 @@ class Graph
            return m_explored[v];
         }
         void bfs(const int &);
+
+        //*getters and setters *// 
+        const std::vector<int> & getEdgeTo () const;
+        const std::vector<int> & getExplored () const;
+     
 
     private:
         int m_v; // number of vertices
