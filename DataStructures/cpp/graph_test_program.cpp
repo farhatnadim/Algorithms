@@ -96,16 +96,9 @@ int main (int argc , char ** argv )
     cout << "Drawing the graph to the file " << DOT_DATA_FILE << endl;
     drawGraph(graph_dot_file,adj_list, digraph);
     
-    g.reset_explored();
-    g.bfs(source_index);
-    //string result_graph = "the graph is ";
-    //string connected_status = "";
-    //g.connected() ? connected_status ="connected\n" : connected_status = "NOT connected\n";
-    //cout << result_graph + connected_status ;
-    for (auto & vertex : g.PathTo(sink_index,source_index))
-        cout << vertex << " " ;
-    cout << endl;
+    g.cc();
 
+    cout << g.Connected_vertices(source_index,sink_index) <<endl;
 
 
     graph_data_file.close();

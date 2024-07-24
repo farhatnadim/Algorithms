@@ -8,7 +8,7 @@ Graph::Graph(int V) : m_v{V}, m_e{0}
 
 }
 
-Graph::Graph(ifstream  &f ) : m_adj_list()
+Graph::Graph(ifstream  &f ) : m_adj_list() , m_cc_count{0}
 {
     string edges;
     string vertices;
@@ -64,12 +64,13 @@ const int  & Graph::Get_edges_number() const
 void Graph::dfs(const int &v)
 {
     m_explored[v] = true;
+    m_id[v] = m_cc_count;
     for (auto &edge : this->adj(v))
     {
-        if (m_explored[edge] == false)
+        if (!m_explored[edge] )
         {
             edgeTo[edge] = v;
-            m_id[v] = m_cc_count;
+            
             dfs(edge);
         }
 
@@ -139,5 +140,26 @@ void Graph::reset_explored()
 
 void Graph::cc()
 {
-    
+    for (uint s = 0; s < m_v ; s++)
+    {
+        if (!m_explored[s])
+        {
+            this->dfs(s);
+            m_cc_count +=1;
+        }
+    }
+}
+
+const int  Graph::Get_cc_Count() const
+{
+    return m_cc_count;
+}
+const uint & Graph::Get_vertex_id(const uint &v) const
+{
+    return m_id[v];
+}
+
+bool Graph::Connected_vertices(const int & v, const int & w)
+{
+    return m_id[v] == m_id[w];
 }

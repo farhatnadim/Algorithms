@@ -40,13 +40,15 @@ class Graph
            return m_explored[v];
         }
         void bfs(const int &);
-        void cc(); // connected components
+        void cc(); // connected componens
+        bool Connected_vertices(const int & v, const int & w);
         //*getters and setters boring stuff  *// 
         const std::vector<int> & Get_edge_to () const;
         const std::vector<int> & Get_explored () const;
         const int & Get_vertices_number() const; // number of vertices
         const int & Get_edges_number() const; // number of edges 
-        const int & Get_cc_Count() const;
+        const int  Get_cc_Count() const;
+        const uint & Get_vertex_id(const uint &v) const;
 
 
     private:
@@ -58,5 +60,6 @@ class Graph
         std::vector<uint> m_id;
         uint m_cc_count ; // connected components count
         std::vector<int> edgeTo;
+
         
 };
