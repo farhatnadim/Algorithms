@@ -56,7 +56,7 @@ void welcomeMessage(const int & argumentCount)
          <<  "Sink Index is the vertex index on which you want to find a path from the source index\n"
          <<  "Method : 0 for DFS or  1 BFS based method\n";
 
-    if( argumentCount < 3 )
+    if( argumentCount < 4 )
     {
         cout << "Usage enter source vertex index\n";
         cout << "Usage enter the sink vertex index\n";
@@ -69,8 +69,9 @@ int main (int argc , char ** argv )
 
     welcomeMessage(argc);
 
-    auto source_index = stoi(argv[1]);
-    auto sink_index = stoi(argv[2]);
+    auto graph_file_name = stoi(argv[1]);
+    auto source_index = stoi(argv[2]);
+    auto sink_index = stoi(argv[3]);
 
     inputValidation(source_index,sink_index);
 
