@@ -8,7 +8,7 @@ Graph::Graph(int V) : m_v{V}, m_e{0}
 
 }
 
-Graph::Graph(ifstream  &f ) : m_adj_list() , m_cc_count{0}
+Graph::Graph(ifstream  &f, Graph_Input_type input ) : m_adj_list() , m_cc_count{0}
 {
     string edges;
     string vertices;

@@ -16,13 +16,13 @@
 using edges_t = std::set<uint> ;
 using adj_list_t = std::map<uint, edges_t>; 
 
-
+enum class Graph_Input_type {IMPLCIT, EXPLICIT};
 class Graph
 {
     public:
         /****Constructors ****/
         Graph(int) ;//create a V-vertex graph with no edges
-        Graph(std::ifstream &is); // read a graph from input stream is
+        Graph(std::ifstream &is, Graph_Input_type input = Graph_Input_type::EXPLICIT); // read a graph from input stream is
 
         /**** basic functionality ****/
       
