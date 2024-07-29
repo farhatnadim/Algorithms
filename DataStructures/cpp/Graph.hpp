@@ -21,7 +21,7 @@ class Graph
 {
     public:
         /****Constructors ****/
-        Graph(int) ;//create a V-vertex graph with no edges
+        void initialize(int,int) ;//create a V-vertex graph with no edges
         Graph(std::ifstream &is, Graph_Input_type input = Graph_Input_type::EXPLICIT); // read a graph from input stream is
 
         /**** basic functionality ****/

@@ -3,9 +3,17 @@
 #include <queue>
 using namespace std;
 
-Graph::Graph(int V) : m_v{V}, m_e{0}
+void Graph::initialize(int V, int E)
 {
-
+    m_v = V;
+    m_e = E ;
+    for (int i {0}; i < m_v; i++)
+    {
+        m_adj_list.insert(make_pair(i,edges_t()));
+        m_explored.push_back(false);
+        edgeTo.push_back(0);
+        m_id.push_back(0);
+    }
 }
 
 Graph::Graph(ifstream  &f, Graph_Input_type input ) : m_adj_list() , m_cc_count{0}
@@ -14,15 +22,9 @@ Graph::Graph(ifstream  &f, Graph_Input_type input ) : m_adj_list() , m_cc_count{
     string vertices;
     getline(f,vertices);
     getline(f,edges);
-    m_v = std::stoi(vertices);
-    m_e = std::stoi(edges);
-    for (int i {0}; i < m_v; i++)
-    {
-        m_adj_list.insert(make_pair(i,edges_t()));
-        m_explored.push_back(false);
-        edgeTo.push_back(0);
-        m_id.push_back(0);
-    }
+
+    // Initialize Data set
+    initialize(std::stoi(vertices),std::stoi(edges));
     while(f)
     {
         int u,v;

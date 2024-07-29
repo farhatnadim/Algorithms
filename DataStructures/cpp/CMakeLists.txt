@@ -12,10 +12,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(GraphTest graph_test_program.cpp)
 
 # Add the Graph source files
-set(SOURCES Graph.cpp)
+set(SOURCES Graph.cpp Symbol.cpp)
 
 # Add the Graph header files
-set(HEADERS Graph.hpp)
+set(HEADERS Graph.hpp Symbol.hpp)
 
 # Include the current directory for header files
 include_directories(${CMAKE_SOURCE_DIR})
