@@ -10,7 +10,7 @@ using symbol_table = std::map<std::string,int> ;
 class SymbolGraph
 {
     public:
-    SymbolGraph()
+    SymbolGraph();
     std::vector<std::string> m_keys;
     symbol_table m_st;
     Graph m_g;
