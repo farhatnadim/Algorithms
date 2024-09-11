@@ -1,3 +1,9 @@
 #pragma once
 
-int add(int a, int b);
+
+
+#include <algorithm>
+#include <vector>
+
+std::vector<int> twoSum(std::vector<int>& nums, int target);
+    

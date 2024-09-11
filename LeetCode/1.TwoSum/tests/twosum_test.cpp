@@ -1,8 +1,18 @@
 #include <gtest/gtest.h>
-#include "example.h"
+#include "twosum.h"
 
-TEST(ExampleTest, AdditionWorks) {
-    EXPECT_EQ(add(2, 3), 5);
-    EXPECT_EQ(add(-1, 1), 0);
-    EXPECT_EQ(add(0, 0), 0);
+/* I need to test the twoSum function */
+
+TEST(TwoSumTest, BasicTest) {
+    std::vector<int> nums = {2, 7, 11, 15};
+    int target = 9;
+    std::vector<int> expected = {0, 1};
+    EXPECT_EQ(twoSum(nums, target), expected);
+}
+/* more edge cases */
+TEST(TwoSumTest, EdgeCases) {
+    std::vector<int> nums = {3, 2, 4};
+    int target = 6;
+    std::vector<int> expected = {1, 2};
+    EXPECT_EQ(twoSum(nums, target), expected);
 }
