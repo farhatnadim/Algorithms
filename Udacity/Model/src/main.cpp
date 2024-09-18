@@ -47,8 +47,8 @@ public:
     vector<int> start;
     vector<int> goal;
     int cost;
-    vector<vector<int>> movements  {{-1,0},{1,0},{0,1},{0,-1}}; 
-    string movements_arrows {{'^'},{'v'},{'<'},{'>'}};
+    vector<vector<int>> movements  {{-1,0},{0,-1},{1,0},{0,1}}; 
+    string movements_arrows {{'^'},{'<'},{'V'},{'>'}};
 
 
 };
