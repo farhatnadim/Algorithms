@@ -33,8 +33,15 @@ public:
     std::vector<int> start;
     std::vector<int> goal;
     int cost;
+    std::vector<std::vector<int>> GetMovements()
+    {
+        return movements;
+    }
+    std::string movements_arrows {{'^'},{'<'},{'v'},{'>'}};
+private:
     std::vector<std::vector<int>> movements  {{-1,0},{0,-1},{1,0},{0,1}}; 
-    std::string movements_arrows {{'^'},{'<'},{'V'},{'>'}};
+    
+    
 
 
 };
