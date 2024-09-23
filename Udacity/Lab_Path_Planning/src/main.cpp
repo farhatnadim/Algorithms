@@ -1,6 +1,6 @@
 #include "main.h"
 #include <iostream>
-
+#include "BFS.h"
 
 using std::cout; using std::endl; using std::vector;
 template <typename T>
@@ -38,14 +38,25 @@ int main()
 
 
     // Print classes variables
+    std::vector<std::vector<bool>> explored(map.GetHeight(), std::vector<bool>(map.GetWidth(), false));
+    std::vector<std::vector<int>> distance(map.GetHeight(), std::vector<int>(map.GetWidth(), -1));
     cout << "Map:" << endl;
     print2DVector(map.GetGrid());
-    cout << "Start: " << planner.start[0] << " , " << planner.start[1] << endl;
-    cout << "Goal: " << planner.goal[0] << " , " << planner.goal[1] << endl;
+    cout << "Planner:" << endl;
+    cout << "Start: " << planner.GetStart()[0] << " , " << planner.GetStart()[1] << endl;
+    cout << "Goal: " << planner.GetGoal()[0] << " , " << planner.GetGoal()[1] << endl;
     cout << "Cost: " << planner.cost << endl;
-    cout << "Robot Movements: " << planner.movements_arrows[0] << " , " << planner.movements_arrows[1] << " , " << planner.movements_arrows[2] << " , " << planner.movements_arrows[3] << endl;
-    cout << "Delta:" << endl;
-    print2DVector(planner.movements);    
+    cout << "Movements: " << endl;
+    print2DVector(planner.GetMovements());
+    cout << "Movements arrows: " << planner.movements_arrows << endl;
+    cout << "Explored:" << endl;
+    print2DVector(explored);
+    cout << "Distance:" << endl;
+    print2DVector(distance);
+    // Search for the path
+    search(map, planner, distance, explored);
+    cout << "Distance:" << endl;
+    print2DVector(distance);
     return 0;
 
 }
