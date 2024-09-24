@@ -1,7 +1,7 @@
 #include "main.h"
 #include <iostream>
 #include "BFS.h"
-
+#include <iomanip>
 using std::cout; using std::endl; using std::vector;
 template <typename T>
 void print2DVector(const T & grid)
@@ -10,7 +10,7 @@ void print2DVector(const T & grid)
     {
         for (auto && column : row )
         {
-            cout << column << " ";
+            cout << std::right << std::setw(2) << column << " ";
         }
         cout << "\n";
     }
