@@ -6,18 +6,7 @@ using std::cout; using std::endl; using std::vector;
 
 
 
-struct RobotData
 
-{
-    RobotData(int w, int h)
-    {
-        explored = std::vector<std::vector<bool>>(w,std::vector<bool>(h,false));
-        distance = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        iterations = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        movements = std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,""));
-    }
-    
-};
 template <typename T>
 void print2DVector(const T & grid)
 {
@@ -63,16 +52,13 @@ int main()
     cout << "Movements: " << endl;
     print2DVector(planner.GetMovements());
     cout << "Movements arrows: " << planner.movements_arrows << endl;
-    cout << "Explored:" << endl;
-    print2DVector(explored);
-    cout << "Distance:" << endl;
-    print2DVector(distance);
     // Search for the path
-    search(map, planner, distance, explored, iterations);
+    RobotData data(width,height);
+    search(map, planner, data);
     cout << "Distance:" << endl;
-    print2DVector(distance);
+    print2DVector(data.distance);
     cout << endl;
-    print2DVector(iterations);
+    print2DVector(data.iterations);
     return 0;
 
 }

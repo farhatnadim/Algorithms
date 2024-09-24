@@ -18,13 +18,13 @@ void search( Map & map,  Planner & planner, RobotData & data)
     q.push(start);
     data.explored[start[0]][start[1]] = true;
     data.distance[start[0]][start[1]] = 0;
-    data.it[start[0]][start[1]] = 0;
+    data.iterations[start[0]][start[1]] = 0;
     while (!q.empty())
     {
         
         auto current = q.front();
         q.pop();
-        it[current[0]][current[1]] = count;
+        data.iterations[current[0]][current[1]] = count;
         count++;
                 
         
@@ -46,6 +46,7 @@ void search( Map & map,  Planner & planner, RobotData & data)
                 q.push(next);
                 data.explored[next[0]][next[1]] = true;
                 data.distance[next[0]][next[1]] = data.distance[current[0]][current[1]] + 1;
+                data.movements[next[0]][next[1]] = planner.movements_arrows[i];
 
             }
         }
