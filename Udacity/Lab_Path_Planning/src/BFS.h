@@ -8,16 +8,17 @@ bool validCell( Map & map,  std::vector<int> & cell)
 }
 
 
-void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & distance, std::vector<std::vector<bool>> & explored)
+void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & distance, std::vector<std::vector<bool>> & explored, std::vector<std::vector<int>> &it)
 {
     using cell = std::vector<int>;
-    
+    int count {0};
     std::queue<cell> q;
     auto start = planner.GetStart();
     // TODO: validate if cell is valid later
     q.push(start);
     explored[start[0]][start[1]] = true;
     distance[start[0]][start[1]] = 0;
+    it[start[0]][start[1]] = 0;
     while (!q.empty())
     {
         

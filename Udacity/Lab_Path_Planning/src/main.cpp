@@ -39,7 +39,8 @@ int main()
 
     // Print classes variables
     std::vector<std::vector<bool>> explored(map.GetHeight(), std::vector<bool>(map.GetWidth(), false));
-    std::vector<std::vector<int>> distance(map.GetHeight(), std::vector<int>(map.GetWidth(), -1));
+    std::vector<std::vector<int>>  distance(map.GetHeight(),  std::vector<int>(map.GetWidth(), -1));
+    std::vector<std::vector<int>>  iterations(map.GetWidth(), std::vector<int>(map.GetWidth(),-1));
     cout << "Map:" << endl;
     print2DVector(map.GetGrid());
     cout << "Planner:" << endl;
@@ -54,7 +55,7 @@ int main()
     cout << "Distance:" << endl;
     print2DVector(distance);
     // Search for the path
-    search(map, planner, distance, explored);
+    search(map, planner, distance, explored, iterations);
     cout << "Distance:" << endl;
     print2DVector(distance);
     return 0;
