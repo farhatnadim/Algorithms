@@ -24,6 +24,10 @@ void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & dist
         
         auto current = q.front();
         q.pop();
+        it[current[0]][current[1]] = count;
+        count++;
+                
+        
         if ( current == planner.GetGoal())
         {
             return;
@@ -39,6 +43,7 @@ void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & dist
                 q.push(next);
                 explored[next[0]][next[1]] = true;
                 distance[next[0]][next[1]] = distance[current[0]][current[1]] + 1;
+              
             }
         }
     
