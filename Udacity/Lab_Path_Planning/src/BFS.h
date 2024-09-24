@@ -32,10 +32,13 @@ void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & dist
         {
             return;
         }
-        // {{-1,0},{0,-1},{1,0},{0,1}}; 
-        for ( auto movement : planner.GetMovements())
+
+        auto movements = planner.GetMovements();
+        // Switching to a indexed for loop to iterate over the movements
+        for ( int i = 0; i < movements.size(); ++i) 
         {
             auto next = current;
+            auto movement = movements[i];
             next[0] += movement[0];
             next[1] += movement[1];
             if ( validCell(map,next) && !explored[next[0]][next[1]] && map[next[0]][next[1]] == 0) 
@@ -43,6 +46,7 @@ void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & dist
                 q.push(next);
                 explored[next[0]][next[1]] = true;
                 distance[next[0]][next[1]] = distance[current[0]][current[1]] + 1;
+                
               
             }
         }
