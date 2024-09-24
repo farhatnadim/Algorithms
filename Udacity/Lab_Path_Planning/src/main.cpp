@@ -3,6 +3,21 @@
 #include "BFS.h"
 #include <iomanip>
 using std::cout; using std::endl; using std::vector;
+
+
+
+struct RobotData
+
+{
+    RobotData(int w, int h)
+    {
+        explored = std::vector<std::vector<bool>>(w,std::vector<bool>(h,false));
+        distance = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
+        iterations = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
+        movements = std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,""));
+    }
+    
+};
 template <typename T>
 void print2DVector(const T & grid)
 {
@@ -38,9 +53,7 @@ int main()
 
 
     // Print classes variables
-    std::vector<std::vector<bool>> explored(map.GetHeight(), std::vector<bool>(map.GetWidth(), false));
-    std::vector<std::vector<int>>  distance(map.GetHeight(),  std::vector<int>(map.GetWidth(), -1));
-    std::vector<std::vector<int>>  iterations(map.GetHeight(), std::vector<int>(map.GetWidth(),-1));
+    
     cout << "Map:" << endl;
     print2DVector(map.GetGrid());
     cout << "Planner:" << endl;

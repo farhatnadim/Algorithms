@@ -8,7 +8,7 @@ bool validCell( Map & map,  std::vector<int> & cell)
 }
 
 
-void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & distance, std::vector<std::vector<bool>> & explored, std::vector<std::vector<int>> &it)
+void search( Map & map,  Planner & planner, RobotData & data)
 {
     using cell = std::vector<int>;
     int count {0};
@@ -16,9 +16,9 @@ void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & dist
     auto start = planner.GetStart();
     // TODO: validate if cell is valid later
     q.push(start);
-    explored[start[0]][start[1]] = true;
-    distance[start[0]][start[1]] = 0;
-    it[start[0]][start[1]] = 0;
+    data.explored[start[0]][start[1]] = true;
+    data.distance[start[0]][start[1]] = 0;
+    data.it[start[0]][start[1]] = 0;
     while (!q.empty())
     {
         
@@ -41,13 +41,12 @@ void search( Map & map,  Planner & planner, std::vector<std::vector<int>> & dist
             auto movement = movements[i];
             next[0] += movement[0];
             next[1] += movement[1];
-            if ( validCell(map,next) && !explored[next[0]][next[1]] && map[next[0]][next[1]] == 0) 
+            if ( validCell(map,next) && !data.explored[next[0]][next[1]] && map[next[0]][next[1]] == 0) 
             {
                 q.push(next);
-                explored[next[0]][next[1]] = true;
-                distance[next[0]][next[1]] = distance[current[0]][current[1]] + 1;
-                
-              
+                data.explored[next[0]][next[1]] = true;
+                data.distance[next[0]][next[1]] = data.distance[current[0]][current[1]] + 1;
+
             }
         }
     
