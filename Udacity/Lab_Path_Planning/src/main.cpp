@@ -51,14 +51,15 @@ int main()
     cout << "Cost: " << planner.cost << endl;
     cout << "Movements: " << endl;
     print2DVector(planner.GetMovements());
-    cout << "Movements arrows: " << planner.movements_arrows << endl;
+    cout << "Movements arrows: " << planner.movements_arrows[0] << endl;
     // Search for the path
-    RobotData data(width,height);
+    RobotData data(height,width);
+
     search(map, planner, data);
-    cout << "Distance:" << endl;
+    print2DVector(data.movements);
     print2DVector(data.distance);
+  
     cout << endl;
-    print2DVector(data.iterations);
     return 0;
 
 }

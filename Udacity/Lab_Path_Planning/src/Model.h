@@ -14,8 +14,10 @@ struct RobotData
         explored = std::vector<std::vector<bool>>(w,std::vector<bool>(h,false));
         distance = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
         iterations = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        movements = std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,""));
+        movements = std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,"-"));
     }
+
+
     std::vector<std::vector<bool>> explored;
     std::vector<std::vector<int>> distance;
     std::vector<std::vector<int>> iterations;

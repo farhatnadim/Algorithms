@@ -19,6 +19,7 @@ void search( Map & map,  Planner & planner, RobotData & data)
     data.explored[start[0]][start[1]] = true;
     data.distance[start[0]][start[1]] = 0;
     data.iterations[start[0]][start[1]] = 0;
+    data.movements[start[0]][start[1]] = "";
     while (!q.empty())
     {
         
@@ -30,6 +31,7 @@ void search( Map & map,  Planner & planner, RobotData & data)
         
         if ( current == planner.GetGoal())
         {
+            data.movements[current[0]][current[1]] = "*";
             return;
         }
 
@@ -46,7 +48,7 @@ void search( Map & map,  Planner & planner, RobotData & data)
                 q.push(next);
                 data.explored[next[0]][next[1]] = true;
                 data.distance[next[0]][next[1]] = data.distance[current[0]][current[1]] + 1;
-                data.movements[next[0]][next[1]] = planner.movements_arrows[i];
+                data.movements[current[0]][current[1]] = planner.movements_arrows[i];
 
             }
         }
