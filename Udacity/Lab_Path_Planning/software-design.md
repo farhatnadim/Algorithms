@@ -1,11 +1,14 @@
 
 
-*** Return shortest_Path
-**** Description:
 
-the function serach in src/BFS.h performs BFS to find to map the distances between the start node and the end node
-however it doesnt know how to return the shortest path, for the sake of simplicity and modularization , i will write a function
-that returns the shortest path by traversing the distance map from goal to start by stacking  the cells that have the lowest value in a list(any C++ type that represents a list is ok)
+
+* search
+** Description:
+
+The function search in src/BFS.h performs BFS to find to map the distances between the start node and the end node
+also it stores how many iterations until we reach a certain node 
+while it is iterating it stores the parent of the currentnode in the currentnode index 
+
 
 
 **** Specification
@@ -13,8 +16,7 @@ function name : shortest_path
 parametrs : distance map of type vector<vector<int>>
 output : a vector<vector<vector<int>>> 
 
-*** Visualize Movements
-
+*** GetPolicy
 **** Description: 
 The function visualize movements takes the coordinate from the list of shortest path found by shorted_path function and assigns the arrow directions in 2D map.
 

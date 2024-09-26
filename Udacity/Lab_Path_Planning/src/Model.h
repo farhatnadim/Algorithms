@@ -11,17 +11,19 @@ struct RobotData
 {
     RobotData(int w, int h)
     {
-        explored = std::vector<std::vector<bool>>(w,std::vector<bool>(h,false));
-        distance = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        iterations = std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        movements = std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,"-"));
-    }
 
+        explored   =   std::vector<std::vector<bool>>(w,std::vector<bool>(h,false));
+        distance   =   std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
+        iterations =   std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
+        policy     =   std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,"-"));
+
+    }
 
     std::vector<std::vector<bool>> explored;
     std::vector<std::vector<int>> distance;
     std::vector<std::vector<int>> iterations;
-    std::vector<std::vector<std::string>> movements;
+    std::vector<std::vector<std::string>> policy;
+    std::vector<std::vector<int>> Parents;
     
 };
 class Map 

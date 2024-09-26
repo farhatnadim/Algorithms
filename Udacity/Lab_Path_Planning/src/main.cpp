@@ -56,7 +56,7 @@ int main()
     RobotData data(height,width);
 
     search(map, planner, data);
-    print2DVector(data.movements);
+    print2DVector(data.policy);
     print2DVector(data.distance);
   
     cout << endl;
