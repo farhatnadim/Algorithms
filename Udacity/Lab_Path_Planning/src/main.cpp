@@ -1,6 +1,7 @@
 #include "main.h"
 #include <iostream>
-#include "BFS.h"
+#include "Plan.h"
+#include "Model.h"
 #include <iomanip>
 using std::cout; using std::endl; using std::vector;
 
@@ -8,15 +9,38 @@ using std::cout; using std::endl; using std::vector;
 
 
 template <typename T>
-void print2DVector(const T & grid)
+void printElement(const T& element);
+
+void printElement(const std::vector<int>& vec)
 {
-    for (auto && row : grid)
+    std::cout << "{";
+    for (size_t i = 0; i < vec.size(); ++i)
     {
-        for (auto && column : row )
+        std::cout << vec[i];
+        if (i + 1 < vec.size())
+            std::cout << ",";
+    }
+    std::cout << "}";
+}
+
+template <typename T>
+void printElement(const T& element)
+{
+    std::cout << element;
+}
+
+template <typename T>
+void print2DVector(const T& grid)
+{
+    for (const auto& row : grid)
+    {
+        for (const auto& column : row)
         {
-            cout << std::right << std::setw(2) << column << " ";
+            std::cout << std::right << std::setw(5);
+            printElement(column);
+            std::cout << " ";
         }
-        cout << "\n";
+        std::cout << "\n";
     }
 }
 
@@ -58,6 +82,7 @@ int main()
     search(map, planner, data);
     print2DVector(data.policy);
     print2DVector(data.distance);
+    print2DVector(data.parents);
   
     cout << endl;
     return 0;

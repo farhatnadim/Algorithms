@@ -19,6 +19,7 @@ void search( Map & map,  Planner & planner, RobotData & data)
     data.explored[start[0]][start[1]] = true;
     data.distance[start[0]][start[1]] = 0;
     data.iterations[start[0]][start[1]] = 0;
+    data.parents[start[0]][start[1]] = {0,0};
    
     while (!q.empty())
     {
@@ -45,6 +46,8 @@ void search( Map & map,  Planner & planner, RobotData & data)
             next[1] += movement[1];
             if ( validCell(map,next) && !data.explored[next[0]][next[1]] && map[next[0]][next[1]] == 0) 
             {
+                
+                data.parents[next[0]][next[1]] = current;
                 q.push(next);
                 data.explored[next[0]][next[1]] = true;
                 data.distance[next[0]][next[1]] = data.distance[current[0]][current[1]] + 1;
@@ -54,4 +57,9 @@ void search( Map & map,  Planner & planner, RobotData & data)
         }
     
     }
+}
+
+std::vector<std::vector<int>>  getPath(const std::vector<int> & source, const std::vector<int> & goal)
+{
+    
 }

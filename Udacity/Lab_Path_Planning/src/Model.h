@@ -3,29 +3,25 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include "Model.h"
-
 
 struct RobotData
-
 {
     RobotData(int w, int h)
     {
-
-        explored   =   std::vector<std::vector<bool>>(w,std::vector<bool>(h,false));
-        distance   =   std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        iterations =   std::vector<std::vector<int>>(w,std::vector<int>(h,-1));
-        policy     =   std::vector<std::vector<std::string>>(w,std::vector<std::string>(h,"-"));
-
+        explored   = std::vector<std::vector<bool>>(w, std::vector<bool>(h, false));
+        distance   = std::vector<std::vector<int>>(w, std::vector<int>(h, -1));
+        iterations = std::vector<std::vector<int>>(w, std::vector<int>(h, -1));
+        policy     = std::vector<std::vector<std::string>>(w, std::vector<std::string>(h, "-"));
+        parents    = std::vector<std::vector<std::vector<int>>>(w, std::vector<std::vector<int>>(h, std::vector<int>{0, 0}));
     }
 
     std::vector<std::vector<bool>> explored;
     std::vector<std::vector<int>> distance;
     std::vector<std::vector<int>> iterations;
     std::vector<std::vector<std::string>> policy;
-    std::vector<std::vector<int>> Parents;
-    
+    std::vector<std::vector<std::vector<int>>> parents;
 };
+
 class Map 
 {
     using rectangular_grid = std::vector<std::vector<uint>>; 
