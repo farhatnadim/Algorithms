@@ -1,6 +1,7 @@
 #pragma once
 #include <Model.h>
 #include <queue>
+#include <MathUtils.h>
 
 bool validCell( Map & map,  std::vector<int> & cell)
 {
@@ -59,7 +60,40 @@ void search( Map & map,  Planner & planner, RobotData & data)
     }
 }
 
-std::vector<std::vector<int>>  getPath(const std::vector<int> & source, const std::vector<int> & goal)
+std::vector<std::vector<int>>  getPath(  const std::vector<std::vector<std::vector<int>>> &parents,  const std::vector<int> & source, const std::vector<int>   & goal)
 {
+    
+    std::vector<std::vector<int>> path;
+    std::vector<int> current = goal;
+    std::vector<int> start = source;
+    path.push_back(goal);
+    while (current != start)
+    {
+        current = parents[current[0]][current[1]];
+        path.push_back(current);
+    }
+    std::reverse(path.begin(),path.end());
+    
+    return path;
+}
+
+
+/** Compute the forward difference of the path and stores in the i-1 element */
+std::vector<std::vector<int>> pathDifferential(const std::vector<std::vector<int>> & path)
+{
+    std::vector<std::vector<int>> forward_difference;
+
+
+    return forward_difference;
+}
+
+void setPolicy ()
+{
+    //auto path_diff = pathDifferential(path);
+    // iteratre over the path and set the policy
+    // for each coordinate in the path find the corresponding differential in path_diff
+    // and find the corresponding movement in planner.movements_arrows
+    // then set the policy accordingly
+
     
 }

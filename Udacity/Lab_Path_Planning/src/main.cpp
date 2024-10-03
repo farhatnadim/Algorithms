@@ -84,6 +84,13 @@ int main()
     print2DVector(data.distance);
     print2DVector(data.parents);
   
+    // Get the path
+    std::vector<std::vector<int>> path = getPath(data.parents, start, goal);
+    cout << "Path:" << endl;
+    print2DVector(path);
+    auto path_differential = pathDifferential(path);
+    cout << "Path Differential:" << endl;
+    print2DVector(path_differential);
     cout << endl;
     return 0;
 
