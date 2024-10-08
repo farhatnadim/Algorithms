@@ -1,18 +1,46 @@
 #include "main.h"
 #include <iostream>
-#include "BFS.h"
+#include "Plan.h"
+#include "Model.h"
 #include <iomanip>
 using std::cout; using std::endl; using std::vector;
+
+
+
+
 template <typename T>
-void print2DVector(const T & grid)
+void printElement(const T& element);
+
+void printElement(const std::vector<int>& vec)
 {
-    for (auto && row : grid)
+    std::cout << "{";
+    for (size_t i = 0; i < vec.size(); ++i)
     {
-        for (auto && column : row )
+        std::cout << vec[i];
+        if (i + 1 < vec.size())
+            std::cout << ",";
+    }
+    std::cout << "}";
+}
+
+template <typename T>
+void printElement(const T& element)
+{
+    std::cout << element;
+}
+
+template <typename T>
+void print2DVector(const T& grid)
+{
+    for (const auto& row : grid)
+    {
+        for (const auto& column : row)
         {
-            cout << std::right << std::setw(2) << column << " ";
+            std::cout << std::right << std::setw(5);
+            printElement(column);
+            std::cout << " ";
         }
-        cout << "\n";
+        std::cout << "\n";
     }
 }
 
@@ -38,9 +66,7 @@ int main()
 
 
     // Print classes variables
-    std::vector<std::vector<bool>> explored(map.GetHeight(), std::vector<bool>(map.GetWidth(), false));
-    std::vector<std::vector<int>>  distance(map.GetHeight(),  std::vector<int>(map.GetWidth(), -1));
-    std::vector<std::vector<int>>  iterations(map.GetHeight(), std::vector<int>(map.GetWidth(),-1));
+    
     cout << "Map:" << endl;
     print2DVector(map.GetGrid());
     cout << "Planner:" << endl;
@@ -49,17 +75,23 @@ int main()
     cout << "Cost: " << planner.cost << endl;
     cout << "Movements: " << endl;
     print2DVector(planner.GetMovements());
-    cout << "Movements arrows: " << planner.movements_arrows << endl;
-    cout << "Explored:" << endl;
-    print2DVector(explored);
-    cout << "Distance:" << endl;
-    print2DVector(distance);
+    cout << "Movements arrows: " << planner.movements_arrows[0] << endl;
     // Search for the path
-    search(map, planner, distance, explored, iterations);
-    cout << "Distance:" << endl;
-    print2DVector(distance);
+    RobotData data(height,width);
+
+    search(map, planner, data);
+    print2DVector(data.policy);
+    print2DVector(data.distance);
+    print2DVector(data.parents);
+  
+    // Get the path
+    std::vector<std::vector<int>> path = getPath(data.parents, start, goal);
+    cout << "Path:" << endl;
+    print2DVector(path);
+    auto path_differential = pathDifferential(path);
+    cout << "Path Differential:" << endl;
+    print2DVector(path_differential);
     cout << endl;
-    print2DVector(iterations);
     return 0;
 
 }
