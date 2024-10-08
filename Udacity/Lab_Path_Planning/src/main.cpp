@@ -73,23 +73,17 @@ int main()
     cout << "Start: " << planner.GetStart()[0] << " , " << planner.GetStart()[1] << endl;
     cout << "Goal: " << planner.GetGoal()[0] << " , " << planner.GetGoal()[1] << endl;
     cout << "Cost: " << planner.cost << endl;
-    cout << "Movements: " << endl;
-    print2DVector(planner.GetMovements());
-    cout << "Movements arrows: " << planner.movements_arrows[0] << endl;
+
     // Search for the path
     RobotData data(height,width);
 
     search(map, planner, data);
-    print2DVector(data.policy);
-    print2DVector(data.distance);
-    print2DVector(data.parents);
   
     // Get the path
     std::vector<std::vector<int>> path = getPath(data.parents, start, goal);
-    cout << "Path:" << endl;
-    print2DVector(path);
+
     auto path_differential = pathDifferential(path);
-    cout << "Path Differential:" << endl;
+
     print2DVector(path_differential);
     cout << endl;
     return 0;

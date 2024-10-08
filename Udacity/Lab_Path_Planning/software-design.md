@@ -2,8 +2,6 @@
 We have a 2D map of a robot and we are asked to find the shortest path between a start cell and an end cell 
 
 
-
-
 ## Functions
 
 ### search
@@ -20,6 +18,10 @@ location : plan.h
 #### Description 
 * return the path between two cells by iterating over the Parents 2D grids 
 * in case of BFS that's the shortest Path
+
+### pathDifferential
+location : plan.h
+#### Description  
 
 ### getPolicy
 location : plan.h
