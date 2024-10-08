@@ -81,11 +81,8 @@ int main()
   
     // Get the path
     std::vector<std::vector<int>> path = getPath(data.parents, start, goal);
-
-    auto path_differential = pathDifferential(path);
-
-    print2DVector(path_differential);
-    cout << endl;
+    
+    setPolicy(path,planner,data);
     return 0;
 
 }

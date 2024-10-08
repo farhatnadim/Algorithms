@@ -10,7 +10,6 @@ location : plan.h
 * Performs BFS  to map the distances between the start cell and other cells 
 * Stores how many iterations until we reach a certain node 
 * Stores Parents of the current Cell for path retrieval 
-#### Specification 
 
 
 ### getPath
@@ -22,21 +21,18 @@ location : plan.h
 ### pathDifferential
 location : plan.h
 #### Description  
+takes the shortest path and performs forward difference between the consequent cell elements to create a path differential
 
-### getPolicy
+### setPolicy
 location : plan.h
 #### Description
 * compute movements from getPath by substracting next cell from the previous cell , except for first and last cells . 
-* mapts the movements to the string movements 
+* maps the movements to the string movements 
 * inserts the string movements in to the policy 2D grid.
 * returns a 2D grid that contains the movememnts of the robot ">" ,"^", "<", "v"
 
 
 
-
-
-: distance map of type vector<vector<int>>
-output : a vector<vector<vector<int>>> 
 
 *** GetPolicy
 **** Description: 

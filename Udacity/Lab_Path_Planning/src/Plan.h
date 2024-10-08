@@ -73,7 +73,7 @@ std::vector<std::vector<int>>  getPath(  const std::vector<std::vector<std::vect
         path.push_back(current);
     }
     std::reverse(path.begin(),path.end());
-    
+
     return path;
 }
 
@@ -90,9 +90,16 @@ std::vector<std::vector<int>> pathDifferential(const std::vector<std::vector<int
 
 
 /* setPolicy */
-void setPolicy (std::vector<std::vector<int> & path, const Planner &plan, const RobotData &rdata)
+void setPolicy (std::vector<std::vector<int> > & path, const Planner &plan, RobotData &rdata)
 {
-    auto forward_differemce = pathDifferential(path);
-
+    auto forward_difference = pathDifferential(path);
+    for (auto i = 0; i < path.size(); i++)
+    {
+        for (auto j = 0; j < path[i].size(); j++)
+        {
+            
+        }
+        std::cout <<"\n";
+    }
 
 }
