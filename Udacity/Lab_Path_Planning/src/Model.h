@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <map>
 
 struct RobotData
 {
@@ -67,7 +68,10 @@ private:
 class Planner
 {
 public:
-    Planner( std::vector<int> s, std::vector<int> g, int c ): start{s}, goal{g}, cost{c}{};
+    Planner( std::vector<int> s, std::vector<int> g, int c ): start{s}, goal{g}, cost{c}{
+        movements_arrows = {{'^'},{'<'},{'v'},{'>'}};
+        movements = {{-1,0},{0,-1},{1,0},{0,1}};
+    };
 
 // small class i don't think setter and getters are necessary for now ;
     
@@ -84,9 +88,13 @@ public:
     {
         return goal;
     }
-    std::string movements_arrows {{'^'},{'<'},{'v'},{'>'}};
+    
+      
 private:
-    std::vector<std::vector<int>> movements  {{-1,0},{0,-1},{1,0},{0,1}}; 
+    using movements_type = std::vector<std::vector<int>>;
+    std::string movements_arrows ;
+    std::vector<std::vector<int>> movements;
+    std::map<movements_type,std::string> map_mov_to_arrows;
     std::vector<int> start;
     std::vector<int> goal;
 };
