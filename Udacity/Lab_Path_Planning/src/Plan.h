@@ -81,19 +81,18 @@ std::vector<std::vector<int>>  getPath(  const std::vector<std::vector<std::vect
 /** Compute the forward difference of the path and stores in the i-1 element */
 std::vector<std::vector<int>> pathDifferential(const std::vector<std::vector<int>> & path)
 {
-    std::vector<std::vector<int>> forward_difference;
-
-
+    
+    auto path_in_eigen = vector_to_matrix(path);
+    auto path_foward_difference_eigen = forward_difference_matrix(path.size());
+    auto forward_difference = matrix_to_vector(path_foward_difference_eigen * path_in_eigen);
     return forward_difference;
 }
 
-void setPolicy ()
-{
-    //auto path_diff = pathDifferential(path);
-    // iteratre over the path and set the policy
-    // for each coordinate in the path find the corresponding differential in path_diff
-    // and find the corresponding movement in planner.movements_arrows
-    // then set the policy accordingly
 
-    
+/* setPolicy */
+void setPolicy (std::vector<std::vector<int> & path, const Planner &plan, const RobotData &rdata)
+{
+    auto forward_differemce = pathDifferential(path);
+
+
 }
