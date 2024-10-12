@@ -97,8 +97,8 @@ void setPolicy (std::vector<std::vector<int> > & path, const Planner &plan, Robo
     {
         for (auto j = 0; j < path[i].size(); j++)
         {
-            
-        }
+
+        }   
         std::cout <<"\n";
     }
 

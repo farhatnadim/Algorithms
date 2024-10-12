@@ -71,6 +71,7 @@ public:
     Planner( std::vector<int> s, std::vector<int> g, int c ): start{s}, goal{g}, cost{c}{
         movements_arrows = {{'^'},{'<'},{'v'},{'>'}};
         movements = {{-1,0},{0,-1},{1,0},{0,1}};
+        for 
     };
 
 // small class i don't think setter and getters are necessary for now ;
