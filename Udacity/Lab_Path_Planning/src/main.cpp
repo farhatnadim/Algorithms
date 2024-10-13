@@ -68,7 +68,6 @@ int main()
     // Print classes variables
     
     cout << "Map:" << endl;
-    print2DVector(map.GetGrid());
     cout << "Planner:" << endl;
     cout << "Start: " << planner.GetStart()[0] << " , " << planner.GetStart()[1] << endl;
     cout << "Goal: " << planner.GetGoal()[0] << " , " << planner.GetGoal()[1] << endl;
@@ -83,6 +82,7 @@ int main()
     std::vector<std::vector<int>> path = getPath(data.parents, start, goal);
     
     setPolicy(path,planner,data);
+    print2DVector(data.policy);
     return 0;
 
 }

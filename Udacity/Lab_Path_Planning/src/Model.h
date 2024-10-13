@@ -1,9 +1,11 @@
 #pragma once
+
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <iostream>
 #include <map>
+#include <utility>  // for std::move and std::pair
 
 struct RobotData
 {
@@ -25,10 +27,10 @@ struct RobotData
 
 class Map 
 {
-    using rectangular_grid = std::vector<std::vector<uint>>; 
+    using rectangular_grid = std::vector<std::vector<std::uint32_t>>; 
 
 public:
-    Map(uint width, uint height, rectangular_grid g)
+    Map(std::uint32_t width, std::uint32_t height, rectangular_grid g)
         : mapWidth{width}, mapHeight{height}, grid{std::move(g)} {}
 
     rectangular_grid& GetGrid()
@@ -36,67 +38,73 @@ public:
         return grid;
     }
 
-    uint GetWidth() const
+    std::uint32_t GetWidth() const
     {
         return mapWidth;
     }
 
-    uint GetHeight() const
+    std::uint32_t GetHeight() const
     {
         return mapHeight;
     }
 
-    // Modified operator[]
-    std::vector<uint>& operator[](int i)
+    std::vector<std::uint32_t>& operator[](int i)
     {
         return grid[i];
     }
 
-    // Optional: Const version of operator[]
-    const std::vector<uint>& operator[](int i) const
+    const std::vector<std::uint32_t>& operator[](int i) const
     {
         return grid[i];
     }
 
 private:
-    uint mapWidth;
-    uint mapHeight;
+    std::uint32_t mapWidth;
+    std::uint32_t mapHeight;
     rectangular_grid grid; 
 };
-
 
 class Planner
 {
 public:
-    Planner( std::vector<int> s, std::vector<int> g, int c ): start{s}, goal{g}, cost{c}{
-        movements_arrows = {{'^'},{'<'},{'v'},{'>'}};
-        movements = {{-1,0},{0,-1},{1,0},{0,1}};
-        for 
-    };
+    Planner(std::vector<int> s, std::vector<int> g, int c)
+        : start{std::move(s)}, goal{std::move(g)}, cost{c}, map_arrow_to_move{} 
+    {
+        movements_arrows = {"^", "<", "v", ">"};
+        movements = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+        
+        for (size_t i = 0; i < movements_arrows.size(); ++i) 
+        {
+            map_arrow_to_move[movements[i]] = movements_arrows[i];
+        }
+    }
 
-// small class i don't think setter and getters are necessary for now ;
-    
     int cost;
+    
     std::vector<std::vector<int>> GetMovements()
     {
         return movements;
     }
-    std::vector<int> GetStart()
+
+    std::vector<int> GetStart() const
     {
         return start;
     }
-    std::vector<int> GetGoal()
+
+    std::vector<int> GetGoal() const
     {
         return goal;
     }
-    
-      
+
+    std::map<std::vector<int>,std::string > GetMap() 
+    {
+        return map_arrow_to_move;
+    }
+
 private:
-    using movements_type = std::vector<std::vector<int>>;
-    std::string movements_arrows ;
+    std::vector<std::string> movements_arrows;
     std::vector<std::vector<int>> movements;
-    std::map<movements_type,std::string> map_mov_to_arrows;
+    std::map<std::vector<int>,std::string > map_arrow_to_move;
     std::vector<int> start;
     std::vector<int> goal;
 };
-

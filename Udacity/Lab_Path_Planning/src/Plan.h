@@ -90,16 +90,17 @@ std::vector<std::vector<int>> pathDifferential(const std::vector<std::vector<int
 
 
 /* setPolicy */
-void setPolicy (std::vector<std::vector<int> > & path, const Planner &plan, RobotData &rdata)
+void setPolicy (std::vector<std::vector<int> > & path,  Planner &plan, RobotData &rdata)
 {
     auto forward_difference = pathDifferential(path);
     for (auto i = 0; i < path.size(); i++)
     {
-        for (auto j = 0; j < path[i].size(); j++)
+        for (auto j = 0; j < path[i].size()-1; j++)
         {
-
+          rdata.policy[path[i][0]][path[i][1]] = plan.GetMap()[forward_difference[i]][0] ;    
         }   
-        std::cout <<"\n";
     }
+    rdata.policy[plan.GetGoal()[0]][plan.GetGoal()[1]] = "*";
 
 }
+// JUDE
