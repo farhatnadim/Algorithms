@@ -19,7 +19,7 @@ location : plan.h
 #### Description :
 * Performs a sorted type of BFS where the nodes with the smallest distance values are expanded first
 * The distance values are computed using index distance but also Heuristic distance i
-* in this case we are using the manhatan distance $ d = \abs{x_d}  + \abs{y_d} $
+* in this case we are using the manhatan distance $d = abs{x_d}  + abs{y_d}$
  
 
 ### getPath
