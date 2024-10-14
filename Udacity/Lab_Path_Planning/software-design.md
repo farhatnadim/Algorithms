@@ -1,16 +1,24 @@
 ## Objectives
-We have a 2D map of a robot and we are asked to find the shortest path between a start cell and an end cell 
+We have a 2D map of a robot and we are asked to find the shortest path between a start cell and an end cell.
+First we implemented a search based on BFS 
+Second we are planning to implement a search based on A* 
+
 
 
 ## Functions
 
-### search
+### searchBFS
 location : plan.h 
 #### Description:
 * Performs BFS  to map the distances between the start cell and other cells 
 * Stores how many iterations until we reach a certain node 
 * Stores Parents of the current Cell for path retrieval 
 
+### searchA*
+location : plan.h
+#### Description :
+* Performs a sorted type of BFS where the nodes with the smallest values are expanded first
+ 
 
 ### getPath
 location : plan.h

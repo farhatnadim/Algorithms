@@ -76,8 +76,8 @@ int main()
     // Search for the path
     RobotData data(height,width);
 
-    search(map, planner, data);
-  
+    searchBFS(map, planner, data);
+    searchAStar(map,planner ,data);
     // Get the path
     std::vector<std::vector<int>> path = getPath(data.parents, start, goal);
     
