@@ -3,6 +3,7 @@
 #include <queue>
 #include <MathUtils.h>
 #include <algorithm>
+#include <math>
 bool validCell( Map & map,  std::vector<int> & cell)
 {
     return (cell[0] >= 0 && cell[0] < map.GetHeight() && cell[1] >= 0 && cell[1] < map.GetWidth());
@@ -102,7 +103,7 @@ void searchAStar( Map & map,  Planner & planner, RobotData & data)
                 data.parents[next[0]][next[1]] = current;
                 q.push(next);
                 data.explored[next[0]][next[1]] = true;
-                data.distance[next[0]][next[1]] = data.distance[current[0]][current[1]] + 1;
+                //data.manhatandistance[next[0]][next[1]] = planner.GetGoal()
                 
 
             }
