@@ -27,10 +27,10 @@ struct RobotData
 
 class Map 
 {
-    using rectangular_grid = std::vector<std::vector<std::uint32_t>>; 
+    using rectangular_grid = std::vector<std::vector<int>>; 
 
 public:
-    Map(std::uint32_t width, std::uint32_t height, rectangular_grid g)
+    Map(int width, int height, rectangular_grid g)
         : mapWidth{width}, mapHeight{height}, grid{std::move(g)} {}
 
     rectangular_grid& GetGrid()
@@ -38,29 +38,29 @@ public:
         return grid;
     }
 
-    std::uint32_t GetWidth() const
+    int GetWidth() const
     {
         return mapWidth;
     }
 
-    std::uint32_t GetHeight() const
+    int GetHeight() const
     {
         return mapHeight;
     }
 
-    std::vector<std::uint32_t>& operator[](int i)
+    std::vector<int>& operator[](int i)
     {
         return grid[i];
     }
 
-    const std::vector<std::uint32_t>& operator[](int i) const
+    const std::vector<int>& operator[](int i) const
     {
         return grid[i];
     }
 
 private:
-    std::uint32_t mapWidth;
-    std::uint32_t mapHeight;
+    int mapWidth;
+    int mapHeight;
     rectangular_grid grid; 
 };
 
@@ -78,8 +78,6 @@ public:
             map_arrow_to_move[movements[i]] = movements_arrows[i];
         }
     }
-
-    int cost;
     
     std::vector<std::vector<int>> GetMovements()
     {
@@ -99,6 +97,11 @@ public:
     std::map<std::vector<int>,std::string > GetMap() 
     {
         return map_arrow_to_move;
+
+    }
+    int GetCost()
+    {
+        return cost;
     }
 
 private:
@@ -107,4 +110,5 @@ private:
     std::map<std::vector<int>,std::string > map_arrow_to_move;
     std::vector<int> start;
     std::vector<int> goal;
+    int cost;
 };

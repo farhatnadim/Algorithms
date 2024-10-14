@@ -17,9 +17,13 @@ location : plan.h
 ### searchA*
 location : plan.h
 #### Description :
-* Performs a sorted type of BFS where the nodes with the smallest distance values are expanded first
-* The distance values are computed using index distance but also Heuristic distance i
-* in this case we are using the manhatan distance $d = abs{x_d}  + abs{y_d}$
+* Performs a sorted type of BFS where the node  with the smallest distance value is expanded first
+* The distance values are computed using index distance but also Heuristic distance 
+* in this case we are using the manhatan distance $d = |{x_d}|  + |{y_d}|$
+* and ${x_d}$ abd ${y_d}$ are computed as   
+  ${x_d} = {x_{goal}} - {x_{cellposition}}$   
+  ${y_d} = {y_{goal}} - {y_{cellposition}}$
+
  
 
 ### getPath

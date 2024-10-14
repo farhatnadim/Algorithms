@@ -55,7 +55,7 @@ int main()
     const vector<int> goal = {4,5};
     const int cost = 1;
     Planner planner(start,goal,cost);
-    std::vector<std::vector<uint>> grid = 
+    std::vector<std::vector<int>> grid = 
         {{ 0, 1, 0, 0, 0, 0 },
         { 0, 1, 0, 0, 0, 0 },
         { 0, 1, 0, 0, 0, 0 },
@@ -71,7 +71,7 @@ int main()
     cout << "Planner:" << endl;
     cout << "Start: " << planner.GetStart()[0] << " , " << planner.GetStart()[1] << endl;
     cout << "Goal: " << planner.GetGoal()[0] << " , " << planner.GetGoal()[1] << endl;
-    cout << "Cost: " << planner.cost << endl;
+    cout << "Cost: " << planner.GetCost() << endl;
 
     // Search for the path
     RobotData data(height,width);
