@@ -13,7 +13,7 @@ struct RobotData
     {
         explored   = std::vector<std::vector<bool>>(w, std::vector<bool>(h, false));
         distance   = std::vector<std::vector<int>>(w, std::vector<int>(h, -1));
-        manhatandistance   = std::vector<std::vector<int>>(w, std::vector<int>(h, -1));
+        heuristicDistance   = std::vector<std::vector<int>>(w, std::vector<int>(h, -1));
         iterations = std::vector<std::vector<int>>(w, std::vector<int>(h, -1));
         policy     = std::vector<std::vector<std::string>>(w, std::vector<std::string>(h, "-"));
         parents    = std::vector<std::vector<std::vector<int>>>(w, std::vector<std::vector<int>>(h, std::vector<int>{0, 0}));
@@ -21,7 +21,7 @@ struct RobotData
 
     std::vector<std::vector<bool>> explored;
     std::vector<std::vector<int>> distance;
-    std::vector<std::vector<int>> manhatanDistance;
+    std::vector<std::vector<int>> heuristicDistance;
     std::vector<std::vector<int>> iterations;
     std::vector<std::vector<std::string>> policy;
     std::vector<std::vector<std::vector<int>>> parents;

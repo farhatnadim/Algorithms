@@ -23,6 +23,8 @@ location : plan.h
 * and ${x_d}$ abd ${y_d}$ are computed as   
   ${x_d} = {x_{goal}} - {x_{cellposition}}$   
   ${y_d} = {y_{goal}} - {y_{cellposition}}$
+* The distance value is computed as $d = |{x_d}|  + |{y_d}| + {distance_{cellposition}}$
+
 
  
 

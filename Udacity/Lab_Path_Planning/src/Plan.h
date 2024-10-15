@@ -3,7 +3,9 @@
 #include <queue>
 #include <MathUtils.h>
 #include <algorithm>
-#include <math>
+#include <cmath>
+#include <tuple>
+
 bool validCell( Map & map,  std::vector<int> & cell)
 {
     return (cell[0] >= 0 && cell[0] < map.GetHeight() && cell[1] >= 0 && cell[1] < map.GetWidth());
@@ -28,9 +30,7 @@ void searchBFS( Map & map,  Planner & planner, RobotData & data)
         
         auto current = q.front();
         q.pop();
-        data.iterations[current[0]][current[1]] = count;
-        count++;
-                
+        data.iterations[current[0]][current[1]] = count++;                
         
         if ( current == planner.GetGoal())
         {
@@ -65,11 +65,15 @@ void searchBFS( Map & map,  Planner & planner, RobotData & data)
 void searchAStar( Map & map,  Planner & planner, RobotData & data)
 {
     using cell = std::vector<int>;
+    using priority_element = std::tuple<int,cell>;
     int count {0};
-    std::queue<cell> q;
+    std::priority_queue<priority_element, std::vector<priority_element>, std::greater<> > q;
     auto start = planner.GetStart();
-    // TODO: validate if cell is valid later
-    q.push(start);
+    auto goal = planner.GetGoal();
+    int heuristic = 0;
+
+    
+    q.push({0,start});
     data.explored[start[0]][start[1]] = true;
     data.distance[start[0]][start[1]] = 0;
     data.iterations[start[0]][start[1]] = 0;
@@ -78,13 +82,12 @@ void searchAStar( Map & map,  Planner & planner, RobotData & data)
     while (!q.empty())
     {
         
-        auto current = q.front();
+        auto [current_cost, current] = q.top();
         q.pop();
-        data.iterations[current[0]][current[1]] = count;
-        count++;
+        data.iterations[current[0]][current[1]] = count++;
                 
         
-        if ( current == planner.GetGoal())
+        if ( current == goal)
         {   
             return;
         }
@@ -97,14 +100,17 @@ void searchAStar( Map & map,  Planner & planner, RobotData & data)
             auto movement = movements[i];
             next[0] += movement[0];
             next[1] += movement[1];
+
             if ( validCell(map,next) && !data.explored[next[0]][next[1]] && map[next[0]][next[1]] == 0) 
             {
                 
                 data.parents[next[0]][next[1]] = current;
-                q.push(next);
-                data.explored[next[0]][next[1]] = true;
-                //data.manhatandistance[next[0]][next[1]] = planner.GetGoal()
                 
+                data.explored[next[0]][next[1]] = true;
+                heuristic =  planner.GetGoal()[0] - next[0] + planner.GetGoal()[1] - next[1]; 
+                data.distance[next[0]][next[1]] = data.distance[current[0]][current[1]] + planner.GetCost();
+                data.heuristicDistance[next[0]][next[1]] = heuristic + data.distance[next[0]][next[1]];
+                q.push({data.heuristicDistance[next[0]][next[1]],next});   
 
             }
         }
