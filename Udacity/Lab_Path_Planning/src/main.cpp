@@ -83,6 +83,7 @@ int main()
     
     setPolicy(path,planner,data);
     print2DVector(data.policy);
+    print2DVector(data.iterations);
     return 0;
 
 }
