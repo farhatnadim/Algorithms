@@ -1,11 +1,10 @@
-
-This repo implements mainly the Algorithms and data structures discussed in Algorithms Illuminated (Rougharden, Standford ), Introduction to Algorithms ( Cormen at all  MIT), and Algorithms (Sedgewick, Princeton).
+This repo implements mainly the Algorithms and data structures discussed in Algorithms Illuminated (Rougharden, Standford), Introduction to Algorithms (Cormen et al., MIT), and Algorithms (Sedgewick, Princeton).
 
 This is a learning journey for me. The algorithms and data structures below are implemented. 
 
 
 ### Sort
-[Bubble Sort ( with cocktail party Optimization)](Sort/Sort.py)  
+[Bubble Sort (with cocktail party Optimization)](Sort/Sort.py)  
 [Insertion Sort](Sort/Sort.py)    
 [Merge Sort](Sort/Sort.py)   
 [Quick Sort](Sort/Sort.py)
@@ -31,12 +30,10 @@ This is a learning journey for me. The algorithms and data structures below are 
 
 
 ## Misc
-[Recursive Multiplication](Misc/RecursiveIntegerMultiplication.py)  
-[Karatsuba Multiplication](Misc/RecursiveIntegerMultiplication.py)  
-[ThreeSum](Misc/Search.py)  
+[Recursive Multiplication](RecursiveIntegerMultiplication/Recursive_IntegerMultiplication.py)  
+[Karatsuba Multiplication](RecursiveIntegerMultiplication/Karatsuba_Integer_Multiplication.py)  
+[ThreeSum](Search/Search.py)  
 [Count Inversions](Misc/CountInversions.py)
-## Appendices 
-### 
 
 
  
