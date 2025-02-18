@@ -8,7 +8,8 @@ file_path = os.path.dirname(os.path.abspath(__file__))
 
 sys.path.append(file_path)
 ##
-from Sort import MergeSort
+
+from Sort.Sort import MergeSort
 
 def closestPairBruteForce1D(array):
     '''Find the closess Pair of points in a 1D array '''
