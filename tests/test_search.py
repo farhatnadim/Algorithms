@@ -40,11 +40,13 @@ class TestSearchAlgorithms(unittest.TestCase):
             np.array([1, 2])
         ]
         for arr in arrays:
-            p1, p2 = closestPairBruteForce1D(arr)
-            min_diff = abs(p1 - p2)
+            result = closestPairBruteForce1D(arr)
+            # Verify the result is a valid distance
+            self.assertGreater(result, 0)
+            # Verify it's the minimum distance
             for i in range(len(arr)):
                 for j in range(i+1, len(arr)):
-                    self.assertGreaterEqual(abs(arr[i] - arr[j]), min_diff)
+                    self.assertGreaterEqual(abs(arr[i] - arr[j]), result)
 
 if __name__ == '__main__':
     unittest.main() 

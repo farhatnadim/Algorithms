@@ -1,6 +1,7 @@
 import unittest
 import sys
 import os
+import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from RecursiveIntegerMultiplication.Recursive_IntegerMultiplication import recursiveIntegerMultiplication
@@ -8,11 +9,12 @@ from RecursiveIntegerMultiplication.Karatsuba_Integer_Multiplication import kara
 
 class TestMultiplicationAlgorithms(unittest.TestCase):
     def setUp(self):
+        # All test cases must have numbers with power of 2 digits
         self.test_cases = [
-            (1234, 5678, 4, 4),
-            (12, 34, 2, 2),
-            (1, 1, 1, 1),
-            (123, 456, 3, 3)
+            (1234, 5678, 4, 4),  # 4 digits each
+            (12, 34, 2, 2),      # 2 digits each
+            (1, 1, 1, 1),        # 1 digit each
+            (1234, 1234, 4, 4)   # 4 digits each
         ]
         
     def test_recursive_multiplication(self):
