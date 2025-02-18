@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Search.Search import binarySearch, findSecondLargest, closestPairBruteForce1D
+from Search.Search import BinarySearchIterative, BinarySearch, BinarySearchRecursive, SecondLargest, closestPairBruteForce1D
 
 class TestSearchAlgorithms(unittest.TestCase):
     def setUp(self):
@@ -19,14 +19,18 @@ class TestSearchAlgorithms(unittest.TestCase):
     def test_binary_search(self):
         for arr in self.sorted_arrays:
             for x in arr:
-                self.assertTrue(binarySearch(arr, x))
-            self.assertFalse(binarySearch(arr, max(arr) + 1))
+                self.assertTrue(BinarySearch(arr, x))
+                self.assertTrue(BinarySearchIterative(arr, x))
+                self.assertTrue(BinarySearchRecursive(arr, x))
+            self.assertFalse(BinarySearchIterative(arr, max(arr) + 1))
+            self.assertFalse(BinarySearchRecursive(arr, max(arr) + 1))
+            self.assertFalse(BinarySearch(arr, max(arr) + 1))
             
     def test_second_largest(self):
         for arr in self.sorted_arrays:
             if len(arr) >= 2:
                 expected = np.sort(np.unique(arr))[-2]
-                result = findSecondLargest(arr)
+                result = SecondLargest(arr)
                 self.assertEqual(result, expected)
                 
     def test_closest_pair(self):
