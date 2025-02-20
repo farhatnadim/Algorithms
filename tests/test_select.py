@@ -10,26 +10,39 @@ from Select.Python.DSelect import DSelect
 class TestSelectAlgorithms(unittest.TestCase):
     def setUp(self):
         self.test_arrays = [
-            np.array([5, 2, 8, 1, 9, 3]),
-            np.array([1, 1, 1, 1]),
-            np.array([4, 3, 2, 1]),
-            np.array([1]),
-            np.array([2, 1])
+            [5, 2, 8, 1, 9, 3],  # Using lists instead of numpy arrays
+            [4, 3, 2, 1],
+            [2, 1],
+            [1],
         ]
         
     def test_random_select(self):
         for arr in self.test_arrays:
             for i in range(len(arr)):
-                expected = np.sort(arr)[i]
-                result = RSelect(arr.copy(), i)
-                self.assertEqual(result, expected)
+                arr_copy = arr.copy()
+                sorted_copy = sorted(arr)
+                result = RSelect(arr_copy, i)
+                self.assertEqual(result, sorted_copy[i])
                 
     def test_deterministic_select(self):
         for arr in self.test_arrays:
             for i in range(len(arr)):
-                expected = np.sort(arr)[i]
-                result = DSelect(arr.copy(), i)
-                self.assertEqual(result, expected)
+                arr_copy = arr.copy()
+                sorted_copy = sorted(arr)
+                result = DSelect(arr_copy, i)
+                self.assertEqual(result, sorted_copy[i])
+                
+    def test_edge_cases(self):
+        # Test single element array
+        arr = [1]
+        self.assertEqual(RSelect(arr.copy(), 0), 1)
+        self.assertEqual(DSelect(arr.copy(), 0), 1)
+        
+        # Test array with duplicate elements
+        arr = [3, 3, 3, 3]
+        for i in range(len(arr)):
+            self.assertEqual(RSelect(arr.copy(), i), 3)
+            self.assertEqual(DSelect(arr.copy(), i), 3)
 
 if __name__ == '__main__':
     unittest.main() 
