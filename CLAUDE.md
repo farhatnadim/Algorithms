@@ -34,12 +34,15 @@ This is an algorithms and data structures learning repository implementing funda
 
 ### Python Testing
 ```bash
-# Run individual test files (recommended - pytest has import conflicts with argparse)
-python tests/test_sort.py
-python tests/test_search.py
-python tests/test_select.py
-python tests/test_multiplication.py
-python tests/test_mergesort.py
+# Recommended: Use pytest to run all tests
+source .venv/bin/activate
+pytest                          # Run all 101 tests
+pytest -v                       # Verbose output
+pytest tests/test_sort.py       # Run specific test file
+pytest -k "test_merge"          # Run tests matching pattern
+
+# Alternative: unittest discover
+python -m unittest discover -s tests -p "test_*.py"
 ```
 
 ### Type Checking
@@ -97,10 +100,7 @@ The user writes the actual algorithm implementations; Claude assists with the re
 Run all tests before committing:
 ```bash
 source .venv/bin/activate
-python tests/test_sort.py
-python tests/test_search.py
-python tests/test_select.py
-python tests/test_datastructures.py
+pytest  # Runs all 101 tests
 ```
 
 ## Common Issues
