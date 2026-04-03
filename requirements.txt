@@ -1,2 +1,5 @@
 numpy>=1.19.0
 pytest>=7.0.0
+graphviz>=0.20
+matplotlib>=3.5.0
+networkx>=2.8
