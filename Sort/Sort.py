@@ -1,12 +1,8 @@
 import numpy as np
-from typing import TypeVar, Any
-from numpy.typing import NDArray
-
-# Type variable for numeric types
-NumericType = TypeVar('NumericType', bound=np.floating[Any])
+import numpy.typing as npt
 
 
-def InsertionSort(array: NDArray[NumericType]) -> NDArray[NumericType]:
+def InsertionSort(array: npt.NDArray) -> npt.NDArray:
     """Sort array in ascending order using insertion sort algorithm.
 
     Iterates through the array, taking each element and inserting it into
