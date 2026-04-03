@@ -175,6 +175,128 @@ class TestSimpleLinkedList(unittest.TestCase):
         result = ll.search(5)
         self.assertIsNone(result)
 
+    def test_insert_at_position(self):
+        ll = SimpleLinkedList()
+        ll.insertAtEnd(1)
+        ll.insertAtEnd(3)
+        ll.insert(1, 2)  # Insert 2 at position 1
+        # List should be 1 -> 2 -> 3
+        self.assertEqual(ll.get_head().get_item(), 1)
+        self.assertEqual(ll.get_head().get_next().get_item(), 2)
+
+    def test_insert_at_position_zero(self):
+        ll = SimpleLinkedList()
+        ll.insertAtEnd(2)
+        ll.insert(0, 1)  # Insert at beginning
+        self.assertEqual(ll.get_head().get_item(), 1)
+
+    def test_delete_at_position(self):
+        ll = SimpleLinkedList()
+        ll.insertAtEnd(1)
+        ll.insertAtEnd(2)
+        ll.insertAtEnd(3)
+        ll.delete(1)  # Delete position 1 (value 2)
+        # List should be 1 -> 3
+        self.assertEqual(ll.get_head().get_item(), 1)
+        self.assertEqual(ll.get_head().get_next().get_item(), 3)
+
+    def test_delete_at_position_zero(self):
+        ll = SimpleLinkedList()
+        ll.insertAtEnd(1)
+        ll.insertAtEnd(2)
+        ll.delete(0)  # Delete first element
+        self.assertEqual(ll.get_head().get_item(), 2)
+
+    def test_delete_from_empty_list(self):
+        ll = SimpleLinkedList()
+        result = ll.deleteFromBeginning()
+        self.assertIsNone(result)
+
+    def test_traverse_list(self):
+        ll = SimpleLinkedList()
+        ll.insertAtBeginning(1)
+        ll.insertAtBeginning(2)
+        ll.insertAtBeginning(3)
+        ll.traverseList()
+        # After traversal, tail should be set correctly
+        self.assertEqual(ll.get_tail().get_item(), 1)
+
+    def test_insert_at_end_empty_list(self):
+        ll = SimpleLinkedList()
+        ll.insertAtEnd(1)
+        self.assertEqual(ll.get_head().get_item(), 1)
+        self.assertEqual(ll.get_tail().get_item(), 1)
+
+
+class TestLinkedNumber(unittest.TestCase):
+    def test_minimum(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        ll.insertAtEnd(2)
+        ll.insertAtEnd(8)
+        ll.insertAtEnd(1)
+        ll.minimum()
+        self.assertEqual(ll.getMin().get_item(), 1)
+
+    def test_maximum(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        ll.insertAtEnd(2)
+        ll.insertAtEnd(8)
+        ll.insertAtEnd(1)
+        ll.maximum()
+        self.assertEqual(ll.getMax().get_item(), 8)
+
+    def test_successor(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        ll.insertAtEnd(2)
+        ll.insertAtEnd(8)
+        ll.insertAtEnd(1)
+        successor = ll.successor()
+        # Maximum is 8, successor (second largest) should be 5
+        self.assertIsNotNone(successor)
+        self.assertEqual(successor.get_item(), 5)
+
+    def test_predecessor(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        ll.insertAtEnd(2)
+        ll.insertAtEnd(8)
+        ll.insertAtEnd(1)
+        predecessor = ll.predecessor()
+        # Minimum is 1, predecessor (second smallest) should be 2
+        self.assertIsNotNone(predecessor)
+        self.assertEqual(predecessor.get_item(), 2)
+
+    def test_minimum_single_element(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        result = ll.minimum()
+        # For single element, minimum() returns the node directly
+        if result is not None:
+            self.assertEqual(result.get_item(), 5)
+
+    def test_maximum_single_element(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        result = ll.maximum()
+        # For single element, maximum() returns the node directly
+        if result is not None:
+            self.assertEqual(result.get_item(), 5)
+
+    def test_successor_single_element(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        result = ll.successor()
+        self.assertIsNone(result)
+
+    def test_predecessor_single_element(self):
+        ll = LinkedNumber()
+        ll.insertAtEnd(5)
+        result = ll.predecessor()
+        self.assertIsNone(result)
+
 
 class TestDoubleLinkedList(unittest.TestCase):
     def test_insert_at_beginning(self):

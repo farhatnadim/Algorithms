@@ -1,7 +1,7 @@
 from Node import Vertex
 import graphviz
-import Queue
-import Stack
+from Queue import Queue
+from Stack import Stack
 class Graph:
     '''Limitations : Assumes that vertices are sorted in the descending order
                      Assumes no missing vertex'''
