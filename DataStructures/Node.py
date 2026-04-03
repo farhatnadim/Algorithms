@@ -47,7 +47,7 @@ class Vertex:
           self.explored = explored    
       
       def set_unexplored(self) -> None:
-          self.unexplored = False
+          self.explored = False
       
       def is_explored(self) -> bool:
           return self.explored 
@@ -70,8 +70,8 @@ class Vertex:
           
       def get_connected_components(self) -> int :
           return self.cc
-      
-      def set_distance(self, cc : int ) -> None:
+
+      def set_connected_components(self, cc : int ) -> None:
           self.cc = cc
           
       def copy(self)-> object :

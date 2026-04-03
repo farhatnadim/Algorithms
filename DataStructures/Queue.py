@@ -15,6 +15,7 @@ class Queue(DoubleLinkedList):
     def is_empty(self) -> bool:
         if self.size == 0:
             return True
+        return False
     
     def print_queue(self) -> None :
         super().print_list()        

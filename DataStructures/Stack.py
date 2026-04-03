@@ -17,6 +17,7 @@ class Stack(DoubleLinkedList):
         if self.size == 0:
             print("Stack is empty")
             return True
+        return False
     
     def print_stack(self) -> None :
         self.print_list()        

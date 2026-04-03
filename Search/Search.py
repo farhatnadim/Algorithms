@@ -107,14 +107,15 @@ def closestPair(SortedInX,SortedInY):
    
     #no need for else condition because if will return
     #divide the SortedInX into two halves
-    Lx = SortedInX[0:len(SortedInX)//2]
-    Rx = SortedInX[len(SortedInX)//2:]
-    #Ly is lx sorted according to y coordinate
-    #Ly = sorted(Lx,key=lambda x:x[1])
-    Ly = SortedInY[0:len(SortedInY)//2]
-    #Ry is rx sorted according to y coordinate
-    #Ry = sorted(Rx,key=lambda x:x[1])
-    Ry = SortedInY[len(SortedInY)//2:]
+    mid = len(SortedInX) // 2
+    Lx = SortedInX[0:mid]
+    Rx = SortedInX[mid:]
+    #Get the x-coordinate of the midpoint for splitting
+    mid_x = SortedInX[mid - 1][0]
+    #Ly contains points from SortedInY whose x <= mid_x (belong to left half)
+    Ly = [p for p in SortedInY if p[0] <= mid_x]
+    #Ry contains points from SortedInY whose x > mid_x (belong to right half)
+    Ry = [p for p in SortedInY if p[0] > mid_x]
     #find the closest pair in the left half
     l1, l2 = closestPair(Lx,Ly)
     #find the closest pair in the right half

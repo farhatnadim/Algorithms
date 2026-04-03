@@ -142,18 +142,16 @@ class SimpleLinkedList:
         current.set_next(temp.get_next())
         temp.set_next(None)
         
-    def search(self,key): 
+    def search(self, key):
         '''A query that given a linked list and a key returns
-            a reference to the node containing the key or none '''
+            a reference to the node containing the key or None '''
         current = self.head
-        if current.get_item() == key: # first case 
-            return current
-        while(current != None):
-            if (current.get_item() == key):
+        if current is None:
+            return None
+        while current is not None:
+            if current.get_item() == key:
                 return current
             current = current.get_next()
-            
-        # reached end and did not find the key returning None
         return None
     
    

@@ -48,36 +48,41 @@ def swapelement(i,j):
     j = temp
     return i,j
 
-def BubbleSort(array,verbose=False):
+def BubbleSort(array, verbose=False):
     '''input is an array of integers'''
     '''output is a sorted array of integers'''
-    '''this function implements the bubble sort algorithm'''
-    n = array.shape[0] # number of elements in the array
-    swapped = True
-    count = 0 
+    '''this function implements the bubble sort algorithm (cocktail shaker variant)'''
+    n = array.shape[0]
+    count = 0
     start = 0
-    end = n-1
-    while (swapped) :
-        
-        for i in np.arange(start,end):
-            if array[i] > array[i+1]:
-                array[i],array[i+1] = swapelement(array[i],array[i+1])
-                swapped = True
-                count += 1
-        if swapped == False:
-            break
-        swapped = False
-        end = end - 1
-        for i in np.arange(end-1,start-1,-1):
-            if array[i] > array[i+1]:
-                array[i],array[i+1] = swapelement(array[i],array[i+1])
-                swapped = True
-                count += 1
-        start = start + 1
-        if verbose:
-            print(f"Bubble Sort array = {array}")    
+    end = n - 1
+    swapped = True
 
-    return array,count
+    while swapped:
+        swapped = False
+        # Forward pass
+        for i in np.arange(start, end):
+            if array[i] > array[i + 1]:
+                array[i], array[i + 1] = swapelement(array[i], array[i + 1])
+                swapped = True
+                count += 1
+        if not swapped:
+            break
+        end -= 1
+
+        swapped = False
+        # Backward pass
+        for i in np.arange(end - 1, start - 1, -1):
+            if array[i] > array[i + 1]:
+                array[i], array[i + 1] = swapelement(array[i], array[i + 1])
+                swapped = True
+                count += 1
+        start += 1
+
+        if verbose:
+            print(f"Bubble Sort array = {array}")
+
+    return array, count
 
 # Merge 
 def Merge(left,right,merged):
