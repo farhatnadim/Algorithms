@@ -35,9 +35,9 @@ class DoubleNode(Node):
         self.previous = previous
   
 class Vertex:
-      def __init__(self, edges=[],explored=False, distance = inf, cc = 0, label='',scc = 0):
+      def __init__(self, edges=None, explored=False, distance = inf, cc = 0, label='',scc = 0):
           self.explored = explored
-          self.edges= edges
+          self.edges = edges if edges is not None else []
           self.distance = distance
           self.cc = cc
           self.currentLabel = 0

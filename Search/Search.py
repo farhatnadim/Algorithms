@@ -15,21 +15,19 @@ def closestPairBruteForce1D(array):
     '''Find the closess Pair of points in a 1D array '''
     if len(array) == 0 or len(array) == 1:
         raise ValueError("input array needs to have more than one element")
-    
+
     minDistance = np.inf
     min_p1, min_p2 = None, None
-    minDistance = np.inf
-    min_p1, min_p2 = ()
-    # 1D array meaning it doesn't have y coordinate. 
+    # 1D array meaning it doesn't have y coordinate.
     for x in range(len(array)):
-        # we find the squared distance be
-        for next_element in range(x,len(array)):
-                d_2= distance_squared(array[x],array[next_element])
-                if  d_2 < minDistance:
+        # we find the squared distance between two 1D points
+        for next_element in range(x + 1, len(array)):
+                d_2 = (array[x] - array[next_element])**2
+                if d_2 < minDistance:
                     minDistance = d_2
-                    min_p1, min_p2 =  array[x], array[next_element]
+                    min_p1, min_p2 = array[x], array[next_element]
 
-    return min_p1,min_p2
+    return min_p1, min_p2
 
 def closestPoint1D(array):
     ''' docstring for closestPoint1D'''
@@ -80,99 +78,11 @@ def distance_squared(p1,p2):
     #find the 2D distance between two points
     return (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2
 
-def closestPairBruteForce1D(array):
-    pass
-
-def closestPoint1D(array):
-    ''' docstring for closestPoint1D'''
-    
-    '''Find the closess Pair of points in a 1D array
-    Args:
-        array: a numpy array of integers
-    Returns:
-        a tuple of two integers
-    Raises:
-        ValueError: if the input array has less than two elements
-    '''
-    
-    if len(array) == 0 or len(array) == 1:
-        raise ValueError("input array needs to have more than one element")
-    #sort the array
-    array = MergeSort(array)
-    minDistance = np.inf
-    min_p1, min_p2 = None, None
-    for x in range(len(array)-1):
-        d_2= (array[x+1] - array[x])**2 
-        if  d_2 < minDistance:
-            minDistance = d_2
-            min_p1, min_p2 =  array[x], array[x+1]
-    return min_p1,min_p2
-
-
-def closestDistance2DBruteForce(array):
-    minDistance = np.inf
-    if len(array) == 0 or len(array) == 1:
-        raise ValueError("input array needs to have more than one element")
-
-    min_p1, min_p2 = None, None
-    minDistance = np.inf
-    # 2D array meaning it doesn't have y coordinate. 
-    for element in range(len(array)):
-        # we find the squared distance be
-        for next_element in range(element+1,len(array)):
-                d_2 = distance_squared(array[element],array[next_element])
-                if  d_2 < minDistance :
-                    minDistance = d_2
-                    min_p1, min_p2 =  array[element], array[next_element]
-
-    return min_p1,min_p2
-
-
-def distance_squared(p1,p2):
-    #find the 2D distance between two points
-    return (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2
-
-
-def closestPair(SortedInX,SortedInY):
-    '''Find the closess Pair of points in a 2D array '''
-    # SortedInX will have at least three elements because of the findClosestPair condition on input 
-    if len(SortedInX) == 0 :
-        return (np.inf,np.inf),(np.inf,np.inf)
-    if len(SortedInX) == 1:
-        return SortedInX[0],(np.inf,np.inf)
-    if len(SortedInX) == 2:
-        return SortedInX[0],SortedInX[1]
-    
-    if len(SortedInX) == 3: # find the smallest distance between the three points
-        return closestDistance2DBruteForce(SortedInX)
-   
-    #no need for else condition because if will return
-    #divide the SortedInX into two halves
-    Lx = SortedInX[0:len(SortedInX)//2]
-    Rx = SortedInX[len(SortedInX)//2:]
-    #divide the SortedInY into two halves
-    Ly = SortedInY[0:len(SortedInY)//2]
-    Ry = SortedInY[len(SortedInY)//2:]
-    #find the closest pair in the left half
-    l1, l2 = closestPair(Lx,Ly)
-    #find the closest pair in the right half
-    r1, r2 = closestPair(Rx,Ry)
-    d1 = distance_squared(l1,l2)
-    d2 = distance_squared(r1,r2)
-    delta = min(d1,d2)
-    #find the closest pair that has one point in the left half and one point in the right half
-    #s1,s2 = closestSplitPair(SortedInX,SortedInY,delta)
-    #return the closest pair
-    #d3 = distance_squared(s1,s2)
-    return l1, l2, r1, r2, min(d1,d2)
-
-
 def FindclosestPair(ArrayOfPoints):
     '''This function finds the closest pair using the divide and conquer algorithm'''
     if len(ArrayOfPoints) == 0 or len(ArrayOfPoints) == 1:
         raise ValueError("input array needs to have more than one element")
     if len(ArrayOfPoints) == 2:
-        print(f"ArrayOfPoints = {ArrayOfPoints}")
         return ArrayOfPoints[0],ArrayOfPoints[1]
     
     #sort the array according to x coordinate
@@ -212,7 +122,6 @@ def closestPair(SortedInX,SortedInY):
     d1 = distance_squared(l1,l2)
     d2 = distance_squared(r1,r2)
     delta = min(d1,d2)
-    print(f"delta = {delta}")
     #find the closest pair that has one point in the left half and one point in the right half
     s1,s2 = closestSplitPair(SortedInX,SortedInY,delta)
     #return the closest pair
@@ -233,11 +142,12 @@ def closestPair(SortedInX,SortedInY):
 def closestSplitPair(SortedInX, SortedInY, delta):
     # Find the middle point, it should be the last point in the left half
     middlePoint = SortedInX[len(SortedInX) // 2-1][0]
-    print(f"middlePoint = {middlePoint}")
-    
-    # Find the points that belong to Sy which are between middlePoint - delta and middlePoint + delta
-    Sy = [point for point in SortedInY if middlePoint - delta <= point[0] <= middlePoint + delta]
-    print(f"Sy = {Sy}")
+
+    # delta is squared distance, so use sqrt for coordinate comparison
+    delta_dist = np.sqrt(delta)
+
+    # Find the points that belong to Sy which are between middlePoint - delta_dist and middlePoint + delta_dist
+    Sy = [point for point in SortedInY if middlePoint - delta_dist <= point[0] <= middlePoint + delta_dist]
     
     # Check if Sy has less than two points
     if len(Sy) < 2:
@@ -267,7 +177,7 @@ def SecondLargest(array):
     '''this function returns a numpy array of two elements, the first element is the largest element in the array, the second element is the second largest element in the array'''
     '''this function uses the divide and conquer algorithm'''
     if array.shape[0] == 1:
-        return np.array([array[0],np.NINF])
+        return np.array([array[0], -np.inf])
     if array.shape[0] == 2:
         if array[0] > array[1]:
             return array
@@ -360,7 +270,7 @@ def ThreeSumBruteForce(inputArray):
 
     return count,triplets
 
-def ThreeSumQuick(inputArray,SortFunction = MergeSort):
+def ThreeSumQuick(inputArray, SortFunction=MergeSort):
     '''this function implements the three sum algorithm using the binary search and sort'''
     ''' this function takes Sort function from Sort.py'''
     '''you can use your sort flavor from Sort.py'''
@@ -370,38 +280,41 @@ def ThreeSumQuick(inputArray,SortFunction = MergeSort):
     count = 0
     triplets = []
     for i in np.arange(sortedArray.size):
-        for j in np.arange(i+1,sortedArray.size):
-            if BinarySearch(sortedArray,-sortedArray[i]-sortedArray[j]) > j:
+        for j in np.arange(i + 1, sortedArray.size):
+            target = -sortedArray[i] - sortedArray[j]
+            # Search only in indices > j to avoid double-counting
+            idx = BinarySearchRecursive(sortedArray, target, j + 1, sortedArray.size - 1)
+            if idx != -1:
                 count += 1
-                triplets.append([sortedArray[i],sortedArray[j],-sortedArray[i]-sortedArray[j]])
+                triplets.append([sortedArray[i], sortedArray[j], target])
     return count, triplets
 #Todo: maybe the function ThreeSumQuick is working but can be written in a more pythonic way
 # maybe using the enumerate function and list comprehension
 
 '''this is the implementation of the Rselect algorithm'''
 
-def partition(array : list,left : int , right : int ) -> int :
-    ''' this function partitions the array around a pivot value'''
+def partition(array : list, left : int, right : int) -> int:
+    '''this function partitions the array around a pivot value'''
     pivot_value = array[left]
     lesser_index = left + 1
-    for index,value in enumerate(array[lesser_index:right]):
-        if value < pivot_value:
-            array[lesser_index], array[index] = array[index], array[lesser_index]
+    for j in range(left + 1, right):
+        if array[j] < pivot_value:
+            array[lesser_index], array[j] = array[j], array[lesser_index]
             lesser_index += 1
-    array[left], array[lesser_index-1] = array[lesser_index-1], array[left]
-    return lesser_index-1
-    
-def Rselect(array : list, left : int, right : int, ith : int) -> int :
-    '''this function returns the ith order statistic of the array'''
+    array[left], array[lesser_index - 1] = array[lesser_index - 1], array[left]
+    return lesser_index - 1
+
+def Rselect(array : list, left : int, right : int, ith : int) -> int:
+    '''this function returns the index of the ith order statistic of the array'''
     if left >= right:
-        return array[0]
+        return left
     # we choose a random pivot
-    pivot_index = np.random.randint(left,right)
+    pivot_index = np.random.randint(left, right)
     array[left], array[pivot_index] = array[pivot_index], array[left]
-    position = partition(array,left,right)
+    position = partition(array, left, right)
     if position == ith:
         return position
     elif ith < position:
-        return Rselect(array,left,position,ith)
+        return Rselect(array, left, position, ith)
     else:
-        return Rselect(array,pivot_index+1,right,ith-position-1)
+        return Rselect(array, position + 1, right, ith)

@@ -73,10 +73,39 @@ pip install -r requirements.txt  # numpy>=1.19.0
 pip install mypy  # Optional, for type checking
 ```
 
+## Claude's Role
+
+**DO NOT write implementation code in C++, Lean4, or Rust.** Claude should:
+- Guide and review user-written code
+- Fix bugs in existing Python code
+- Set up test infrastructure and CI/CD
+- Provide code review feedback on correctness, style, and complexity
+- Help with documentation
+
+The user writes the actual algorithm implementations; Claude assists with the review workflow.
+
+## Code Quality Requirements
+
+**No bugs should exist in the Python code.** All Python implementations must:
+- Pass all unit tests before committing
+- Use proper exception types (e.g., `NotImplementedError` not `NotImplemented`)
+- Avoid mutable default arguments (e.g., use `edges=None` not `edges=[]`)
+- Wrap script-level code in `if __name__ == '__main__':` guards
+- Use `is None` / `is not None` instead of `== None` / `!= None`
+- Be compatible with NumPy 2.0+ (e.g., use `-np.inf` not `np.NINF`)
+
+Run all tests before committing:
+```bash
+source .venv/bin/activate
+python tests/test_sort.py
+python tests/test_search.py
+python tests/test_select.py
+python tests/test_datastructures.py
+```
+
 ## Common Issues
 
 - **Import Conflicts**: Some modules use argparse at module level, causing pytest collection failures. Run test files individually.
-- **Algorithm Bugs**: Some sorting implementations (BubbleSort, InsertionSort) have known bugs - this is a learning repository.
 - **Graph Class**: Assumes vertices are sorted in descending order with no missing vertices in sequence.
 
 ## Documentation

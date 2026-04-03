@@ -22,7 +22,7 @@ class Stack(DoubleLinkedList):
         self.print_list()        
     
     def insert_at_beginning(self,item):
-        raise NotImplemented("Insert at Begining is not allow in Stack.")
+        raise NotImplementedError("Insert at Begining is not allowed in Stack.")
 
     def insert(self, pos, item):
         raise NotImplementedError("This operation is not allowed in Stack.")

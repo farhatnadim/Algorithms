@@ -537,8 +537,8 @@ class LinkedNumber(DoubleLinkedList):
             temp = current  #save the node
             is_sorted = False 
             while not is_sorted:
-                if current.get_previous() is not None and current.item < current.get_previous().item:
-                    current.item, current.previous.item = current.previous.item, current.item
+                if current.get_previous() is not None and current.get_item() < current.get_previous().get_item():
+                    current.item, current.get_previous().item = current.get_previous().item, current.item
                     current = current.get_previous()
                 else:
                     is_sorted = True

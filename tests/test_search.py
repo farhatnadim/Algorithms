@@ -58,9 +58,9 @@ class TestSearchAlgorithms(unittest.TestCase):
         for arr in self.unsorted_arrays:
             sorted_arr = np.sort(arr)
             for i in range(len(arr)):
-                arr_copy = arr.copy()
-                position = Rselect(arr_copy.tolist(), 0, len(arr_copy), i)  # Convert to list as required by Rselect
-                self.assertEqual(sorted_arr[i], arr_copy[position])
+                arr_list = arr.tolist()  # Rselect modifies the list in-place
+                position = Rselect(arr_list, 0, len(arr_list), i)
+                self.assertEqual(sorted_arr[i], arr_list[position])
 
     def test_closest_pair_1d(self):
         # Test empty array

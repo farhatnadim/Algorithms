@@ -20,7 +20,7 @@ class Queue(DoubleLinkedList):
         super().print_list()        
     
     def insert_at_beginning(self,item):
-        raise NotImplemented("Insert at Begining is not allow in Queues")
+        raise NotImplementedError("Insert at Begining is not allowed in Queues")
 
     def insert(self, pos, item):
         raise NotImplementedError("This operation is not allowed in Queue.")
