@@ -1,19 +1,46 @@
 import numpy as np
+from typing import TypeVar, Any
+from numpy.typing import NDArray
 
-def InsertionSort(array):
-    '''input is an array of integers'''
-    '''output is a sorted array of integers'''
-    '''this function implements the insertion sort algorithm'''
-    '''As presented in the book, Introduction to Algorithms by Cormen et al.'''
-    n = array.shape[0] # number of elements in the array
+# Type variable for numeric types
+NumericType = TypeVar('NumericType', bound=np.floating[Any])
 
-    for i in range(1,n):
+
+def InsertionSort(array: NDArray[NumericType]) -> NDArray[NumericType]:
+    """Sort array in ascending order using insertion sort algorithm.
+
+    Iterates through the array, taking each element and inserting it into
+    its correct position among the previously sorted elements by shifting
+    larger elements to the right.
+
+    Args:
+        array: NumPy array of comparable elements to sort in-place.
+
+    Returns:
+        The same array, now sorted in ascending order.
+
+    Time Complexity:
+        - Best case: O(n) when array is already sorted
+        - Average case: O(n^2)
+        - Worst case: O(n^2) when array is reverse sorted
+
+    Space Complexity:
+        O(1) auxiliary space (in-place sorting)
+
+    Reference:
+        Introduction to Algorithms by Cormen et al. (CLRS), Chapter 2.
+    """
+    n: int = array.shape[0]
+
+    for i in range(1, n):
         key = array[i]
-        j = i - 1
-        while j >= 0 and array[j] > key: #similar to bubble sort propagate the key to the left
-            array[i] = array[j] #swap
-            array[j] = key #swap 
-            j = j - 1 # decrement j
+        j: int = i - 1
+        # Shift elements greater than key to the right
+        while j >= 0 and array[j] > key:
+            array[j + 1] = array[j]
+            j = j - 1
+        # Insert key at its correct position
+        array[j + 1] = key
     return array
 
 
@@ -88,7 +115,7 @@ def Merge(left,right,merged):
 
 
 
-def MergeSort(array):
+def MergeSort(array : np.array) -> np.array:
     '''This function implements the merge sort algorithm
     Input: numpy array of numbers
     Output: sorted numpy array of numbers
