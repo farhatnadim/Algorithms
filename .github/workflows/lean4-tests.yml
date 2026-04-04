@@ -1,0 +1,42 @@
+name: Lean 4 Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'lean4/**'
+      - '.github/workflows/lean4-tests.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'lean4/**'
+      - '.github/workflows/lean4-tests.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install elan
+      run: |
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+    - name: Update Lake dependencies
+      run: |
+        cd lean4
+        lake update
+
+    - name: Build
+      run: |
+        cd lean4
+        lake build
+
+    - name: Build Summary
+      if: always()
+      run: |
+        echo "## Lean 4 Build Results" >> $GITHUB_STEP_SUMMARY
+        echo "Lean 4 build completed. Check logs above for details." >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,52 @@
+name: Rust Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'rust/**'
+      - '.github/workflows/rust-tests.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'rust/**'
+      - '.github/workflows/rust-tests.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: rustfmt, clippy
+
+    - name: Check formatting
+      run: |
+        cd rust
+        cargo fmt --all -- --check
+
+    - name: Run Clippy
+      run: |
+        cd rust
+        cargo clippy --workspace -- -D warnings
+
+    - name: Build
+      run: |
+        cd rust
+        cargo build --workspace
+
+    - name: Run tests
+      run: |
+        cd rust
+        cargo test --workspace
+
+    - name: Test Summary
+      if: always()
+      run: |
+        echo "## Rust Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "Rust build, lint, and tests completed. Check logs above for details." >> $GITHUB_STEP_SUMMARY

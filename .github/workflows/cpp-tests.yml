@@ -1,0 +1,49 @@
+name: C++ Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'cpp/**'
+      - '.github/workflows/cpp-tests.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'cpp/**'
+      - '.github/workflows/cpp-tests.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++
+
+    - name: Configure CMake
+      run: |
+        cd cpp
+        mkdir -p build
+        cd build
+        cmake ..
+
+    - name: Build
+      run: |
+        cd cpp/build
+        make -j$(nproc)
+
+    - name: Run tests
+      run: |
+        cd cpp/build
+        ctest --output-on-failure
+
+    - name: Test Summary
+      if: always()
+      run: |
+        echo "## C++ Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "C++ build and tests completed. Check logs above for details." >> $GITHUB_STEP_SUMMARY

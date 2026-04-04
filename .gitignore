@@ -8,7 +8,16 @@ Sort/~$sertionSort.docx
 ~$eneral.docx
 
 .cosine
-*.out 
+*.out
 # Ignore the build directory
 Algorithms/Select/Cpp/build/*
 *build*
+
+# Rust
+rust/target/
+
+# Lean 4
+lean4/.lake/
+lean4/lake-packages/
+
+CLAUDE.md
