@@ -3,6 +3,7 @@ members = [
     "algorithms-sort",
     "algorithms-search",
     "algorithms-data-structures",
+    "algorithms-graph",
     "algorithms-integer-mult",
     "algorithms-minimum-cut",
     "algorithms-misc",

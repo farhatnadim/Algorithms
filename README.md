@@ -84,8 +84,23 @@ This is a learning journey for me. The algorithms and data structures below are 
 - [Double Linked List](DataStructures/DoubleLinkedList.py)
 - [Stack](DataStructures/Stack.py)
 - [Queue](DataStructures/Queue.py)
-- [BFS](DataStructures/bfs.py)
-- [DFS](DataStructures/dfs.py)
+
+### C++
+- Coming Soon
+
+### Rust
+- Coming Soon
+
+### Lean 4
+- Coming Soon
+
+---
+
+## Graph Algorithms
+
+### Python
+- [Breadth-First Search (BFS)](DataStructures/bfs.py)
+- [Depth-First Search (DFS)](DataStructures/dfs.py)
 
 ### C++
 - Coming Soon

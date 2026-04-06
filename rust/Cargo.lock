@@ -7,6 +7,13 @@ name = "algorithms-data-structures"
 version = "0.1.0"
 
 [[package]]
+name = "algorithms-graph"
+version = "0.1.0"
+dependencies = [
+ "algorithms-data-structures",
+]
+
+[[package]]
 name = "algorithms-integer-mult"
 version = "0.1.0"
 

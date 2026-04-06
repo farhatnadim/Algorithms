@@ -1,0 +1,8 @@
+[package]
+name = "algorithms-graph"
+version = "0.1.0"
+edition = "2021"
+description = "Graph algorithms: BFS, DFS, and more"
+
+[dependencies]
+algorithms-data-structures = { path = "../algorithms-data-structures" }

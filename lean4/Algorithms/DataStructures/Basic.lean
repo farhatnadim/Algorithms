@@ -76,12 +76,4 @@ namespace Queue
     sorry -- TODO: User implements
 end Queue
 
-/-- Breadth-first search -/
-def bfs (g : Graph) (start : Nat) : List Nat :=
-  sorry -- TODO: User implements
-
-/-- Depth-first search -/
-def dfs (g : Graph) (start : Nat) : List Nat :=
-  sorry -- TODO: User implements
-
 end Algorithms.DataStructures

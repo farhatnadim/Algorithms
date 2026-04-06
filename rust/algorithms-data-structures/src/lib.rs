@@ -201,18 +201,6 @@ impl<T> Default for Queue<T> {
     }
 }
 
-/// Breadth-first search
-/// TODO: User implements
-pub fn bfs(_graph: &Graph, _start: i32) -> Vec<i32> {
-    Vec::new() // Placeholder - user implements
-}
-
-/// Depth-first search
-/// TODO: User implements
-pub fn dfs(_graph: &Graph, _start: i32) -> Vec<i32> {
-    Vec::new() // Placeholder - user implements
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -244,16 +232,6 @@ mod tests {
     #[test]
     fn queue_placeholder() {
         let _q: Queue<i32> = Queue::new();
-        assert!(true);
-    }
-
-    #[test]
-    fn bfs_placeholder() {
-        assert!(true);
-    }
-
-    #[test]
-    fn dfs_placeholder() {
         assert!(true);
     }
 }
