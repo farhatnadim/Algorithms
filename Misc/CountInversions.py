@@ -22,20 +22,22 @@ def Merge_and_CountSplit_Inv(left,right):
     i = 0
     j = 0
     k = 0
-    splitInv = 0    
-    merged = np.zeros(left.shape[0]+right.shape[0])
+    splitInv = 0
+    merged = np.zeros(left.shape[0]+right.shape[0], dtype=left.dtype)
     # while we are within the limits of the arrays
     # we merge the arrays
     while (i < left.shape[0]) and (j < right.shape[0]):
-        if left[i] < right[j]:
+        # <= so ties take from LEFT without counting: equal elements are not
+        # inversions (strict < would fall into the counting branch on ties)
+        if left[i] <= right[j]:
             merged[k] = left[i]
             i += 1
-            
-        else: 
-            merged[k] = right[j] 
+
+        else:
+            merged[k] = right[j]
             j += 1
             splitInv += left.shape[0] - i
-            
+
         k+=1
     # we exited the above loop due to one of the arrays being exhausted
     # we now copy the remaining elements from the other array
@@ -57,12 +59,8 @@ def Sort_And_CountInV(array):
     Input: numpy array of numbers
     Output: sorted numpy array of numbers
     as presented in the book, Algorithms Illuminated by Tim Roughgarden'''
-    leftInv = 0
-    rightInv = 0
-    splitInv = 0
-    merged = np.zeros(array.shape[0])
-    # base case
-    if array.shape[0] == 1:
+    # base case: empty and single-element arrays have no inversions
+    if array.shape[0] <= 1:
         return array,0
     else:
         # general case

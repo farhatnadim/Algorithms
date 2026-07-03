@@ -13,3 +13,7 @@ lean_lib «Algorithms» where
 @[default_target]
 lean_exe «algorithms» where
   root := `Main
+
+-- portpal parity runner (JSON/dispatch glue; see CLAUDE.md carve-out)
+lean_exe «parity_runner» where
+  root := `ParityRunner

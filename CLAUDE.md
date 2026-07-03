@@ -36,7 +36,7 @@ This is an algorithms and data structures learning repository implementing funda
 ```bash
 # Recommended: Use pytest to run all tests
 source .venv/bin/activate
-pytest                          # Run all 101 tests
+pytest                          # Run all tests
 pytest -v                       # Verbose output
 pytest tests/test_sort.py       # Run specific test file
 pytest -k "test_merge"          # Run tests matching pattern
@@ -87,6 +87,11 @@ pip install mypy  # Optional, for type checking
 
 The user writes the actual algorithm implementations; Claude assists with the review workflow.
 
+**Sole exception (agreed 2026-07-03):** the portpal parity-harness *runner glue* —
+JSON decode/encode and dispatch code in `rust/parity-runner/`, `cpp/parity/`, and
+`lean4/ParityRunner.lean` — may be Claude-written. It contains no algorithm logic;
+algorithm bodies remain user-written everywhere.
+
 ## Code Quality Requirements
 
 **No bugs should exist in the Python code.** All Python implementations must:
@@ -100,15 +105,17 @@ The user writes the actual algorithm implementations; Claude assists with the re
 Run all tests before committing:
 ```bash
 source .venv/bin/activate
-pytest  # Runs all 101 tests
+pytest  # Runs all tests
 ```
 
 ## Common Issues
 
-- **Import Conflicts**: Some modules use argparse at module level, causing pytest collection failures. Run test files individually.
 - **Graph Class**: Assumes vertices are sorted in descending order with no missing vertices in sequence.
+- **Closest Pair (Search/Search.py)**: The divide-and-conquer closest pair requires points with distinct x-coordinates (see docs/porting-notes.md).
 
 ## Documentation
 
 - **docs/python-rust-type-mapping.md**: Guide showing Python type hints mapping to Rust concepts
 - **docs/rust-lean4-conversion.md**: Rust to Lean 4 conversion patterns
+- **docs/porting-notes.md**: Per-algorithm preconditions, invariants, and termination arguments for the Lean 4 / C++26 ports
+- **docs/lean4-catchable-bugs.md**: Catalog of real bugs fixed in the Python (kept verbatim) classified by which Lean 4 mechanism catches them — used as porting exercises

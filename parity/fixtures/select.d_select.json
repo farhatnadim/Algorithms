@@ -1,0 +1,82 @@
+{
+ "unit": "select",
+ "algorithm": "d_select",
+ "compare": "exact",
+ "cases": [
+  {
+   "name": "single_ith0",
+   "input": {
+    "array": [
+     7
+    ],
+    "ith": 0
+   },
+   "expected": 7
+  },
+  {
+   "name": "min",
+   "input": {
+    "array": [
+     8,
+     2,
+     5,
+     1,
+     9
+    ],
+    "ith": 0
+   },
+   "expected": 1
+  },
+  {
+   "name": "median",
+   "input": {
+    "array": [
+     8,
+     2,
+     5,
+     1,
+     9
+    ],
+    "ith": 2
+   },
+   "expected": 5
+  },
+  {
+   "name": "max",
+   "input": {
+    "array": [
+     8,
+     2,
+     5,
+     1,
+     9
+    ],
+    "ith": 4
+   },
+   "expected": 9
+  },
+  {
+   "name": "n14_ith7",
+   "input": {
+    "array": [
+     33,
+     7,
+     19,
+     2,
+     45,
+     11,
+     28,
+     4,
+     39,
+     16,
+     23,
+     8,
+     31,
+     12
+    ],
+    "ith": 7
+   },
+   "expected": 19
+  }
+ ]
+}

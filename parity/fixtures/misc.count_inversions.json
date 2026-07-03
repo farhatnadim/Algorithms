@@ -1,0 +1,77 @@
+{
+ "unit": "misc",
+ "algorithm": "count_inversions",
+ "compare": "exact",
+ "cases": [
+  {
+   "name": "empty",
+   "input": {
+    "array": []
+   },
+   "expected": 0
+  },
+  {
+   "name": "sorted",
+   "input": {
+    "array": [
+     1,
+     2,
+     3
+    ]
+   },
+   "expected": 0
+  },
+  {
+   "name": "reversed",
+   "input": {
+    "array": [
+     3,
+     2,
+     1
+    ]
+   },
+   "expected": 3
+  },
+  {
+   "name": "mixed",
+   "input": {
+    "array": [
+     1,
+     3,
+     5,
+     2,
+     4,
+     6
+    ]
+   },
+   "expected": 3
+  },
+  {
+   "name": "dups_strict_lt",
+   "input": {
+    "array": [
+     2,
+     2,
+     1
+    ]
+   },
+   "expected": 2
+  },
+  {
+   "name": "eight",
+   "input": {
+    "array": [
+     12,
+     4,
+     7,
+     1,
+     9,
+     2,
+     15,
+     3
+    ]
+   },
+   "expected": 15
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "unit": "search",
+ "algorithm": "second_largest",
+ "compare": "exact",
+ "cases": [
+  {
+   "name": "single",
+   "input": {
+    "array": [
+     7
+    ]
+   },
+   "expected": null
+  },
+  {
+   "name": "pair_asc",
+   "input": {
+    "array": [
+     3,
+     9
+    ]
+   },
+   "expected": 3
+  },
+  {
+   "name": "pair_desc",
+   "input": {
+    "array": [
+     9,
+     3
+    ]
+   },
+   "expected": 3
+  },
+  {
+   "name": "eight",
+   "input": {
+    "array": [
+     5,
+     1,
+     9,
+     3,
+     7,
+     2,
+     8,
+     6
+    ]
+   },
+   "expected": 8
+  },
+  {
+   "name": "all_equal",
+   "input": {
+    "array": [
+     4,
+     4,
+     4,
+     4
+    ]
+   },
+   "expected": 4
+  }
+ ]
+}

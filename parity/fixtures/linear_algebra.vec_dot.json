@@ -1,0 +1,45 @@
+{
+ "unit": "linear_algebra",
+ "algorithm": "vec_dot",
+ "compare": "exact",
+ "cases": [
+  {
+   "name": "basic",
+   "input": {
+    "a": [
+     1,
+     2,
+     3
+    ],
+    "b": [
+     4,
+     5,
+     6
+    ]
+   },
+   "expected": 32
+  },
+  {
+   "name": "empty",
+   "input": {
+    "a": [],
+    "b": []
+   },
+   "expected": 0
+  },
+  {
+   "name": "negatives",
+   "input": {
+    "a": [
+     -2,
+     7
+    ],
+    "b": [
+     3,
+     3
+    ]
+   },
+   "expected": 15
+  }
+ ]
+}

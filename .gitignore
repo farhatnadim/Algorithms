@@ -20,4 +20,12 @@ rust/target/
 lean4/.lake/
 lean4/lake-packages/
 
+# portpal (hints sidecars and cache are ephemeral)
+*.hints.md
+.portpal-cache/
+
+# local environments / local-only settings
+.venv/
+.claude/settings.local.json
+
 CLAUDE.md

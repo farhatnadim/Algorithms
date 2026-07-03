@@ -2,10 +2,13 @@
 members = [
     "algorithms-sort",
     "algorithms-search",
+    "algorithms-select",
     "algorithms-data-structures",
     "algorithms-graph",
+    "algorithms-linear-algebra",
     "algorithms-integer-mult",
     "algorithms-minimum-cut",
     "algorithms-misc",
+    "parity-runner",
 ]
 resolver = "2"

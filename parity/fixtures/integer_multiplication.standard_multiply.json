@@ -1,0 +1,47 @@
+{
+ "unit": "integer_multiplication",
+ "algorithm": "standard_multiply",
+ "compare": "exact",
+ "cases": [
+  {
+   "name": "single_digit",
+   "input": {
+    "x": "7",
+    "y": "8"
+   },
+   "expected": "56"
+  },
+  {
+   "name": "book_4digit",
+   "input": {
+    "x": "5678",
+    "y": "1234"
+   },
+   "expected": "7006652"
+  },
+  {
+   "name": "odd_digits_bug7",
+   "input": {
+    "x": "123",
+    "y": "456"
+   },
+   "expected": "56088"
+  },
+  {
+   "name": "carries",
+   "input": {
+    "x": "999999",
+    "y": "999999"
+   },
+   "expected": "999998000001"
+  },
+  {
+   "name": "digits16",
+   "input": {
+    "x": "3141592653589793",
+    "y": "2718281828459045"
+   },
+   "expected": "8539734222673565677848730527685"
+  }
+ ]
+}

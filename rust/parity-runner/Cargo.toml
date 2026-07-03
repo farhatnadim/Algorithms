@@ -1,0 +1,16 @@
+[package]
+name = "parity-runner"
+version = "0.1.0"
+edition = "2021"
+
+# portpal parity runner: JSON decode/encode + dispatch glue only (see the
+# CLAUDE.md carve-out). No algorithm logic lives here.
+
+[dependencies]
+serde_json = "1"
+algorithms-sort = { path = "../algorithms-sort" }
+algorithms-select = { path = "../algorithms-select" }
+algorithms-search = { path = "../algorithms-search" }
+algorithms-misc = { path = "../algorithms-misc" }
+algorithms-integer-mult = { path = "../algorithms-integer-mult" }
+algorithms-linear-algebra = { path = "../algorithms-linear-algebra" }
