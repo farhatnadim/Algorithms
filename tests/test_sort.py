@@ -5,6 +5,7 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Sort.Sort import QuickSort, BubbleSort, InsertionSort
+from Sort.Sort import MergeSort as SortSortMergeSort
 from Sort.MergeSort import MergeSort
 
 class TestSortAlgorithms(unittest.TestCase):
@@ -43,14 +44,42 @@ class TestSortAlgorithms(unittest.TestCase):
             np.testing.assert_array_equal(result, expected)
 
     def test_sort_empty_array(self):
-        """Test sorting empty arrays"""
+        """Test sorting empty arrays (must not recurse infinitely)"""
         empty = np.array([])
-        try:
-            result = MergeSort(empty.copy())
-            expected = np.sort(empty.copy())
+        expected = np.sort(empty.copy())
+
+        result = MergeSort(empty.copy())
+        np.testing.assert_array_equal(result, expected)
+
+        result = SortSortMergeSort(empty.copy())
+        np.testing.assert_array_equal(result, expected)
+
+        arr_copy = empty.copy()
+        QuickSort(arr_copy, 0, len(arr_copy))
+        np.testing.assert_array_equal(arr_copy, expected)
+
+    def test_sort_sort_merge_sort(self):
+        """Test the MergeSort in Sort/Sort.py (distinct from Sort/MergeSort.py)"""
+        for arr in self.test_arrays:
+            expected = np.sort(arr.copy())
+            result = SortSortMergeSort(arr.copy())
             np.testing.assert_array_equal(result, expected)
-        except:
-            pass  # Some implementations may not handle empty arrays
+
+    def test_merge_sort_preserves_dtype(self):
+        """Sorting an integer array must return integers, not float64"""
+        arr = np.array([5, 2, 8, 1, 9, 3])
+        self.assertEqual(MergeSort(arr.copy()).dtype, arr.dtype)
+        self.assertEqual(SortSortMergeSort(arr.copy()).dtype, arr.dtype)
+
+    def test_quick_sort_seeded_rng_deterministic(self):
+        """QuickSort with a seeded Generator must be reproducible"""
+        arr = np.random.randint(0, 1000, 50)
+        a = arr.copy()
+        b = arr.copy()
+        QuickSort(a, 0, len(a), rng=np.random.default_rng(42))
+        QuickSort(b, 0, len(b), rng=np.random.default_rng(42))
+        np.testing.assert_array_equal(a, b)
+        np.testing.assert_array_equal(a, np.sort(arr))
 
     def test_sort_large_array(self):
         """Test sorting larger arrays"""

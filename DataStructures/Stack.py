@@ -14,10 +14,7 @@ class Stack(DoubleLinkedList):
             return self.delete_from_end()
     
     def is_empty(self) -> bool:
-        if self.size == 0:
-            print("Stack is empty")
-            return True
-        return False
+        return self.size == 0
     
     def print_stack(self) -> None :
         self.print_list()        

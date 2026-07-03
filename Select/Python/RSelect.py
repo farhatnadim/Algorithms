@@ -13,7 +13,13 @@ def partition(array : list[int]) -> int:
     array[0], array[i - 1] = array[i - 1], array[0]
     return i - 1
 
-def RSelect(array : list[int], ith : int) -> int:   
+def RSelect(array : list[int], ith : int) -> int:
+    '''Value-returning randomized select over a copy-sliced list (contrast with
+    Search.Search.Rselect, which is the index-returning, in-place, windowed variant).'''
+    if not array:
+        raise ValueError("array must be non-empty")
+    if not 0 <= ith < len(array):
+        raise ValueError(f"ith must be in [0, {len(array) - 1}]")
     if len(array) == 1:
         return array[0]
     pivot_index = random.randint(0, len(array) - 1) # randint int is inclusive
@@ -29,20 +35,14 @@ def RSelect(array : list[int], ith : int) -> int:
 if __name__ == '__main__':
     # pass the file name as an argument
     parser = argparse.ArgumentParser(description='RSelect')
-    parser.add_argument('readFromFile', type=bool, help='Read from file or not')
     parser.add_argument('file', type=str, help='file name')
     parser.add_argument('ith', type=int, help='ith order statistic')
 
     args = parser.parse_args()
 
-    # test the algorithm
     # read a text file that has an array with each element on a new line
-
-    if (args.readFromFile):
-        file_path = args.file
-        with open(file_path) as f:
-            array = f.readlines()
-            array = [int(x.strip()) for x in array]
+    with open(args.file) as f:
+        array = [int(x.strip()) for x in f.readlines()]
 
     #  finding the ith order statistic of the array using heapq
     ith = args.ith

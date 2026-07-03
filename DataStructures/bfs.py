@@ -1,33 +1,6 @@
 from Node import Vertex
-from Queue import Queue
 from Graph import Graph
 
-
-
-''''
-
-def bfs( graph: Graph, vertex_index : int, connected_components = 0) -> None:
-    graph[vertex_index].set_explored()
-    graph[vertex_index].distance = 0
-    q = Queue()
-    q.enqueue(graph[vertex_index])
-    while (not q.is_empty()):
-        v = q.dequeue()
-        v.cc = connected_components
-        for edge in v.edges:
-            if not graph[edge].is_explored():
-                graph[edge].set_explored()
-                graph[edge].distance = v.distance + 1 
-                q.enqueue(graph[edge])
-    
-def Undirected_Connected_Components(graph : Graph) -> None :
-    numCC = 0
-    for vertex in graph:
-        if  not vertex.is_explored():
-            numCC = numCC + 1
-            bfs(graph,graph.index(vertex),numCC)
-            
-'''
 
 def main():
     
@@ -55,9 +28,8 @@ def main():
     g.add_vertex(number_9)
    
 
-    vertex_index = 0
     g.undirected_connected_components()
-    for vertex in g:
+    for vertex in g.get_vertices():
         print(f"Connected Components per vertex {vertex.get_connected_components()}")
         
         

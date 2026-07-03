@@ -382,5 +382,43 @@ class TestLinkedNumberSort(unittest.TestCase):
         self.assertEqual(dll.getMax().get_item(), 8)
 
 
+class TestRegressionFixes(unittest.TestCase):
+    """Guards for bugs fixed while preparing the code for Lean 4 / C++ ports."""
+
+    def test_double_linked_list_search_on_empty_list(self):
+        """search on an empty list must return None, not crash"""
+        dll = DoubleLinkedList()
+        self.assertIsNone(dll.search(42))
+
+    def test_double_linked_list_insert_at_zero_size(self):
+        """insert(pos=0, ...) must increment size exactly once"""
+        dll = DoubleLinkedList()
+        dll.add_at_end(1)
+        dll.add_at_end(2)
+        dll.insert(0, 99)
+        self.assertEqual(dll.get_size(), 3)
+        self.assertEqual(dll.to_array(), [99, 1, 2])
+
+    def test_simple_linked_list_delete_from_end_clears_tail(self):
+        """emptying the list via deleteFromEnd must also clear the tail"""
+        sll = SimpleLinkedList()
+        sll.insertAtBeginning(1)
+        sll.deleteFromEnd()
+        self.assertIsNone(sll.get_head())
+        self.assertIsNone(sll.get_tail())
+
+    def test_stack_is_empty_has_no_side_effects(self):
+        """is_empty must not print anything"""
+        import io
+        import contextlib
+        s = Stack()
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            self.assertTrue(s.is_empty())
+            s.push(1)
+            self.assertFalse(s.is_empty())
+        self.assertEqual(buf.getvalue(), "")
+
+
 if __name__ == '__main__':
     unittest.main()

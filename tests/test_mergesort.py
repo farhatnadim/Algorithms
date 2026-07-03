@@ -65,9 +65,9 @@ class TestMergeSort(unittest.TestCase):
     
     def test_mergesort_large_array(self) -> None:
         """Test MergeSort with larger array"""
-        large_arr: NDArray[np.float64] = np.random.randint(0, 100, 50)
-        expected: NDArray[np.float64] = np.sort(large_arr.copy())
-        result: NDArray[np.float64] = MergeSort(large_arr.copy())
+        large_arr: NDArray[np.int64] = np.random.randint(0, 100, 50)
+        expected: NDArray[np.int64] = np.sort(large_arr.copy())
+        result: NDArray[np.int64] = MergeSort(large_arr.copy())
         np.testing.assert_array_equal(result, expected)
     
     def test_merge_function(self) -> None:

@@ -1,5 +1,4 @@
 from Node import Vertex
-import graphviz
 from Queue import Queue
 from Stack import Stack
 class Graph:
@@ -96,8 +95,10 @@ class Graph:
         return reversed_graph
 
     
-    def kosaraju(self, vertex: Vertex) -> None:
-        
+    def kosaraju(self) -> int:
+        '''Kosaraju's strongly connected components. Labels each vertex's `scc`
+        attribute in place and returns the number of SCCs found.'''
+
         def dfs_recursive(graph :'Graph', vertex: Vertex) -> None:
             vertex.set_explored(True)
             vertex.scc = numSCC[0]
@@ -122,10 +123,11 @@ class Graph:
         # Reset exploration status for future operations
         for vertex in self.vertices:
             vertex.set_explored(False)
-    
-        
-    
+
+        return numSCC[0]
+
     def print_graph(self, graph_type='Digraph'):
+        import graphviz  # lazy: only needed for rendering, requires the graphviz binary
         if graph_type == 'Digraph':
             dot = graphviz.Digraph(format='svg')
         else:

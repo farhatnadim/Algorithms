@@ -27,7 +27,7 @@ class DoubleLinkedList:
     """
 
     ########################################## Basic functionality ###########################################
-    def __init__(self,head = None, tail=None, size = 0):
+    def __init__(self,head = None, tail=None):
         """ Initializes an empty list """
         self.head = head
         self.tail = tail
@@ -107,7 +107,7 @@ class DoubleLinkedList:
         # Starts at the head
         current = self.head
         # Until we reach the tail, only at tail next == None
-        while(current.get_next() != None):
+        while(current.get_next() is not None):
             current = current.get_next()
         # Sets the tail
         self.tail = current
@@ -130,7 +130,7 @@ class DoubleLinkedList:
         # Starts at the head
         current = self.head
         # Until we reach the tail, only at tail next == None
-        while(current.get_next() != None):
+        while(current.get_next() is not None):
             array.append(current.get_item())
             current = current.get_next()
             
@@ -150,7 +150,7 @@ class DoubleLinkedList:
         # Starts at the tail
         current = self.tail
         # Untill we reach the head, only at head previous == None
-        while(current.get_previous() != None):
+        while(current.get_previous() is not None):
             current = current.get_previous()
         # Sets the head
         self.head = current
@@ -171,7 +171,7 @@ class DoubleLinkedList:
         # Starts at the tail
         current = self.tail
         # Untill we reach the head, only at head previous == None
-        while(current.get_previous() != None):
+        while(current.get_previous() is not None):
             reversed_array.append(current.get_item())
             current = current.get_previous()
         # Sets the head
@@ -189,7 +189,7 @@ class DoubleLinkedList:
         current = self.head
         print(current.get_item(),end=" ")
         # Print all elements until the end
-        while(current.get_next() != None):
+        while(current.get_next() is not None):
             current = current.get_next()
             print(current.get_item(),end=" ")
         print("\n")
@@ -205,7 +205,7 @@ class DoubleLinkedList:
         current = self.tail
         print(current.get_item())
         # Print all elements until the end
-        while(current.get_previous() != None):
+        while(current.get_previous() is not None):
             current = current.get_previous()
             print(current.get_item())
         return 0
@@ -255,11 +255,9 @@ class DoubleLinkedList:
             print("Invalid position")
             return -1
 
-        # At head
+        # At head (insert_at_beginning already updates the size)
         if  pos == 0:
             self.insert_at_beginning(item)
-            # Update the size
-            self.size += 1
             return 0
 
         # any other position ( size and position are valid )
@@ -392,9 +390,7 @@ class DoubleLinkedList:
 
         '''
         current = self.head
-        if current.get_item() == key: # first case 
-            return current
-        while(current != None):
+        while(current is not None):
             if (current.get_item() == key):
                 return current
             current = current.get_next()
@@ -407,9 +403,9 @@ class DoubleLinkedList:
     
 class LinkedNumber(DoubleLinkedList):
     '''Inherits SimpleLinkedList , adds some functionality for number'''
-    def __init__(self,head = None,tail=None,max=0,min = 0,size =0):
-        super().__init__(head,tail,size)
-        self.min = 0 
+    def __init__(self,head = None,tail=None):
+        super().__init__(head,tail)
+        self.min = 0
         self.max = 0
 
     def getMax(self):
@@ -422,10 +418,10 @@ class LinkedNumber(DoubleLinkedList):
 
     def minimum(self): #
         """ Returns the minimum of an unsorted linked list """
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return -1
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return self.head
         
         minimum = math.inf
@@ -433,7 +429,7 @@ class LinkedNumber(DoubleLinkedList):
         current = self.head
         ref_to_minimum = None
         
-        while(current  != None):
+        while(current is not None):
             if (current.get_item() < minimum):
                 minimum = current.get_item()
                 ref_to_minimum = current     
@@ -444,10 +440,10 @@ class LinkedNumber(DoubleLinkedList):
     def maximum (self): # to implement after implementing a sort
         """ Returns the maximum of an unsorted linked list """
 
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return - 1
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return self.head
         
         maximum = -math.inf
@@ -455,7 +451,7 @@ class LinkedNumber(DoubleLinkedList):
         current = self.head
         ref_to_max = None
         
-        while(current != None):
+        while(current is not None):
             if (current.get_item() > maximum):
                 maximum = current.get_item()
                 ref_to_max = current
@@ -475,10 +471,10 @@ class LinkedNumber(DoubleLinkedList):
 
         """Returns the second larget number in a double linked list """
         successor_ref = None
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return - 1
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return - 1
         
         second_maximum = -math.inf 
@@ -486,7 +482,7 @@ class LinkedNumber(DoubleLinkedList):
         current = self.head
         self.maximum()
         max = self.getMax()
-        while(current != None):
+        while(current is not None):
             if (current is max):
                 current = current.get_next() # skip
             elif (current.get_item() > second_maximum):
@@ -504,10 +500,10 @@ class LinkedNumber(DoubleLinkedList):
     def predecessor(self):
         """ Return second smallest number in an unsorted linked list """
         predecessor_ref = None
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return - 1
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return - 1
         
         second_minimum = + math.inf 
@@ -515,7 +511,7 @@ class LinkedNumber(DoubleLinkedList):
         current = self.head
         self.minimum()
         min = self.getMin()
-        while(current != None):
+        while(current is not None):
             if (current is min):
                 current = current.get_next() # skip
             elif (current.get_item() < second_minimum):

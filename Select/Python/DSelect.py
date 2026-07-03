@@ -1,7 +1,5 @@
-import random
 import argparse
 import heapq
-import statistics
 
 
 def partition(array : list[int]) -> int:
@@ -16,9 +14,17 @@ def partition(array : list[int]) -> int:
 
 
 def DSelect(array, ith):
+    '''Deterministic (median-of-medians) select. Uses the upper median
+    (sorted(group)[len(group)//2]) for each group of <=5 so the pivot is always
+    an element of the array — statistics.median would average even-sized tail
+    groups and produce a value with no index in the array.'''
+    if not array:
+        raise ValueError("array must be non-empty")
+    if not 0 <= ith < len(array):
+        raise ValueError(f"ith must be in [0, {len(array) - 1}]")
     if len(array) <= 5:
         return sorted(array)[ith]
-    C = [statistics.median(array[i:i+5]) for i in range(0, len(array), 5)]
+    C = [sorted(array[i:i+5])[len(array[i:i+5]) // 2] for i in range(0, len(array), 5)]
     p = DSelect(C, len(C) // 2)
     index_p = array.index(p)
     array[0], array[index_p] = array[index_p], array[0]
@@ -32,20 +38,14 @@ def DSelect(array, ith):
 if __name__ == '__main__':
     # pass the file name as an argument
     parser = argparse.ArgumentParser(description='DSelect')
-    parser.add_argument('readFromFile', type=bool, help='Read from file or not')
     parser.add_argument('file', type=str, help='file name')
     parser.add_argument('ith', type=int, help='ith order statistic')
 
     args = parser.parse_args()
 
-    # test the algorithm
     # read a text file that has an array with each element on a new line
-
-    if (args.readFromFile):
-        file_path = args.file
-        with open(file_path) as f:
-            array = f.readlines()
-            array = [int(x.strip()) for x in array]
+    with open(args.file) as f:
+        array = [int(x.strip()) for x in f.readlines()]
 
     #  finding the ith order statistic of the array using heapq
     ith = args.ith

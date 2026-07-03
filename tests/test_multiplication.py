@@ -117,5 +117,36 @@ class TestMultiplicationAlgorithms(unittest.TestCase):
         result = karatsubaMultiplication(num1, num2, 8, 8)
         self.assertEqual(result, expected)
 
+    def test_odd_digit_counts(self):
+        """Odd digit counts exercise the 10**(2*n3) recombination shift"""
+        odd_cases = [
+            (123, 456, 3, 3),
+            (12345, 67890, 5, 5),
+            (1234567, 7654321, 7, 7),
+        ]
+        for num1, num2, n1, n2 in odd_cases:
+            expected = num1 * num2
+            self.assertEqual(
+                recursiveIntegerMultiplication(num1, num2, n1, n2), expected,
+                f"recursive failed for {num1} * {num2}")
+            self.assertEqual(
+                karatsubaMultiplication(num1, num2, n1, n2), expected,
+                f"karatsuba failed for {num1} * {num2}")
+
+    def test_big_integers(self):
+        """20-digit operands guard the exact (non-float) digit counting"""
+        num1 = 12345678901234567890
+        num2 = 98765432109876543210
+        n = getNumDigits(num1)
+        self.assertEqual(n, 20)
+        expected = num1 * num2
+        self.assertEqual(recursiveIntegerMultiplication(num1, num2, n, n), expected)
+        self.assertEqual(karatsubaMultiplication(num1, num2, n, n), expected)
+
+    def test_get_num_digits_negative(self):
+        """Negative numbers must count digits of the absolute value"""
+        self.assertEqual(getNumDigits(-5), 1)
+        self.assertEqual(getNumDigits(-1234), 4)
+
 if __name__ == '__main__':
     unittest.main() 

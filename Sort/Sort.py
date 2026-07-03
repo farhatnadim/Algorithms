@@ -40,14 +40,6 @@ def InsertionSort(array: npt.NDArray) -> npt.NDArray:
     return array
 
 
-def swapelement(i,j):
-    '''swaps the ith and jth element of the array'''
-    '''Helper function for bubble sort below'''
-    temp = i
-    i = j
-    j = temp
-    return i,j
-
 def BubbleSort(array, verbose=False):
     '''input is an array of integers'''
     '''output is a sorted array of integers'''
@@ -63,7 +55,7 @@ def BubbleSort(array, verbose=False):
         # Forward pass
         for i in np.arange(start, end):
             if array[i] > array[i + 1]:
-                array[i], array[i + 1] = swapelement(array[i], array[i + 1])
+                array[i], array[i + 1] = array[i + 1], array[i]
                 swapped = True
                 count += 1
         if not swapped:
@@ -74,7 +66,7 @@ def BubbleSort(array, verbose=False):
         # Backward pass
         for i in np.arange(end - 1, start - 1, -1):
             if array[i] > array[i + 1]:
-                array[i], array[i + 1] = swapelement(array[i], array[i + 1])
+                array[i], array[i + 1] = array[i + 1], array[i]
                 swapped = True
                 count += 1
         start += 1
@@ -122,13 +114,13 @@ def MergeSort(array : np.array) -> np.array:
     Output: sorted numpy array of numbers
     as presented in the book, Algorithms Illuminated by Tim Roughgarden'''
     
-    merged = np.zeros(array.shape[0])
-    # base case
-    if array.shape[0] == 1:
+    # base case: empty and single-element arrays are already sorted
+    if array.shape[0] <= 1:
         return array
     else:
         # general case
         # we split the array in two and recursively call mergeSort
+        merged = np.zeros(array.shape[0], dtype=array.dtype)
         left =  MergeSort(array[array.shape[0]//2:])
         right = MergeSort(array[0:array.shape[0]//2])
         Merge(left,right,merged)
@@ -154,12 +146,14 @@ def partition(array, left, right):
 
     return pivot_index
 
-def QuickSort(array : np.array, left : int , right : int):
+def QuickSort(array : np.array, left : int , right : int, rng : np.random.Generator | None = None):
     if left >= right:
         return
-    pivot_index = np.random.randint(left, right)
+    if rng is None:
+        rng = np.random.default_rng()
+    pivot_index = rng.integers(left, right)
     array[left], array[pivot_index] = array[pivot_index], array[left]
     new_pivot_index = partition(array, left, right)
-    QuickSort(array, left, new_pivot_index)
-    QuickSort(array, new_pivot_index + 1, right)
+    QuickSort(array, left, new_pivot_index, rng)
+    QuickSort(array, new_pivot_index + 1, right, rng)
 

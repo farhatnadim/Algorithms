@@ -4,9 +4,10 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Search.Search import (BinarySearchIterative, BinarySearch, BinarySearchRecursive, 
-                         SecondLargest, closestPairBruteForce1D, ThreeSumBruteForce, 
-                         ThreeSumQuick, Rselect)
+from Search.Search import (BinarySearchIterative, BinarySearch, BinarySearchRecursive,
+                         SecondLargest, closestPairBruteForce1D, ThreeSumBruteForce,
+                         ThreeSumQuick, Rselect, closestDistance2DBruteForce,
+                         FindclosestPair, distance_squared)
 
 class TestSearchAlgorithms(unittest.TestCase):
     def setUp(self):
@@ -79,6 +80,30 @@ class TestSearchAlgorithms(unittest.TestCase):
         for i in range(len(arr)):
             for j in range(i+1, len(arr)):
                 self.assertGreaterEqual(abs(arr[i] - arr[j]), min_diff)
+
+    def test_second_largest_does_not_mutate_input(self):
+        """SecondLargest must not reorder the caller's array"""
+        arr = np.array([1, 5])
+        original = arr.copy()
+        SecondLargest(arr)
+        np.testing.assert_array_equal(arr, original)
+
+    def test_closest_pair_2d_coincident_points(self):
+        """Coincident points are a legitimate closest pair (distance 0)"""
+        points = [(1, 1), (5, 5), (1, 1), (9, 2)]
+        p1, p2 = closestDistance2DBruteForce(points)
+        self.assertEqual(distance_squared(p1, p2), 0)
+
+    def test_closest_pair_2d_divide_and_conquer(self):
+        """D&C closest pair must agree with brute force (distinct x-coords)"""
+        rng = np.random.default_rng(7)
+        for n in (8, 16, 31):
+            xs = rng.permutation(10 * n)[:n]  # distinct x-coordinates
+            ys = rng.integers(0, 100, n)
+            points = [(int(x), int(y)) for x, y in zip(xs, ys)]
+            b1, b2 = closestDistance2DBruteForce(points)
+            d1, d2 = FindclosestPair(points)
+            self.assertEqual(distance_squared(d1, d2), distance_squared(b1, b2))
 
 if __name__ == '__main__':
     unittest.main() 

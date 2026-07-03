@@ -1,7 +1,7 @@
 '''This file reimplements the modified gramshmidt process depcited in Strang 5th edition , the code was implemented in Matlab'''
 import numpy as np
 
-def modified_gramshmidt(A : np.array) -> list[np.array, np.array] :
+def modified_gramshmidt(A : np.ndarray) -> tuple[np.ndarray, np.ndarray] :
     # precompute memory 
     Q = np.zeros(A.shape)
     n = A.shape[1]
@@ -26,8 +26,8 @@ def modified_gramshmidt(A : np.array) -> list[np.array, np.array] :
             raise ValueError(f"Matrix has linearly dependent columns at column index {j}")
 
         Q[:,j] = v / R[j,j]
-        
-    return [Q,R]
+
+    return Q, R
 
 
 def main():
@@ -39,5 +39,7 @@ def main():
     Q_np, R_np = np.linalg.qr(A)
     print("Q (numpy):", Q_np)
     print("R (numpy):", R_np)
-    
-main()
+
+
+if __name__ == "__main__":
+    main()

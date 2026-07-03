@@ -50,12 +50,13 @@ This is a learning journey for me. The algorithms and data structures below are 
 
 ### C++
 - [Random Select](Select/Cpp/main.cpp)
+- [Select stubs (rSelect, dSelect)](cpp/select/include/select.hpp)
 
 ### Rust
-- Coming Soon
+- [Select stubs (r_select, d_select)](rust/algorithms-select/src/lib.rs)
 
 ### Lean 4
-- Coming Soon
+- [Select stubs (rSelect, dSelect)](lean4/Algorithms/Select/Basic.lean)
 
 ---
 
@@ -67,12 +68,13 @@ This is a learning journey for me. The algorithms and data structures below are 
 
 ### Rust
 - [Modified Gram-Schmidt](LinearAlgebra/Rust/modified_gram_shmidt/src/main.rs)
+- [Linear algebra stubs (mat_mul, strassen, QR)](rust/algorithms-linear-algebra/src/lib.rs)
 
 ### C++
-- Coming Soon
+- [Linear algebra stubs (matMul, strassen, QR)](cpp/linear_algebra/include/linear_algebra.hpp)
 
 ### Lean 4
-- Coming Soon
+- [Linear algebra stubs (matMul, strassen, QR)](lean4/Algorithms/LinearAlgebra/Basic.lean)
 
 ---
 

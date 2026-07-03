@@ -1,7 +1,7 @@
 from Node import Vertex
 import Graph
 
-numcc = 0
+
 def main():
     number_0 = Vertex([2], label='1')
     number_1 = Vertex([3, 9], label='2')
@@ -34,10 +34,6 @@ def main():
     g = r_g.reversal()
     g.print_graph()
 
-    
-    #t_graph=r_g.kosraju(number_0)
-    #for vertex in t_graph.vertices:
-     #   print(vertex.label, vertex.scc)
-    #t_graph.print_graph()
+
 if __name__ == "__main__":
     main()

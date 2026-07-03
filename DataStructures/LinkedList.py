@@ -49,28 +49,28 @@ class SimpleLinkedList:
     
     # computational complexity o(n)
     def traverseList(self):
-        if self.head == None:
+        if self.head is None:
             print("Linked List is empty")
             return None
         current = self.head
-        while(current.get_next() != None):
+        while(current.get_next() is not None):
             current = current.get_next()
         self.tail = current
 
     def printList(self):
-        if self.head == None:
+        if self.head is None:
             print("Linked List is empty")
             return None
         current = self.head
         print(current.get_item())
-        while(current.get_next() != None):
+        while(current.get_next() is not None):
             current = current.get_next()
             print(current.get_item())
     
     # computational complexity o(n)
     def insertAtEnd(self,item):
         # assuming we dont have the tail
-        if self.head == None:
+        if self.head is None:
             self.insertAtBeginning(item)
             return
         self.traverseList()
@@ -84,7 +84,7 @@ class SimpleLinkedList:
     
 
     def insert(self,pos,item):
-        if  self.head == None:
+        if  self.head is None:
             self.insertAtBeginning(item)
             return None
         if  pos < 0:
@@ -96,7 +96,7 @@ class SimpleLinkedList:
         new_node = Node(item,None)
         current = self.head
         for position in range(pos-1):
-            if  current.get_next().get_next() != None:
+            if  current.get_next().get_next() is not None:
                 current = current.get_next()
             else:
                 print("linked list overflow, return linked list as is ")
@@ -108,23 +108,24 @@ class SimpleLinkedList:
     
     
     def deleteFromBeginning(self):
-        if self.head == None: # empty list
+        if self.head is None: # empty list
             return None
         self.head = self.head.get_next()
     
     def deleteFromEnd(self):
-        if (self.head == None or self.head.get_next() == None):
+        if (self.head is None or self.head.get_next() is None):
             self.head = None
+            self.tail = None
             return
         current = self.head
-        while(current.get_next().get_next() != None):
+        while(current.get_next().get_next() is not None):
             current = current.get_next()
         current.set_next(None) 
         self.tail = current
 
     #TODO: check the return    
     def delete(self, pos):
-        if self.head == None:
+        if self.head is None:
             return -1 
         if pos == 0:
             self.deleteFromBeginning()
@@ -159,9 +160,9 @@ class SimpleLinkedList:
     
 class LinkedNumber(SimpleLinkedList):
     '''Inherits SimpleLinkedList , adds some functionality for number'''
-    def __init__(self,head = None,tail=None,max=0,min = 0):
+    def __init__(self,head = None,tail=None):
         super().__init__(head,tail)
-        self.min = 0 
+        self.min = 0
         self.max = 0
 
     def getMax(self):
@@ -175,10 +176,10 @@ class LinkedNumber(SimpleLinkedList):
     def minimum(self): #
         # depends on the values of the items
         # assuming set of real numbers 
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return -1
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return self.head
         
         minimum = math.inf
@@ -186,7 +187,7 @@ class LinkedNumber(SimpleLinkedList):
         current = self.head
         ref_to_minimum = None
         
-        while(current  != None):
+        while(current is not None):
             if (current.get_item() < minimum):
                 minimum = current.get_item()
                 ref_to_minimum = current     
@@ -198,10 +199,10 @@ class LinkedNumber(SimpleLinkedList):
     
         # depends on the values of the items
         # assuming set of real numbers 
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return None
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return self.head
         
         maximum = -math.inf
@@ -209,7 +210,7 @@ class LinkedNumber(SimpleLinkedList):
         current = self.head
         ref_to_max = None
         
-        while(current != None):
+        while(current is not None):
             if (current.get_item() > maximum):
                 maximum = current.get_item()
                 ref_to_max = current
@@ -230,10 +231,10 @@ class LinkedNumber(SimpleLinkedList):
 
         ''' First method  is easiest to implement, find max first and then compare to max the successor'''
         successor_ref = None
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return None
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return None
         
         second_maximum = -math.inf 
@@ -241,7 +242,7 @@ class LinkedNumber(SimpleLinkedList):
         current = self.head
         self.maximum()
         max = self.getMax()
-        while(current != None):
+        while(current is not None):
             if (current is max):
                 current = current.get_next() # skip
             elif (current.get_item() > second_maximum):
@@ -259,10 +260,10 @@ class LinkedNumber(SimpleLinkedList):
     def predecessor(self):
         ''' First method  is easiest to implement, find max first and then compare to max the successor'''
         predecessor_ref = None
-        if self.head == None:
+        if self.head is None:
             print("Emtpy list ")
             return None
-        if self.head.get_next() == None:
+        if self.head.get_next() is None:
             return None
         
         second_minimum = + math.inf 
@@ -270,7 +271,7 @@ class LinkedNumber(SimpleLinkedList):
         current = self.head
         self.minimum()
         min = self.getMin()
-        while(current != None):
+        while(current is not None):
             if (current is min):
                 current = current.get_next() # skip
             elif (current.get_item() < second_minimum):

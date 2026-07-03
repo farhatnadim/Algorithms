@@ -33,28 +33,3 @@ class Queue(DoubleLinkedList):
 
     def delete_from_end(self):
         raise NotImplementedError("This operation is not allowed in Queue.")
-    
-  
-    
-'''    
-def main():
-    q = Queue()
-    q.enqueue(10)
-    q.enqueue(5)
-    q.enqueue(3)
-    q.enqueue(12)
-    q.enqueue(1)
-    q.print_queue()
-    print(q.dequeue())
-    q.print_queue()
-    print(q.dequeue())
-    q.print_queue()
-    print(q.dequeue())
-    q.print_queue()
-    print(q.dequeue())
-    q.print_queue()
-    print(q.dequeue())
-    q.print_queue()
-if __name__ == "__main__":
-    main()
-'''

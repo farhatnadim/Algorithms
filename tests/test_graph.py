@@ -202,7 +202,8 @@ class TestGraph(unittest.TestCase):
         for v in [v0, v1, v2, v3, v4]:
             g.add_vertex(v)
 
-        g.kosaraju(v0)
+        num_scc = g.kosaraju()
+        self.assertEqual(num_scc, 2)
 
         # Vertices 0, 1, 2 should be in one SCC
         scc0 = g.get_vertex(0).scc

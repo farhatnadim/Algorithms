@@ -82,6 +82,19 @@ class TestCountInversions(unittest.TestCase):
             # Just verify it completes without error
             self.assertIsNotNone(brute_count)
 
+    def test_empty_array(self):
+        """Empty input must return (empty, 0), not recurse infinitely"""
+        arr = np.array([])
+        sorted_arr, count = Sort_And_CountInV(arr.copy())
+        self.assertEqual(count, 0)
+        self.assertEqual(len(sorted_arr), 0)
+
+    def test_dtype_preserved(self):
+        """Counting inversions of an int array must return an int array"""
+        arr = np.array([5, 2, 8, 1, 9, 3])
+        sorted_arr, _ = Sort_And_CountInV(arr.copy())
+        self.assertEqual(sorted_arr.dtype, arr.dtype)
+
     def test_edge_cases(self):
         # Single element
         arr = np.array([5])

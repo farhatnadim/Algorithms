@@ -1,14 +1,7 @@
 import numpy as np
 
-import sys
-import os 
-
-#Include Sort 
-file_path = os.path.dirname(os.path.abspath(__file__))
-
-sys.path.append(file_path)
-##
-
+# import this module as `Search.Search` from the repo root (tests/conftest.py
+# puts the repo root on sys.path)
 from Sort.Sort import MergeSort
 
 def closestPairBruteForce1D(array):
@@ -62,12 +55,12 @@ def closestDistance2DBruteForce(array):
 
     min_p1, min_p2 = None, None
     minDistance = np.inf
-    # 2D array meaning it doesn't have y coordinate. 
+    # start the inner loop at element + 1 so a point is never compared with
+    # itself; coincident points are a legitimate closest pair (distance 0)
     for element in range(len(array)):
-        # we find the squared distance be
-        for next_element in range(element,len(array)):
+        for next_element in range(element + 1, len(array)):
                 d_2= distance_squared(array[element],array[next_element])
-                if  d_2 < minDistance and d_2 != 0:
+                if  d_2 < minDistance:
                     minDistance = d_2
                     min_p1, min_p2 =  array[element], array[next_element]
 
@@ -79,7 +72,13 @@ def distance_squared(p1,p2):
     return (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2
 
 def FindclosestPair(ArrayOfPoints):
-    '''This function finds the closest pair using the divide and conquer algorithm'''
+    '''This function finds the closest pair using the divide and conquer algorithm.
+
+    Precondition: points must have DISTINCT x-coordinates. The recursive split
+    partitions the y-sorted list by x <= mid_x, so duplicated x-values at the
+    median can put both halves out of sync with the index-based x-split (and an
+    all-equal-x input would make the right half empty). Fixing this requires an
+    index-consistent split; keep the precondition in mind when porting.'''
     if len(ArrayOfPoints) == 0 or len(ArrayOfPoints) == 1:
         raise ValueError("input array needs to have more than one element")
     if len(ArrayOfPoints) == 2:
@@ -161,11 +160,7 @@ def closestSplitPair(SortedInX, SortedInY, delta):
     for i in range(len(Sy) - 1):
         for j in range(i + 1, min(i + 8, len(Sy))):
             d = distance_squared(Sy[i], Sy[j])
-            
-            # Ensure we're not comparing the same point against itself
-            if d == 0:
-                continue
-                
+
             if d < ClosestDistance:
                 ClosestDistance = d
                 ClosestPair = Sy[i], Sy[j]
@@ -180,13 +175,11 @@ def SecondLargest(array):
     if array.shape[0] == 1:
         return np.array([array[0], -np.inf])
     if array.shape[0] == 2:
+        # return a new array so the caller's input is never mutated
         if array[0] > array[1]:
-            return array
+            return np.array([array[0], array[1]])
         else:
-            temp = array[1]
-            array[1] = array[0]
-            array[0] = temp
-            return array
+            return np.array([array[1], array[0]])
     else:
         left  = SecondLargest(array[0:array.shape[0]//2])
         right  = SecondLargest(array[array.shape[0]//2:])
@@ -306,7 +299,9 @@ def partition(array : list, left : int, right : int) -> int:
     return lesser_index - 1
 
 def Rselect(array : list, left : int, right : int, ith : int) -> int:
-    '''this function returns the index of the ith order statistic of the array'''
+    '''this function returns the index of the ith order statistic of the array.
+    Index-returning, in-place, (left, right)-windowed variant — contrast with
+    Select/Python/RSelect.py, which is the value-returning, list-slicing variant.'''
     if left >= right:
         return left
     # we choose a random pivot

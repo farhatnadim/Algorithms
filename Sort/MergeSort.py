@@ -4,8 +4,8 @@ from numpy.typing import NDArray
 
 # Type variable for numeric types - similar to Rust's generic T with trait bounds
 # In Rust: T: Clone + PartialOrd + Debug
-# In Python: TypeVar bound to np.floating (which covers most numeric operations)
-NumericType = TypeVar('NumericType', bound=np.floating[Any])
+# In Python: TypeVar bound to np.number (covers integer and floating dtypes)
+NumericType = TypeVar('NumericType', bound=np.number[Any])
 
 # Merge function - combines two sorted arrays into a single sorted array
 # This mirrors the Rust function signature: fn merge<T>(left: &[T], right: &[T]) -> Vec<T>
@@ -48,13 +48,13 @@ def MergeSort(array: NDArray[NumericType]) -> NDArray[NumericType]:
     Output: sorted numpy array of numbers (equivalent to Rust's Vec<T>)
     as presented in the book, Algorithms Illuminated by Tim Roughgarden'''
     
-    merged: NDArray[NumericType] = np.zeros(array.shape[0], dtype=array.dtype)
     # base case - handle both empty and single element arrays
     if array.shape[0] <= 1:
         return array
     else:
         # General case - split array and recursively sort
         # This mirrors the Rust implementation's array slicing
+        merged: NDArray[NumericType] = np.zeros(array.shape[0], dtype=array.dtype)
         mid: int = array.shape[0] // 2  # equivalent to Rust's let mid = array.len() / 2
         
         # In Rust, we split the slice into two parts: &array[mid..] and &array[0..mid]
