@@ -14,6 +14,7 @@ llama_scripts_dir = "/home/nadim/Source/cpp2rustpal/scripts"
 porting_notes = "docs/porting-notes.md"
 lean_bugs = "docs/lean4-catchable-bugs.md"
 rust_type_mapping = "docs/python-rust-type-mapping.md"
+cpp_type_mapping = "docs/python-cpp-type-mapping.md"
 rust_lean_conversion = "docs/rust-lean4-conversion.md"
 
 [targets.cpp]
