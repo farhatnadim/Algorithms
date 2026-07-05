@@ -10,11 +10,10 @@ Sort/~$sertionSort.docx
 .cosine
 *.out
 # Ignore the build directory
-Algorithms/Select/Cpp/build/*
 *build*
 
 # Rust
-rust/target/
+target/
 
 # Lean 4
 lean4/.lake/
