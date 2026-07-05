@@ -1,0 +1,105 @@
+import unittest
+import numpy as np
+from python.search.search import (BinarySearchIterative, BinarySearch, BinarySearchRecursive,
+                         SecondLargest, closestPairBruteForce1D, ThreeSumBruteForce,
+                         ThreeSumQuick, Rselect, closestDistance2DBruteForce,
+                         FindclosestPair, distance_squared)
+
+class TestSearchAlgorithms(unittest.TestCase):
+    def setUp(self):
+        self.sorted_arrays = [
+            np.array([1, 2, 3, 4, 5, 6]),
+            np.array([1, 1, 1, 1]),
+            np.array([1, 2, 3, 4]),
+            np.array([1]),
+            np.array([1, 2])
+        ]
+        
+        self.unsorted_arrays = [
+            np.array([5, 2, 8, 1, 9, 3]),
+            np.array([4, 3, 2, 1]),
+            np.array([2, 1])
+        ]
+        
+    def test_binary_search(self):
+        for arr in self.sorted_arrays:
+            for x in arr:
+                self.assertNotEqual(BinarySearchIterative(arr, x), -1)
+                self.assertNotEqual(BinarySearchRecursive(arr, x, 0, len(arr)-1), -1)
+                self.assertNotEqual(BinarySearch(arr, x), -1)
+            # Test for element not in array
+            self.assertEqual(BinarySearchIterative(arr, max(arr) + 1), -1)
+            self.assertEqual(BinarySearchRecursive(arr, max(arr) + 1, 0, len(arr)-1), -1)
+            self.assertEqual(BinarySearch(arr, max(arr) + 1), -1)
+            
+    def test_second_largest(self):
+        for arr in self.unsorted_arrays:
+            if len(arr) >= 2:
+                expected = np.sort(np.unique(arr))[-2]
+                result = SecondLargest(arr)[1]  # SecondLargest returns [largest, second_largest]
+                self.assertEqual(result, expected)
+                
+    def test_three_sum(self):
+        test_arrays = [
+            np.array([-1, 0, 1]),  # Should find one triplet
+            np.array([0, 0, 0]),   # Should find one triplet
+            np.array([1, 2, 3]),   # Should find no triplets
+        ]
+        
+        for arr in test_arrays:
+            count_bf, triplets_bf = ThreeSumBruteForce(arr)
+            count_quick, triplets_quick = ThreeSumQuick(arr.copy())  # Need to use copy as sorting modifies array
+            self.assertEqual(count_bf, count_quick)
+            
+    def test_rselect(self):
+        for arr in self.unsorted_arrays:
+            sorted_arr = np.sort(arr)
+            for i in range(len(arr)):
+                arr_list = arr.tolist()  # Rselect modifies the list in-place
+                position = Rselect(arr_list, 0, len(arr_list), i)
+                self.assertEqual(sorted_arr[i], arr_list[position])
+
+    def test_closest_pair_1d(self):
+        # Test empty array
+        with self.assertRaises(ValueError):
+            closestPairBruteForce1D(np.array([]))
+            
+        # Test single element array
+        with self.assertRaises(ValueError):
+            closestPairBruteForce1D(np.array([1]))
+            
+        # Test valid case with known closest pair
+        arr = np.array([1, 4, 2, 9, 3])  # 2 and 3 should be closest
+        p1, p2 = closestPairBruteForce1D(arr)
+        min_diff = abs(p1 - p2)
+        # Verify this is indeed the minimum difference
+        for i in range(len(arr)):
+            for j in range(i+1, len(arr)):
+                self.assertGreaterEqual(abs(arr[i] - arr[j]), min_diff)
+
+    def test_second_largest_does_not_mutate_input(self):
+        """SecondLargest must not reorder the caller's array"""
+        arr = np.array([1, 5])
+        original = arr.copy()
+        SecondLargest(arr)
+        np.testing.assert_array_equal(arr, original)
+
+    def test_closest_pair_2d_coincident_points(self):
+        """Coincident points are a legitimate closest pair (distance 0)"""
+        points = [(1, 1), (5, 5), (1, 1), (9, 2)]
+        p1, p2 = closestDistance2DBruteForce(points)
+        self.assertEqual(distance_squared(p1, p2), 0)
+
+    def test_closest_pair_2d_divide_and_conquer(self):
+        """D&C closest pair must agree with brute force (distinct x-coords)"""
+        rng = np.random.default_rng(7)
+        for n in (8, 16, 31):
+            xs = rng.permutation(10 * n)[:n]  # distinct x-coordinates
+            ys = rng.integers(0, 100, n)
+            points = [(int(x), int(y)) for x, y in zip(xs, ys)]
+            b1, b2 = closestDistance2DBruteForce(points)
+            d1, d2 = FindclosestPair(points)
+            self.assertEqual(distance_squared(d1, d2), distance_squared(b1, b2))
+
+if __name__ == '__main__':
+    unittest.main() 

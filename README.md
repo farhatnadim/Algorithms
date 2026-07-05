@@ -7,10 +7,10 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Sort
 
 ### Python
-- [Bubble Sort (with cocktail party Optimization)](Sort/Sort.py)
-- [Insertion Sort](Sort/Sort.py)
-- [Merge Sort](Sort/Sort.py)
-- [Quick Sort](Sort/Sort.py)
+- [Bubble Sort (with cocktail party Optimization)](python/sort/sort.py)
+- [Insertion Sort](python/sort/sort.py)
+- [Merge Sort](python/sort/sort.py)
+- [Quick Sort](python/sort/sort.py)
 
 ### C++
 - Coming Soon
@@ -26,10 +26,10 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Search
 
 ### Python
-- [Binary Search, Recursion and Iteration](Search/Search.py)
-- [Second Largest](Search/Search.py)
-- [Closest Pair](Search/Search.py)
-- [ThreeSum](Search/Search.py)
+- [Binary Search, Recursion and Iteration](python/search/search.py)
+- [Second Largest](python/search/search.py)
+- [Closest Pair](python/search/search.py)
+- [ThreeSum](python/search/search.py)
 
 ### C++
 - Coming Soon
@@ -45,8 +45,8 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Select
 
 ### Python
-- [Random Select](Select/Python/RSelect.py)
-- [Deterministic Select](Select/Python/DSelect.py)
+- [Random Select](python/select/r_select.py)
+- [Deterministic Select](python/select/d_select.py)
 
 ### C++
 - [Random Select](Select/Cpp/main.cpp)
@@ -63,8 +63,8 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Linear Algebra
 
 ### Python
-- [Strassen's Matrix Multiplication](LinearAlgebra/Python/MatMul.py)
-- [Modified Gram-Schmidt](LinearAlgebra/Python/ModfiedGramShmidt.py)
+- [Strassen's Matrix Multiplication](python/linear_algebra/mat_mul.py)
+- [Modified Gram-Schmidt](python/linear_algebra/modified_gram_schmidt.py)
 
 ### Rust
 - [Modified Gram-Schmidt](LinearAlgebra/Rust/modified_gram_shmidt/src/main.rs)
@@ -81,11 +81,11 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Data Structures
 
 ### Python
-- [Graph](DataStructures/Graph.py)
-- [Simple Linked List](DataStructures/LinkedList.py)
-- [Double Linked List](DataStructures/DoubleLinkedList.py)
-- [Stack](DataStructures/Stack.py)
-- [Queue](DataStructures/Queue.py)
+- [Graph](python/data_structures/graph.py)
+- [Simple Linked List](python/data_structures/linked_list.py)
+- [Double Linked List](python/data_structures/double_linked_list.py)
+- [Stack](python/data_structures/stack.py)
+- [Queue](python/data_structures/queue.py)
 
 ### C++
 - Coming Soon
@@ -101,8 +101,8 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Graph Algorithms
 
 ### Python
-- [Breadth-First Search (BFS)](DataStructures/bfs.py)
-- [Depth-First Search (DFS)](DataStructures/dfs.py)
+- [Breadth-First Search (BFS)](python/data_structures/bfs.py)
+- [Depth-First Search (DFS)](python/data_structures/dfs.py)
 
 ### C++
 - Coming Soon
@@ -118,8 +118,8 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Integer Multiplication
 
 ### Python
-- [Recursive Multiplication](RecursiveIntegerMultiplication/Recursive_IntegerMultiplication.py)
-- [Karatsuba Multiplication](RecursiveIntegerMultiplication/Karatsuba_Integer_Multiplication.py)
+- [Recursive Multiplication](python/integer_multiplication/recursive_integer_multiplication.py)
+- [Karatsuba Multiplication](python/integer_multiplication/karatsuba_integer_multiplication.py)
 
 ### C++
 - Coming Soon
@@ -135,7 +135,7 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Minimum Cut
 
 ### Python
-- [Karger's Algorithm](MinimumCut/MinimumCut.py)
+- [Karger's Algorithm](python/minimum_cut/minimum_cut.py)
 
 ### C++
 - [Karger's Algorithm](MinimumCut/cpp/MinimumCut.cpp)
@@ -151,7 +151,7 @@ This is a learning journey for me. The algorithms and data structures below are 
 ## Misc
 
 ### Python
-- [Count Inversions](Misc/CountInversions.py)
+- [Count Inversions](python/misc/count_inversions.py)
 
 ### C++
 - Coming Soon

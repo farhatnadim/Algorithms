@@ -19,8 +19,8 @@ General notes:
 
 ## Sort
 
-**Reference:** `Sort/MergeSort.py` (typed) is the canonical MergeSort;
-`Sort/Sort.py` also has Insertion, Bubble (cocktail variant), Quick.
+**Reference:** `python/sort/merge_sort.py` (typed) is the canonical MergeSort;
+`python/sort/sort.py` also has Insertion, Bubble (cocktail variant), Quick.
 
 - **MergeSort** — pure function, returns a new array. Base case `n <= 1`.
   Termination: each recursive call halves the length (`n/2`, `n - n/2`), both
@@ -40,7 +40,7 @@ General notes:
 
 ## Search
 
-**Reference:** `Search/Search.py`
+**Reference:** `python/search/search.py`
 
 - **BinarySearch (iterative/recursive)** — requires a sorted array. Recursion
   terminates because `hi - lo` strictly decreases; returns -1 when absent.
@@ -60,7 +60,7 @@ General notes:
   (distance 0) — do not filter `d == 0`.
 - **ThreeSum (brute force / sort + binary search)** — counts triplets summing
   to zero; the quick variant searches only indices `> j` to avoid duplicates.
-- **`Search.Rselect` vs `Select/Python/RSelect.py`** — two deliberate variants
+- **`Search.Rselect` vs `python/select/r_select.py`** — two deliberate variants
   of quickselect: `Search.Rselect` is *index-returning, in-place, windowed
   (left/right)*; `Select.RSelect` is *value-returning over sliced copies*.
   Port whichever matches your target idiom (the windowed one maps naturally
@@ -68,7 +68,7 @@ General notes:
 
 ## Select
 
-**Reference:** `Select/Python/RSelect.py`, `Select/Python/DSelect.py`
+**Reference:** `python/select/r_select.py`, `python/select/d_select.py`
 **Stubs:** `cpp/select/`, `rust/algorithms-select/`, `lean4/Algorithms/Select/Basic.lean`
 
 - Both raise `ValueError` on empty input or `ith` out of `[0, n)`.
@@ -83,9 +83,9 @@ General notes:
 
 ## Data Structures
 
-**Reference:** `DataStructures/`
+**Reference:** `python/data_structures/`
 
-- **Graph** (`Graph.py`) — adjacency via vertex-index lists. Class invariant
+- **Graph** (`graph.py`) — adjacency via vertex-index lists. Class invariant
   (documented on the class): vertices form a dense index sequence; edges store
   indices into `self.vertices`. `kosaraju()` labels `vertex.scc` in place and
   returns the SCC count; `topological_sort` uses a single-element list as a
@@ -104,7 +104,7 @@ General notes:
 
 ## Graph Algorithms (BFS / DFS)
 
-Live in `DataStructures/Graph.py` (methods) with demo drivers `bfs.py`/`dfs.py`;
+Live in `python/data_structures/graph.py` (methods) with demo drivers `bfs.py`/`dfs.py`;
 the multi-language trees split them into their own module
 (`rust/algorithms-graph`, `lean4/.../GraphAlgorithms`).
 
@@ -115,7 +115,7 @@ the multi-language trees split them into their own module
 
 ## Integer Multiplication
 
-**Reference:** `RecursiveIntegerMultiplication/`
+**Reference:** `python/integer_multiplication/`
 
 - Both algorithms split by digits: `number = a * 10^(n//2) + b`, so the
   recombination shift for the high term is `10^(2*(n//2))` — **not** `10^n`,
@@ -135,8 +135,8 @@ the multi-language trees split them into their own module
 
 ## Minimum Cut (Karger)
 
-**Reference:** `MinimumCut/MinimumCut.py`
-Fixtures: `MinimumCut/data/input_random_N_M.txt` with expected cuts in
+**Reference:** `python/minimum_cut/minimum_cut.py`
+Fixtures: `python/minimum_cut/data/input_random_N_M.txt` with expected cuts in
 matching `output_random_N_M.txt`.
 
 - `Graph` subclasses `dict` (vertex → adjacency list, undirected edges stored
@@ -154,11 +154,12 @@ matching `output_random_N_M.txt`.
 
 ## Linear Algebra
 
-**Reference:** `LinearAlgebra/Python/MatMul.py`, `LinearAlgebra/Python/ModfiedGramShmidt.py`
+**Reference:** `python/linear_algebra/mat_mul.py`, `python/linear_algebra/modified_gram_schmidt.py`
 **Stubs:** `cpp/linear_algebra/`, `rust/algorithms-linear-algebra/`, `lean4/Algorithms/LinearAlgebra/Basic.lean`
 
-- The Python filename `ModfiedGramShmidt.py` is a typo kept for history —
-  name ports `ModifiedGramSchmidt` / `modified_gram_schmidt`.
+- The Python **function** name `modified_gramshmidt` keeps a historical typo;
+  the file itself was renamed to `python/linear_algebra/modified_gram_schmidt.py`.
+  Name ports `ModifiedGramSchmidt` / `modified_gram_schmidt`.
 - **RecMatMult / strassenRecMat** — PRECONDITION: square matrices with
   power-of-2 dimension (no padding implemented). The 1x1 base case returns a
   *scalar* that NumPy broadcasting assigns into 2D quadrant slices; ports must
@@ -172,7 +173,7 @@ matching `output_random_N_M.txt`.
 
 ## Misc (Count Inversions)
 
-**Reference:** `Misc/CountInversions.py`
+**Reference:** `python/misc/count_inversions.py`
 
 - Merge-sort-based counting: when an element of `right` is placed, it forms
   inversions with every remaining element of `left` (`splitInv += len(left) - i`).

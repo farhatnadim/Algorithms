@@ -26,7 +26,7 @@ Lean only catches them if you do the proving work.
 
 ### Bug 1 — MergeSort infinite recursion on empty input
 
-`Sort/Sort.py` (original):
+`python/sort/sort.py` (original):
 
 ```python
 def MergeSort(array):
@@ -48,7 +48,7 @@ empty array (ours didn't — the old test swallowed it with `try/except: pass`).
 rejects the `def` outright — it cannot show `array[mid:]` is smaller than
 `array` when `array.length = 0`. You are forced to either handle `[]` or
 prove a false decreasing-measure goal. The same bug existed in
-`Misc/CountInversions.py` (`Sort_And_CountInV`).
+`python/misc/count_inversions.py` (`Sort_And_CountInV`).
 
 **Exercise:** port with `if array.length == 1` as the only base case; watch
 `termination_by`/structural recursion fail. Note that `partial def` makes
@@ -57,7 +57,7 @@ shortcut throws away exactly this protection.
 
 ### Bug 2 — Closest pair: degenerate split under duplicate x-coordinates
 
-`Search/Search.py` `closestPair` (still present, documented as a precondition):
+`python/search/search.py` `closestPair` (still present, documented as a precondition):
 
 ```python
 Ly = [p for p in SortedInY if p[0] <= mid_x]
@@ -82,7 +82,7 @@ checker surfacing a hidden mathematical assumption.
 
 ### Bug 3 — RSelect/DSelect on empty input
 
-`Select/Python/RSelect.py` (original):
+`python/select/r_select.py` (original):
 
 ```python
 def RSelect(array, ith):
@@ -111,7 +111,7 @@ structurally impossible to forget in Lean.
 
 ### Bug 5 — float64 buffer corrupting integer data
 
-`Sort/Sort.py`, `Misc/CountInversions.py` (original):
+`python/sort/sort.py`, `python/misc/count_inversions.py` (original):
 
 ```python
 merged = np.zeros(array.shape[0])   # BUG: dtype defaults to float64
@@ -126,7 +126,7 @@ container element types. The bug is untypeable.
 
 ### Bug 6 — function annotated `-> int` returning `None`
 
-`MinimumCut/MinimumCut.py` (original): `min_cut(self) -> int` had no return
+`python/minimum_cut/minimum_cut.py` (original): `min_cut(self) -> int` had no return
 statement (fell off the end → `None`). Python annotations are comments;
 mypy would flag it, CPython doesn't.
 
@@ -145,7 +145,7 @@ when you state the spec.
 
 ### Bug 7 — the odd-digit recombination shift (the big one)
 
-`RecursiveIntegerMultiplication/` (original, both files):
+`python/integer_multiplication/` (original, both files):
 
 ```python
 a = number1 // 10**(n1//2)
@@ -174,7 +174,7 @@ type-checking catches it, and the power-of-2 test suite didn't either.
 
 ### Bug 8 — DSelect pivot not an element of the array
 
-`Select/Python/DSelect.py` (original):
+`python/select/d_select.py` (original):
 
 ```python
 C = [statistics.median(array[i:i+5]) for i in range(0, len(array), 5)]
@@ -196,7 +196,7 @@ the shape of this bug.
 
 ### Bug 9 — size invariant broken by double increment
 
-`DataStructures/DoubleLinkedList.py` (original): `insert(pos=0, item)` called
+`python/data_structures/double_linked_list.py` (original): `insert(pos=0, item)` called
 `insert_at_beginning` (which does `size += 1`) and then incremented `size`
 again.
 
@@ -207,7 +207,7 @@ proofs are for.
 
 ### Bug 10 — inversion counting vs duplicates (REAL, found 2026-07-03)
 
-`Misc/CountInversions.py` merge used strict `left[i] < right[j]` (original):
+`python/misc/count_inversions.py` merge used strict `left[i] < right[j]` (original):
 
 ```python
 if left[i] < right[j]:

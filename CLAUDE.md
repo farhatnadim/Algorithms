@@ -14,21 +14,30 @@ This is an algorithms and data structures learning repository implementing funda
 - **Rust**: Systems programming implementations (LinearAlgebra)
 
 ### Directory Organization
-- **Sort/**: Sorting algorithms (Bubble, Insertion, Merge, Quick Sort) in `Sort.py`, plus standalone `MergeSort.py` with type hints
-- **Search/**: Search algorithms (Binary Search, Second Largest, Closest Pair, ThreeSum)
-- **Select/**: Selection algorithms with both Python and C++ implementations
-- **DataStructures/**: Graph, LinkedList, DoubleLinkedList, Stack, Queue, BFS, DFS
-- **LinearAlgebra/**: Matrix operations including Strassen's multiplication (Python and Rust implementations)
-- **RecursiveIntegerMultiplication/**: Standard and Karatsuba integer multiplication
-- **MinimumCut/**: Graph minimum cut algorithms (Python and C++)
+All Python sources live under a single top-level `python/` package (src-layout).
+Import everything via the `python.` prefix (e.g. `from python.sort.sort import MergeSort`);
+this avoids shadowing stdlib names like `select`/`queue`.
+- **python/sort/**: Sorting algorithms (Bubble, Insertion, Merge, Quick) in `sort.py`, plus standalone typed `merge_sort.py`
+- **python/search/**: Search algorithms (Binary Search, Second Largest, Closest Pair, ThreeSum) in `search.py`
+- **python/select/**: Selection algorithms (`r_select.py`, `d_select.py`)
+- **python/data_structures/**: `graph.py`, `linked_list.py`, `double_linked_list.py`, `stack.py`, `queue.py`, `node.py`, plus `bfs.py`/`dfs.py`
+- **python/linear_algebra/**: Matrix operations incl. Strassen (`mat_mul.py`) and `modified_gram_schmidt.py`
+- **python/integer_multiplication/**: Standard (`recursive_integer_multiplication.py`) and Karatsuba (`karatsuba_integer_multiplication.py`)
+- **python/minimum_cut/**: Karger's algorithm (`minimum_cut.py`); input/output fixtures under `python/minimum_cut/data/`
+- **python/misc/**: `count_inversions.py`
+- **python/challenge_and_problems/**, **python/uncategorized/**: standalone scripts (self-contained, not imported by tests)
+- **python/parity/python_adapter.py**: portpal parity adapter (calls the reference implementations)
+- **python/tests/**: Unit tests (pytest; `conftest.py` puts the repo root on `sys.path`)
+
+Legacy non-Python code stays in its original locations:
+- **cpp/**, **rust/**, **lean4/**: multi-language port trees (stubs)
+- **Select/Cpp/**, **MinimumCut/cpp/**, **LinearAlgebra/Rust/**: earlier standalone C++/Rust implementations
 - **LeetCode/**: Problem-specific C++ implementations with CMake build system
-- **Misc/**: Count inversions and other algorithms
-- **tests/**: Unit tests for Python implementations
 
 ### Key Design Patterns
 - All Python implementations use NumPy arrays
 - CamelCase naming convention for functions
-- Test files use `sys.path.append()` to import from parent directories
+- Tests import via absolute `python.` paths; `python/tests/conftest.py` puts the repo root on `sys.path`
 
 ## Development Commands
 
@@ -38,17 +47,17 @@ This is an algorithms and data structures learning repository implementing funda
 source .venv/bin/activate
 pytest                          # Run all tests
 pytest -v                       # Verbose output
-pytest tests/test_sort.py       # Run specific test file
+pytest python/tests/test_sort.py  # Run specific test file
 pytest -k "test_merge"          # Run tests matching pattern
 
 # Alternative: unittest discover
-python -m unittest discover -s tests -p "test_*.py"
+python -m unittest discover -s python/tests -p "test_*.py"
 ```
 
 ### Type Checking
 ```bash
-python -m mypy Sort/MergeSort.py --strict
-python -m mypy tests/test_mergesort.py --strict
+python -m mypy python/sort/merge_sort.py --strict
+python -m mypy python/tests/test_mergesort.py --strict
 ```
 
 ### C++ Building and Testing
@@ -111,7 +120,7 @@ pytest  # Runs all tests
 ## Common Issues
 
 - **Graph Class**: Assumes vertices are sorted in descending order with no missing vertices in sequence.
-- **Closest Pair (Search/Search.py)**: The divide-and-conquer closest pair requires points with distinct x-coordinates (see docs/porting-notes.md).
+- **Closest Pair (python/search/search.py)**: The divide-and-conquer closest pair requires points with distinct x-coordinates (see docs/porting-notes.md).
 
 ## Documentation
 

@@ -41,15 +41,15 @@ extensions = [".lean"]
 [parity]
 fixtures_dir = "parity/fixtures"
 [parity.runners]
-python = ".venv/bin/python parity/python_adapter.py"
+python = ".venv/bin/python python/parity/python_adapter.py"
 rust = "cargo run -q --manifest-path rust/Cargo.toml -p parity-runner --"
 cpp = "cpp/build/parity/parity_runner"
 lean = "lean4/.lake/build/bin/parity_runner"
 
 [[units]]
 name = "sort"
-python = ["Sort/Sort.py", "Sort/MergeSort.py"]
-pytest = ["tests/test_sort.py", "tests/test_mergesort.py"]
+python = ["python/sort/sort.py", "python/sort/merge_sort.py"]
+pytest = ["python/tests/test_sort.py", "python/tests/test_mergesort.py"]
 cpp = "cpp/sort"
 cpp_test_filter = "[Ss]ort"
 rust = "rust/algorithms-sort"
@@ -61,8 +61,8 @@ algorithms = ["insertion_sort", "bubble_sort", "merge_sort", "quick_sort"]
 
 [[units]]
 name = "search"
-python = ["Search/Search.py"]
-pytest = ["tests/test_search.py"]
+python = ["python/search/search.py"]
+pytest = ["python/tests/test_search.py"]
 cpp = "cpp/search"
 cpp_test_filter = "[Ss]earch"
 rust = "rust/algorithms-search"
@@ -74,8 +74,8 @@ algorithms = ["binary_search", "second_largest", "closest_pair", "three_sum"]
 
 [[units]]
 name = "select"
-python = ["Select/Python/RSelect.py", "Select/Python/DSelect.py"]
-pytest = ["tests/test_select.py"]
+python = ["python/select/r_select.py", "python/select/d_select.py"]
+pytest = ["python/tests/test_select.py"]
 cpp = "cpp/select"
 cpp_test_filter = "[Ss]elect"
 rust = "rust/algorithms-select"
@@ -88,13 +88,13 @@ algorithms = ["r_select", "d_select"]
 [[units]]
 name = "data_structures"
 python = [
-    "DataStructures/LinkedList.py",
-    "DataStructures/DoubleLinkedList.py",
-    "DataStructures/Stack.py",
-    "DataStructures/Queue.py",
-    "DataStructures/Graph.py",
+    "python/data_structures/linked_list.py",
+    "python/data_structures/double_linked_list.py",
+    "python/data_structures/stack.py",
+    "python/data_structures/queue.py",
+    "python/data_structures/graph.py",
 ]
-pytest = ["tests/test_datastructures.py", "tests/test_graph.py"]
+pytest = ["python/tests/test_datastructures.py", "python/tests/test_graph.py"]
 cpp = "cpp/data_structures"
 cpp_test_filter = "[Dd]ata"
 rust = "rust/algorithms-data-structures"
@@ -106,8 +106,8 @@ algorithms = ["graph", "linked_list", "double_linked_list", "stack", "queue"]
 
 [[units]]
 name = "graph"
-python = ["DataStructures/Graph.py", "DataStructures/bfs.py", "DataStructures/dfs.py"]
-pytest = ["tests/test_graph.py"]
+python = ["python/data_structures/graph.py", "python/data_structures/bfs.py", "python/data_structures/dfs.py"]
+pytest = ["python/tests/test_graph.py"]
 rust = "rust/algorithms-graph"
 rust_test_filter = "algorithms-graph"
 lean = "lean4/Algorithms/GraphAlgorithms/Basic.lean"
@@ -117,8 +117,8 @@ algorithms = ["bfs", "dfs"]
 
 [[units]]
 name = "linear_algebra"
-python = ["LinearAlgebra/Python/MatMul.py", "LinearAlgebra/Python/ModfiedGramShmidt.py"]
-pytest = ["tests/test_matmul.py", "tests/test_gram_schmidt.py"]
+python = ["python/linear_algebra/mat_mul.py", "python/linear_algebra/modified_gram_schmidt.py"]
+pytest = ["python/tests/test_matmul.py", "python/tests/test_gram_schmidt.py"]
 cpp = "cpp/linear_algebra"
 cpp_test_filter = "[Ll]inear"
 rust = "rust/algorithms-linear-algebra"
@@ -131,10 +131,10 @@ algorithms = ["vec_dot", "mat_mul", "rec_mat_mul", "strassen", "modified_gram_sc
 [[units]]
 name = "integer_multiplication"
 python = [
-    "RecursiveIntegerMultiplication/Recursive_IntegerMultiplication.py",
-    "RecursiveIntegerMultiplication/Karatsuba_Integer_Multiplication.py",
+    "python/integer_multiplication/recursive_integer_multiplication.py",
+    "python/integer_multiplication/karatsuba_integer_multiplication.py",
 ]
-pytest = ["tests/test_multiplication.py"]
+pytest = ["python/tests/test_multiplication.py"]
 cpp = "cpp/integer_multiplication"
 cpp_test_filter = "[Mm]ult"
 rust = "rust/algorithms-integer-mult"
@@ -146,8 +146,8 @@ algorithms = ["standard_multiply", "karatsuba_multiply"]
 
 [[units]]
 name = "minimum_cut"
-python = ["MinimumCut/MinimumCut.py"]
-pytest = ["tests/test_minimum_cut.py"]
+python = ["python/minimum_cut/minimum_cut.py"]
+pytest = ["python/tests/test_minimum_cut.py"]
 cpp = "cpp/minimum_cut"
 cpp_test_filter = "[Cc]ut"
 rust = "rust/algorithms-minimum-cut"
@@ -159,8 +159,8 @@ algorithms = ["kargers_min_cut"]
 
 [[units]]
 name = "misc"
-python = ["Misc/CountInversions.py"]
-pytest = ["tests/test_count_inversions.py"]
+python = ["python/misc/count_inversions.py"]
+pytest = ["python/tests/test_count_inversions.py"]
 cpp = "cpp/misc"
 cpp_test_filter = "[Ii]nversion"
 rust = "rust/algorithms-misc"

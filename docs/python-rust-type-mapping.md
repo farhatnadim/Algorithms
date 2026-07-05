@@ -188,7 +188,7 @@ fn test_merge_sort_basic() {
 ### Python (mypy)
 ```bash
 pip install mypy
-python -m mypy Sort/MergeSort.py --strict
+python -m mypy python/sort/merge_sort.py --strict
 ```
 
 ### Rust (built-in)
@@ -199,8 +199,8 @@ cargo build  # Compile with type validation
 
 ## Files Modified
 
-- `Sort/MergeSort.py` - Added comprehensive type hints
-- `tests/test_mergesort.py` - Added type annotations to all test methods
+- `python/sort/merge_sort.py` - Added comprehensive type hints
+- `python/tests/test_mergesort.py` - Added type annotations to all test methods
 - Both files now demonstrate Python-to-Rust type mapping concepts
 
 This type-annotated Python code serves as a bridge to understanding Rust's type system, ownership model, and memory safety guarantees.
