@@ -8,7 +8,8 @@ name = "Algorithms"
 [backend]
 default = "auto"                          # auto | anthropic | local
 local_endpoint = "http://localhost:8001"
-llama_scripts_dir = "/home/nadim/Source/cpp2rustpal/scripts"
+local_model = "unsloth/Qwen3.6-35B-A3B"   # matches the GGUF cached under ~/.cache/llama.cpp
+llama_scripts_dir = "/home/nadim/Source/portpal/scripts"
 
 [docs]
 porting_notes = "docs/porting-notes.md"
