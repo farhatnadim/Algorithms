@@ -49,7 +49,7 @@ This is a learning journey for me. The algorithms and data structures below are 
 - [Deterministic Select](python/select/d_select.py)
 
 ### C++
-- [Random Select](Select/Cpp/main.cpp)
+- [Random Select](legacy/select/cpp/main.cpp)
 - [Select stubs (rSelect, dSelect)](cpp/select/include/select.hpp)
 
 ### Rust
@@ -67,7 +67,7 @@ This is a learning journey for me. The algorithms and data structures below are 
 - [Modified Gram-Schmidt](python/linear_algebra/modified_gram_schmidt.py)
 
 ### Rust
-- [Modified Gram-Schmidt](LinearAlgebra/Rust/modified_gram_shmidt/src/main.rs)
+- [Modified Gram-Schmidt](legacy/linear_algebra/rust/modified_gram_shmidt/src/main.rs)
 - [Linear algebra stubs (mat_mul, strassen, QR)](rust/algorithms-linear-algebra/src/lib.rs)
 
 ### C++
@@ -138,7 +138,7 @@ This is a learning journey for me. The algorithms and data structures below are 
 - [Karger's Algorithm](python/minimum_cut/minimum_cut.py)
 
 ### C++
-- [Karger's Algorithm](MinimumCut/cpp/MinimumCut.cpp)
+- [Karger's Algorithm](legacy/minimum_cut/cpp/MinimumCut.cpp)
 
 ### Rust
 - Coming Soon

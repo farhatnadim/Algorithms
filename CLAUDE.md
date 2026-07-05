@@ -31,7 +31,7 @@ this avoids shadowing stdlib names like `select`/`queue`.
 
 Legacy non-Python code stays in its original locations:
 - **cpp/**, **rust/**, **lean4/**: multi-language port trees (stubs)
-- **Select/Cpp/**, **MinimumCut/cpp/**, **LinearAlgebra/Rust/**: earlier standalone C++/Rust implementations
+- **legacy/select/cpp/**, **legacy/minimum_cut/cpp/**, **legacy/linear_algebra/rust/**: earlier standalone C++/Rust implementations
 - **LeetCode/**: Problem-specific C++ implementations with CMake build system
 
 ### Key Design Patterns
@@ -66,15 +66,15 @@ python -m mypy python/tests/test_mergesort.py --strict
 cd LeetCode/1.TwoSum && mkdir build && cd build && cmake .. && make && ctest
 
 # MinimumCut
-cd MinimumCut/cpp && mkdir build && cd build && cmake .. && make
+cd legacy/minimum_cut/cpp && mkdir build && cd build && cmake .. && make
 
 # Select algorithms
-cd Select/Cpp && mkdir build && cd build && cmake .. && make
+cd legacy/select/cpp && mkdir build && cd build && cmake .. && make
 ```
 
 ### Rust Building
 ```bash
-cd LinearAlgebra/Rust/modified_gram_shmidt
+cd legacy/linear_algebra/rust/modified_gram_shmidt
 cargo build
 cargo run
 ```
