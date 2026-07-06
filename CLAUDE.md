@@ -101,6 +101,37 @@ JSON decode/encode and dispatch code in `rust/parity-runner/`, `cpp/parity/`, an
 `lean4/ParityRunner.lean` — may be Claude-written. It contains no algorithm logic;
 algorithm bodies remain user-written everywhere.
 
+## Porting with portpal
+
+The C++ / Rust / Lean 4 ports are mentored by **portpal** (repo
+[`farhatnadim/portpal`](https://github.com/farhatnadim/portpal)) — a hints-only mentor that
+never writes target-language implementation code (consistent with "Claude's Role" above).
+Its config for this repo is `.portpal.toml`; run it from the portpal venv, e.g.
+`portpal watch cpp/sort/src/merge_sort.cpp`.
+
+### Keep the portpal skills fresh
+
+The `.claude/skills/portpal-thor-backend` and `.claude/skills/portpal-watch` skills in this
+repo are **mirrored from the portpal repo, which is their source of truth.** Before relying
+on them, fetch the latest from GitHub (`farhatnadim/portpal`, private — needs `gh` auth):
+
+```bash
+tmp=$(mktemp -d)
+gh repo clone farhatnadim/portpal "$tmp" -- --depth 1 --quiet
+cp -a "$tmp"/.claude/skills/portpal-* .claude/skills/
+rm -rf "$tmp"
+```
+
+If you already have the repo checked out locally, just sync from it instead:
+
+```bash
+git -C ~/Source/portpal pull && cp -a ~/Source/portpal/.claude/skills/portpal-* .claude/skills/
+```
+
+Then the two skills apply: **portpal-thor-backend** (tunnel to thor's `qwen3-coder-next`
+llama-server) and **portpal-watch** (drive `portpal hint`/`watch`/`status` here). See
+portpal's `RUNNING.md` for the full workflow.
+
 ## Code Quality Requirements
 
 **No bugs should exist in the Python code.** All Python implementations must:
