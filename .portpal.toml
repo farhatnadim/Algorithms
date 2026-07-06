@@ -7,8 +7,12 @@ name = "Algorithms"
 
 [backend]
 default = "auto"                          # auto | anthropic | local
-local_endpoint = "http://localhost:8001"
-local_model = "unsloth/Qwen3.6-35B-A3B"   # matches the GGUF cached under ~/.cache/llama.cpp
+# thor (192.168.40.249) serves qwen3-coder-next on ITS localhost:8081, so reach it
+# through an SSH tunnel first:  ssh -N -L 8081:localhost:8081 nadim@thor
+# (or: PORTPAL_LLM_PORT=8081 bash ~/Source/portpal/scripts/run-llama-server-remote.sh nadim@thor --attach)
+local_endpoint = "http://localhost:8081"
+local_model = "qwen3-coder-next"
+# local-laptop server instead: local_endpoint="http://localhost:8001", local_model="unsloth/Qwen3.6-35B-A3B"
 llama_scripts_dir = "/home/nadim/Source/portpal/scripts"
 
 [docs]
