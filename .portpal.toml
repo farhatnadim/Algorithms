@@ -15,6 +15,28 @@ local_model = "qwen3-coder-next"
 # local-laptop server instead: local_endpoint="http://localhost:8001", local_model="unsloth/Qwen3.6-35B-A3B"
 llama_scripts_dir = "/home/nadim/Source/portpal/scripts"
 
+[grounding]
+# Book retrieval for the professor instructor: nano-graphrag over the books/
+# PDFs (currently Algorithms Illuminated Part 1; index at
+# ~/Source/nano-graphrag/demo/ragindex_ai1). Contract: portpal runs
+# `<runner> '<query>'` and reads markdown/text grounding from stdout.
+# Needs the nomic embedding server on :8002 (see nano-graphrag memory/skill);
+# --context-only keeps retrieval LLM-free. A self-built engine can replace
+# this runner later without touching portpal.
+runner = "~/Source/nano-graphrag/.venv/bin/python ~/Source/nano-graphrag/demo/algorithms_books.py query --mode local --context-only"
+max_chars = 16000
+timeout = 300
+
+[lean_tools]
+# Live Lean toolchain context for the formalization-engineer instructor:
+# `lake env lean` diagnostics, the goal at each sorry (leanclient — install
+# portpal's [lean] extra), and a declaration search over the reference
+# librar(ies) below, so ports reuse cslib/Mathlib abstractions instead of
+# reinventing them. Everything degrades gracefully when a piece is missing.
+reference_libs = ["~/Source/cslib"]
+goal_states = true
+web_search = false
+
 [docs]
 porting_notes = "docs/porting-notes.md"
 lean_bugs = "docs/lean4-catchable-bugs.md"
